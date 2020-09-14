@@ -1,14 +1,14 @@
 <template>
   <div>
-    <Tweet v-for="tweet of getTweets()" :tweet="tweet"/>
+    <FeedItem v-for="tweet of getTweets()" :tweet="tweet"/>
   </div>
 </template>
 
 <script>
-import Tweet from "./FeedItem.vue"
+import FeedItem from "./FeedItem.vue"
 
 export default {
-  components: {Tweet},
+  components: {FeedItem},
   inject: ["getTweets"]
 }
 </script>
