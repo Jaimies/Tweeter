@@ -1,6 +1,9 @@
 import {User} from "./User"
 
 export class Tweet {
-    constructor(public body: string, public author: User) {
-    }
+    constructor(
+        public body: string,
+        public author: User,
+        public date: Date
+    ) {}
 }

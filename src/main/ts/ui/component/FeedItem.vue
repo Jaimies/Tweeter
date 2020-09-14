@@ -3,6 +3,7 @@
     <div>
       <span>{{ tweet.author.name }}</span>
       <span>@{{ tweet.author.id }}</span>
+      <span>{{ tweet.date }}</span>
     </div>
     <p>{{ tweet.body }}</p>
   </div>

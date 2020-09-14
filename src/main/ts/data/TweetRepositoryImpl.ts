@@ -5,7 +5,7 @@ import {User} from "../domain/model/User"
 export class TweetRepositoryImpl implements TweetRepository {
     getTweets(): Tweet[] {
         const fakeUser = new User("fakeuser", "Fake User")
-        const fakeTweet = new Tweet("Fake tweet", fakeUser)
+        const fakeTweet = new Tweet("Fake tweet", fakeUser, new Date("2020-01-01Z"))
         return [fakeTweet]
     }
 }
