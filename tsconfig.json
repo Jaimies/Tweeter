@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "strictNullChecks": true,
+    "strict": true,
     "module": "esnext",
     "target": "es2017",
     "esModuleInterop": true
