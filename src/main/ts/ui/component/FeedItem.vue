@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import {Tweet} from "../../domain/model/Tweet"
+import {UiTweet} from "../model/UiTweet"
 
 export default {
   props: {
-    tweet: Tweet
-  },
+    tweet: UiTweet
+  }
 }
 </script>
