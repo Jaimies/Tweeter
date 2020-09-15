@@ -3,7 +3,7 @@
     <div>
       <span>{{ tweet.author.name }}</span>
       <span>@{{ tweet.author.id }}</span>
-      <span>{{ tweet.date }}</span>
+      <time :datetime="tweet.isoDate">{{ tweet.displayDate }}</time>
     </div>
     <p>{{ tweet.body }}</p>
   </div>

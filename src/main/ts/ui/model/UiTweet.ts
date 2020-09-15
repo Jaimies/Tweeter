@@ -6,7 +6,8 @@ export class UiTweet {
     constructor(
         public body: string,
         public author: UiUser,
-        public date: string
+        public displayDate: string,
+        public isoDate: string
     ) {
     }
 }
@@ -15,6 +16,7 @@ export function mapTweetToPresentation({body, author, date}: Tweet) {
     return new UiTweet(
         body,
         mapUserToPresentation(author),
-        getTimeLabel(date)
+        getTimeLabel(date),
+        date.toISOString()
     )
 }
