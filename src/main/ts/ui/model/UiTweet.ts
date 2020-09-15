@@ -1,4 +1,4 @@
-import {UiUser, mapUserToPresentation} from "./UiUser"
+import {mapUserToPresentation, UiUser} from "./UiUser"
 import {Tweet} from "../../domain/model/Tweet"
 import {getTimeLabel} from "../util/getTimeLabel"
 
@@ -8,8 +8,7 @@ export class UiTweet {
         public author: UiUser,
         public displayDate: string,
         public isoDate: string
-    ) {
-    }
+    ) {}
 }
 
 export function mapTweetToPresentation({body, author, date}: Tweet) {
