@@ -1,4 +1,4 @@
-import {provideTweetRepository} from "./ProvideTweetRepository"
+import {provideTweetRepository} from "./provideTweetRepository"
 import {PostTweetUseCase} from "../domain/usecase/PostTweetUseCase"
 
 const tweetRepository = provideTweetRepository()

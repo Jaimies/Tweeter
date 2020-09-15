@@ -1,5 +1,5 @@
 import {GetTweetsUseCase} from "../domain/usecase/GetTweetsUseCase"
-import {provideTweetRepository} from "./ProvideTweetRepository"
+import {provideTweetRepository} from "./provideTweetRepository"
 
 const tweetRepository = provideTweetRepository()
 const getTweetsUseCase = new GetTweetsUseCase(tweetRepository)

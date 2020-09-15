@@ -2,8 +2,8 @@
 import Vue, {CreateElement} from "vue"
 // @ts-expect-error
 import App from "./component/App"
-import {provideGetTweetsUseCase} from "../di/ProvideGetTweetsUseCase"
-import {providePostTweetUseCase} from "../di/ProvidePostTweetUseCase"
+import {provideGetTweetsUseCase} from "../di/provideGetTweetsUseCase"
+import {providePostTweetUseCase} from "../di/providePostTweetUseCase"
 
 const getTweetsUseCase = provideGetTweetsUseCase()
 const postTweetUseCase = providePostTweetUseCase()
