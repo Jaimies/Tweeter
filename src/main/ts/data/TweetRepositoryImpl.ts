@@ -1,11 +1,14 @@
 import {TweetRepository} from "../domain/repository/TweetRepository"
 import {Tweet} from "../domain/model/Tweet"
-import {User} from "../domain/model/User"
 
 export class TweetRepositoryImpl implements TweetRepository {
+    private tweets: Tweet[] = []
+
     getTweets(): Tweet[] {
-        const fakeUser = new User("fakeuser", "Fake User")
-        const fakeTweet = new Tweet("Fake tweet", fakeUser, new Date("2020-01-01Z"))
-        return [fakeTweet]
+        return this.tweets
+    }
+
+    postTweet(tweet: Tweet): void {
+        this.tweets.unshift(tweet)
     }
 }
