@@ -1,13 +1,13 @@
 <template>
   <div>
-    <Feed/>
+    <TweetFeed/>
   </div>
 </template>
 
 <script>
-import Feed from "./Feed"
+import TweetFeed from "./TweetFeed"
 
 export default {
-  components: {Feed}
+  components: {TweetFeed}
 }
 </script>
