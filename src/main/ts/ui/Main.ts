@@ -6,6 +6,7 @@ import {provideGetTweetsUseCase} from "../di/provideGetTweetsUseCase"
 import {providePostTweetUseCase} from "../di/providePostTweetUseCase"
 import {provideGetUserUseCase} from "../di/provideGetUserUseCase"
 import {provideSignInUseCase} from "../di/provideSignInUseCase"
+import router from "./router"
 
 const getTweetsUseCase = provideGetTweetsUseCase()
 const postTweetUseCase = providePostTweetUseCase()
@@ -13,6 +14,7 @@ const getUserUseCase = provideGetUserUseCase()
 const signInUseCase = provideSignInUseCase()
 
 new Vue({
+    router,
     render: (h: CreateElement) => h(App),
     provide: {
         getUser: () => getUserUseCase.run(),
