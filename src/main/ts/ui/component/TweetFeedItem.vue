@@ -1,9 +1,11 @@
 <template>
-  <div>
+  <div class="tweet">
     <div>
-      <span>{{ tweet.author.name }}</span>
-      <span>@{{ tweet.author.id }}</span>
-      <time :datetime="tweet.isoDate">{{ tweet.displayDate }}</time>
+      <span class="tweet__name">{{ tweet.author.name }}</span>
+      <span class="tweet__id">@{{ tweet.author.id }}</span>
+      <time class="tweet__time" :datetime="tweet.isoDate">
+        {{ tweet.displayDate }}
+      </time>
     </div>
     <p>{{ tweet.body }}</p>
   </div>
@@ -18,3 +20,18 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.tweet {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+
+  &__name {
+    font-weight: bold;
+  }
+
+  &__id, &__time {
+    color: #666;
+  }
+}
+</style>
