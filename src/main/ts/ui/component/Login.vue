@@ -59,6 +59,7 @@ export default {
 }
 
 .error {
-  color: #f03;
+  color: #e0245e;
+  text-align: left;
 }
 </style>
