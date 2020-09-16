@@ -1,9 +1,12 @@
 <template>
   <form class="form" novalidate @submit.prevent="login()">
     <h1 class="heading">Login to Twitter</h1>
-    <p class="error">{{ errorMessage }}</p>
+    <p v-if="wrongCredentials" class="error">
+      Seems like you've entered an incorrect email or password
+    </p>
     <BaseInput v-model="credential" label="Email or username"/>
     <BaseInput v-model="password" label="Password" type="password"/>
+
     <button :disabled="!isFormValid">Login</button>
   </form>
 </template>
@@ -17,7 +20,7 @@ export default {
   data: () => ({
     credential: null,
     password: null,
-    errorMessage: null
+    wrongCredentials: false
   }),
   computed: {
     isFormValid() {
@@ -38,7 +41,7 @@ export default {
     },
 
     showErrorMessage() {
-      this.errorMessage = "Wrong credentials"
+      this.wrongCredentials = true
     }
   }
 }
