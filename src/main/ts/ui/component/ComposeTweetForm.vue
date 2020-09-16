@@ -12,12 +12,13 @@
 </template>
 
 <script>
+import {providePostTweetUseCase} from "../../di/providePostTweetUseCase"
+
 export default {
-  inject: ["postTweet"],
   data: () => ({tweetText: ""}),
   methods: {
     tweet() {
-      this.postTweet(this.tweetText)
+      providePostTweetUseCase().run(this.tweetText)
       this.tweetText = ""
     }
   }

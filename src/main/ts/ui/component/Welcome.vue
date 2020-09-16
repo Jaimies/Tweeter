@@ -6,11 +6,12 @@
 </template>
 
 <script>
+import {provideGetUserUseCase} from "../../di/provideGetUserUseCase"
+
 export default {
-  inject: ["getUser", "performLogin"],
   data() {
     return {
-      isSignedIn: this.getUser() != null
+      isSignedIn: provideGetUserUseCase().run() != null
     }
   },
   methods: {

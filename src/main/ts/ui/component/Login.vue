@@ -13,10 +13,10 @@
 
 <script>
 import BaseInput from "./BaseInput"
+import {provideLoginUseCase} from "../../di/provideLoginUseCase"
 
 export default {
   components: {BaseInput},
-  inject: ["performLogin"],
   data: () => ({
     credential: null,
     password: null,
@@ -29,9 +29,8 @@ export default {
   },
   methods: {
     login() {
-      const signedInSuccessfully = this.performLogin(this.credential, this.password)
-
-      if (signedInSuccessfully) this.navigateOnSuccess()
+      const loggedInSuccessfully = provideLoginUseCase().run(this.credential, this.password)
+      if (loggedInSuccessfully) this.navigateOnSuccess()
       else this.showErrorMessage()
     },
 
