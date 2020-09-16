@@ -3,6 +3,10 @@ import {User} from "../domain/model/User"
 
 const fakeUser = new User("fakeuser", "Fake User")
 
+function credentialsAreValid(credential: string, password: string) {
+    return credential != fakeUser.id || password != fakeUser.id
+}
+
 export class AuthRepositoryImpl implements AuthRepository {
     user: User | null
 
@@ -11,7 +15,11 @@ export class AuthRepositoryImpl implements AuthRepository {
         this.user = isSignedIn ? fakeUser : null
     }
 
-    signIn() {
+    signIn(credential: string, password: string) {
+        if (!credentialsAreValid(credential, password))
+            return false
+
         localStorage.setItem("isSignedIn", "true")
+        return true
     }
 }

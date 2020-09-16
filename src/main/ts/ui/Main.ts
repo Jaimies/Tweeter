@@ -18,7 +18,7 @@ new Vue({
     render: (h: CreateElement) => h(App),
     provide: {
         getUser: () => getUserUseCase.run(),
-        performSignIn: () => signInUseCase.run(),
+        performSignIn: (credential: string, password: string) => signInUseCase.run(credential, password),
         getTweets: () => Vue.observable({tweets: getTweetsUseCase.run()}),
         postTweet: (text: string) => postTweetUseCase.run(text)
     }

@@ -2,5 +2,5 @@ import {User} from "../model/User"
 
 export interface AuthRepository {
     user: User | null
-    signIn (): void
+    signIn(credential: string, password: string): boolean
 }
