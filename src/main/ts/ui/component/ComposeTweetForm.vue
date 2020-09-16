@@ -1,12 +1,12 @@
 <template>
   <div class="tweet">
     <textarea
-        placeholder="What's on your mind?"
         v-model="tweetText"
+        placeholder="What's on your mind?"
         @keyup.ctlr.enter="tweet"></textarea>
 
     <div class="tweet__submit-wrapper">
-      <button @click="tweet" :disabled="!tweetText">Tweet</button>
+      <button :disabled="!tweetText" @click="tweet">Tweet</button>
     </div>
   </div>
 </template>
