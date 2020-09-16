@@ -4,7 +4,7 @@ import {User} from "../domain/model/User"
 const fakeUser = new User("fakeuser", "Fake User")
 
 function credentialsAreValid(credential: string, password: string) {
-    return credential != fakeUser.id || password != fakeUser.id
+    return credential == fakeUser.id && password == fakeUser.id
 }
 
 export class AuthRepositoryImpl implements AuthRepository {
