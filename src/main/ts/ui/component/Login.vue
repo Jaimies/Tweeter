@@ -1,5 +1,5 @@
 <template>
-  <form class="form" novalidate @submit.prevent="signIn()">
+  <form class="form" novalidate @submit.prevent="login()">
     <h1 class="heading">Login to Twitter</h1>
     <p class="error">{{ errorMessage }}</p>
     <BaseInput v-model="credential" label="Email or username"/>
@@ -13,7 +13,7 @@ import BaseInput from "./BaseInput"
 
 export default {
   components: {BaseInput},
-  inject: ["performSignIn"],
+  inject: ["performLogin"],
   data: () => ({
     credential: null,
     password: null,
@@ -25,8 +25,8 @@ export default {
     }
   },
   methods: {
-    signIn() {
-      const signedInSuccessfully = this.performSignIn(this.credential, this.password)
+    login() {
+      const signedInSuccessfully = this.performLogin(this.credential, this.password)
 
       if (signedInSuccessfully) this.navigateOnSuccess()
       else this.showErrorMessage()

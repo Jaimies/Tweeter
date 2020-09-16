@@ -15,7 +15,7 @@ export class AuthRepositoryImpl implements AuthRepository {
         this.user = isSignedIn ? fakeUser : null
     }
 
-    signIn(credential: string, password: string) {
+    login(credential: string, password: string) {
         if (!credentialsAreValid(credential, password))
             return false
 
