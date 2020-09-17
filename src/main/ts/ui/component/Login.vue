@@ -1,22 +1,23 @@
 <template>
-  <form class="form" novalidate @submit.prevent="login()">
-    <h1 class="heading">Login to Twitter</h1>
+  <BaseForm :isValid="isFormValid" buttonText="Login"
+            headingText="Login to Twitter" @submit="login">
+
     <p v-if="wrongCredentials" class="error">
       Seems like you've entered an incorrect email or password
     </p>
+
     <BaseInput v-model="credential" label="Email or username"/>
     <BaseInput v-model="password" label="Password" type="password"/>
-
-    <button :disabled="!isFormValid">Login</button>
-  </form>
+  </BaseForm>
 </template>
 
 <script>
 import BaseInput from "./BaseInput"
+import BaseForm from "./BaseForm"
 import {provideLoginUseCase} from "../../di/provideLoginUseCase"
 
 export default {
-  components: {BaseInput},
+  components: {BaseForm, BaseInput},
   data: () => ({
     credential: null,
     password: null,
@@ -45,20 +46,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.form {
-  margin: auto;
-  text-align: center;
-  width: 320px;
-}
-
-.heading {
-  font-size: 23px;
-}
-
-.error {
-  color: #e0245e;
-  text-align: left;
-}
-</style>

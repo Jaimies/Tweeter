@@ -2,9 +2,10 @@ import {AuthRepository} from "../domain/repository/AuthRepository"
 import {User} from "../domain/model/User"
 
 const fakeUser = new User("fakeuser", "Fake User")
+const users = [{id: "fakeuser", password: "fakeuser"}]
 
 function credentialsAreValid(credential: string, password: string) {
-    return credential == fakeUser.id && password == fakeUser.id
+    return users.some(user => user.id == credential && user.password == password)
 }
 
 export class AuthRepositoryImpl implements AuthRepository {
@@ -21,5 +22,9 @@ export class AuthRepositoryImpl implements AuthRepository {
 
         localStorage.setItem("isSignedIn", "true")
         return true
+    }
+
+    signUp(email: string, username: string, password: string) {
+        users.push({id: username, password: password})
     }
 }

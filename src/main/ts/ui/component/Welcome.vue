@@ -1,7 +1,10 @@
 <template>
-  <div v-else class="container">
-    <p>Hey there! Please log in to continue to Twitter.</p>
-    <button @click="goToLogin()">Login</button>
+  <div class="container">
+    <p>Hey there! Please login or sign up to continue to Twitter.</p>
+    <div>
+      <RouterLink to="/login">Login</RouterLink>
+      <RouterLink to="/signup">Sign Up</RouterLink>
+    </div>
   </div>
 </template>
 
@@ -12,11 +15,6 @@ export default {
   data() {
     return {
       isSignedIn: provideGetUserUseCase().run() != null
-    }
-  },
-  methods: {
-    goToLogin() {
-      this.$router.push("/login")
     }
   }
 }
