@@ -1,5 +1,6 @@
 import {AuthRepository} from "../domain/repository/AuthRepository"
 import {User} from "../domain/model/User"
+import {Storage} from "./Storage"
 
 const users = [{id: "fakeuser", password: "fakeuser"}]
 
@@ -15,15 +16,15 @@ function createUserWithId(id: string | null): User | null {
 export class AuthRepositoryImpl implements AuthRepository {
     user: User | null
 
-    constructor() {
-        this.user = createUserWithId(localStorage.getItem("userId"))
+    constructor(private storage: Storage) {
+        this.user = createUserWithId(this.storage.get("userId", ""))
     }
 
     login(credential: string, password: string) {
         if (!credentialsAreValid(credential, password))
             return false
 
-        localStorage.setItem("userId", credential)
+        this.storage.set("userId", credential)
         return true
     }
 

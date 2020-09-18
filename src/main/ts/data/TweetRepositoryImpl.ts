@@ -1,6 +1,7 @@
 import {TweetRepository} from "../domain/repository/TweetRepository"
 import {Tweet} from "../domain/model/Tweet"
 import {User} from "../domain/model/User"
+import {Storage} from "./Storage"
 
 function deserializeTweet(object: any) {
     return new Tweet(object.body, deserializeUser(object.author), new Date(object.date))
@@ -13,9 +14,8 @@ function deserializeUser(object: any) {
 export class TweetRepositoryImpl implements TweetRepository {
     private readonly tweets: Tweet[]
 
-    constructor() {
-        const tweetsString = localStorage.getItem("tweets") || "[]"
-        this.tweets = JSON.parse(tweetsString).map(deserializeTweet)
+    constructor(private storage: Storage) {
+        this.tweets = this.storage.get("tweets", []).map(deserializeTweet)
     }
 
     getTweets(): Tweet[] {
@@ -28,6 +28,6 @@ export class TweetRepositoryImpl implements TweetRepository {
     }
 
     private persistTweets() {
-        localStorage.setItem("tweets", JSON.stringify(this.tweets))
+        this.storage.set("tweets", this.tweets)
     }
 }
