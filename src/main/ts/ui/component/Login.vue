@@ -46,3 +46,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.error {
+  color: #e0245e;
+  text-align: left;
+}
+</style>
