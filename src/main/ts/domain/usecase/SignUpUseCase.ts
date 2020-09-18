@@ -5,5 +5,6 @@ export class SignUpUseCase {
 
     run(email: string, username: string, password: string) {
         this.authRepository.signUp(email, username, password)
+        this.authRepository.login(email, password)
     }
 }
