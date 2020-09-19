@@ -3,6 +3,7 @@
             headingText="Sign up to twitter" @submit="signUp">
     <BaseInput v-model="email" label="Email" type="email"/>
     <BaseInput v-model="username" label="Username"/>
+    <BaseInput v-model="name" label="Name"/>
     <BaseInput v-model="password" label="Password" type="password"/>
     <BaseInput v-model="confirmPassword" label="Confirm password" type="password"/>
   </BaseForm>
@@ -20,6 +21,7 @@ export default {
   data: () => ({
     email: null,
     username: null,
+    name: null,
     password: null,
     confirmPassword: null
   }),
@@ -41,7 +43,7 @@ export default {
     },
 
     createUser() {
-      const user = new User(this.email, this.username)
+      const user = new User(this.username, this.name)
       provideSignUpUseCase().run(user, this.password)
     },
 
