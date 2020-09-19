@@ -40,7 +40,8 @@ export default {
     },
 
     createUser() {
-      provideSignUpUseCase().run(this.email, this.username, this.password)
+      const user = new User(this.email, this.username)
+      provideSignUpUseCase().run(user, this.password)
     },
 
     navigateHome() {

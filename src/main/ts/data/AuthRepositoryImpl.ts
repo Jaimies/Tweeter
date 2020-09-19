@@ -25,8 +25,8 @@ export class AuthRepositoryImpl implements AuthRepository {
         return true
     }
 
-    signUp(email: string, username: string, password: string) {
-        this.users.push(new UserEntry(username, password))
+    signUp(user: User, password: string) {
+        this.users.push(new UserEntry(user.id, password))
         this.persistUsers()
     }
 
