@@ -12,7 +12,7 @@ export class AuthRepositoryImpl implements AuthRepository {
     }
 
     get user() {
-        return this.findUserById(this.storage.get("userId", ""))
+        return this.findUserByCredential(this.storage.get("userId", ""))
     }
 
     login(credential: string, password: string) {
@@ -33,15 +33,17 @@ export class AuthRepositoryImpl implements AuthRepository {
     }
 
     private credentialsAreValid(credential: string, password: string): boolean {
-        const userEntry = this.findUserEntryById(credential)
+        const userEntry = this.findUserEntryByCredential(credential)
         return userEntry != null && userEntry.password == password
     }
 
-    private findUserEntryById(id: string): UserEntry | undefined {
-        return this.userEntries.find(entry => entry.user.id == id)
+    private findUserEntryByCredential(credential: string): UserEntry | undefined {
+        return this.userEntries.find(entry => {
+            return entry.user.id == credential || entry.user.email == credential
+        })
     }
 
-    private findUserById(id: string): User | undefined {
-        return this.findUserEntryById(id)?.user
+    private findUserByCredential(credential: string): User | undefined {
+        return this.findUserEntryByCredential(credential)?.user
     }
 }
