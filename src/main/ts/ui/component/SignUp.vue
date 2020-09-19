@@ -49,6 +49,7 @@ export default {
 
     navigateHome() {
       this.$router.push("/home")
+      location.reload()
     }
   }
 }

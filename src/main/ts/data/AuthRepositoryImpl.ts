@@ -5,12 +5,14 @@ import {UserEntry} from "./UserEntry"
 import {deserializeUserEntry} from "./util/Serialization"
 
 export class AuthRepositoryImpl implements AuthRepository {
-    readonly user: User | undefined
     private readonly userEntries: UserEntry[]
 
     constructor(private storage: Storage) {
         this.userEntries = this.storage.get("users", []).map(deserializeUserEntry)
-        this.user = this.findUserById(this.storage.get("userId", ""))
+    }
+
+    get user() {
+        return this.findUserById(this.storage.get("userId", ""))
     }
 
     login(credential: string, password: string) {
