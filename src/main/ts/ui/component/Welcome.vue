@@ -14,7 +14,7 @@ import {provideGetUserUseCase} from "../../di/provideGetUserUseCase"
 export default {
   data() {
     return {
-      isSignedIn: provideGetUserUseCase().run() != null
+      isSignedIn: provideGetUserUseCase().run() !== undefined
     }
   }
 }

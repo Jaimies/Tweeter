@@ -1,7 +1,5 @@
-export class UserEntry {
-    constructor(public id: string, public password: string) {}
+import {User} from "../domain/model/User"
 
-    static fromPlainObject(object: any) {
-        return new UserEntry(object.id, object.password)
-    }
+export class UserEntry {
+    constructor(public user: User, public password: string) {}
 }

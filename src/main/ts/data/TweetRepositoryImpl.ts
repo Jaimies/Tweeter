@@ -1,15 +1,7 @@
 import {TweetRepository} from "../domain/repository/TweetRepository"
 import {Tweet} from "../domain/model/Tweet"
-import {User} from "../domain/model/User"
 import {Storage} from "./Storage"
-
-function deserializeTweet(object: any) {
-    return new Tweet(object.body, deserializeUser(object.author), new Date(object.date))
-}
-
-function deserializeUser(object: any) {
-    return new User(object.id, object.name)
-}
+import {deserializeTweet} from "./util/Serialization"
 
 export class TweetRepositoryImpl implements TweetRepository {
     private readonly tweets: Tweet[]
@@ -22,7 +14,7 @@ export class TweetRepositoryImpl implements TweetRepository {
         return this.tweets
     }
 
-    postTweet(tweet: Tweet): void {
+    postTweet(tweet: Tweet) {
         this.tweets.unshift(tweet)
         this.persistTweets()
     }

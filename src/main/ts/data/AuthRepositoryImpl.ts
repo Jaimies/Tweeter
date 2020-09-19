@@ -2,19 +2,15 @@ import {AuthRepository} from "../domain/repository/AuthRepository"
 import {User} from "../domain/model/User"
 import {Storage} from "./Storage"
 import {UserEntry} from "./UserEntry"
-
-function createUserWithId(id: string | null): User | null {
-    if (id == null) return null
-    return new User(id, id)
-}
+import {deserializeUserEntry} from "./util/Serialization"
 
 export class AuthRepositoryImpl implements AuthRepository {
-    private readonly users: UserEntry[]
-    user: User | null
+    readonly user: User | undefined
+    private readonly userEntries: UserEntry[]
 
     constructor(private storage: Storage) {
-        this.user = createUserWithId(this.storage.get("userId", ""))
-        this.users = this.storage.get("users", []).map(UserEntry.fromPlainObject)
+        this.userEntries = this.storage.get("users", []).map(deserializeUserEntry)
+        this.user = this.findUserById(this.storage.get("userId", ""))
     }
 
     login(credential: string, password: string) {
@@ -26,17 +22,24 @@ export class AuthRepositoryImpl implements AuthRepository {
     }
 
     signUp(user: User, password: string) {
-        this.users.push(new UserEntry(user.id, password))
+        this.userEntries.push(new UserEntry(user, password))
         this.persistUsers()
     }
 
     private persistUsers() {
-        this.storage.set("users", [...this.users])
+        this.storage.set("users", this.userEntries)
     }
 
-    private credentialsAreValid(credential: string, password: string) {
-        return this.users.some(user => {
-            return user.id == credential && user.password == password
-        })
+    private credentialsAreValid(credential: string, password: string): boolean {
+        const userEntry = this.findUserEntryById(credential)
+        return userEntry != null && userEntry.password == password
+    }
+
+    private findUserEntryById(id: string): UserEntry | undefined {
+        return this.userEntries.find(entry => entry.user.id == id)
+    }
+
+    private findUserById(id: string): User | undefined {
+        return this.findUserEntryById(id)?.user
     }
 }
