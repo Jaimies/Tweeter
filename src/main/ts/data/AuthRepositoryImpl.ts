@@ -1,12 +1,7 @@
 import {AuthRepository} from "../domain/repository/AuthRepository"
 import {User} from "../domain/model/User"
 import {Storage} from "./Storage"
-
-const users = [{id: "fakeuser", password: "fakeuser"}]
-
-function credentialsAreValid(credential: string, password: string) {
-    return users.some(user => user.id == credential && user.password == password)
-}
+import {UserEntry} from "./UserEntry"
 
 function createUserWithId(id: string | null): User | null {
     if (id == null) return null
@@ -14,14 +9,16 @@ function createUserWithId(id: string | null): User | null {
 }
 
 export class AuthRepositoryImpl implements AuthRepository {
+    private readonly users: UserEntry[]
     user: User | null
 
     constructor(private storage: Storage) {
         this.user = createUserWithId(this.storage.get("userId", ""))
+        this.users = this.storage.get("users", []).map(UserEntry.fromPlainObject)
     }
 
     login(credential: string, password: string) {
-        if (!credentialsAreValid(credential, password))
+        if (!this.credentialsAreValid(credential, password))
             return false
 
         this.storage.set("userId", credential)
@@ -29,6 +26,17 @@ export class AuthRepositoryImpl implements AuthRepository {
     }
 
     signUp(email: string, username: string, password: string) {
-        users.push({id: username, password: password})
+        this.users.push(new UserEntry(username, password))
+        this.persistUsers()
+    }
+
+    private persistUsers() {
+        this.storage.set("users", [...this.users])
+    }
+
+    private credentialsAreValid(credential: string, password: string) {
+        return this.users.some(user => {
+            return user.id == credential && user.password == password
+        })
     }
 }
