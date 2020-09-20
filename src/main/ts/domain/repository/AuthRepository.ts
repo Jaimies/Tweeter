@@ -1,7 +1,5 @@
-import {User} from "../model/User"
-
 export interface AuthRepository {
-    user: User | undefined
+    userId: string | undefined
     login(credential: string, password: string): boolean
-    signUp(user: User, password: string): void
+    signUp(id: string, email: string, password: string): void
 }
