@@ -6,7 +6,7 @@ export class AuthRepositoryImpl implements AuthRepository {
     private readonly userEntries: UserEntry[]
 
     constructor(private storage: Storage) {
-        this.userEntries = this.storage.get("users", [])
+        this.userEntries = this.storage.get("userEntries", [])
     }
 
     get userId() {
@@ -28,7 +28,7 @@ export class AuthRepositoryImpl implements AuthRepository {
     }
 
     private persistUsers() {
-        this.storage.set("users", this.userEntries)
+        this.storage.set("userEntries", this.userEntries)
     }
 
     private credentialsAreValid(credential: string, password: string): boolean {
