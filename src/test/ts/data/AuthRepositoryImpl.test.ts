@@ -8,11 +8,7 @@ const userEntry = new UserEntry("testUser", "user@gmail.com", "password")
 let authRepository: AuthRepository
 
 function initializeAuthRepository(userId: string = "", userEntries: UserEntry[] = [userEntry]) {
-    const storage = new FakeStorage({
-        userId: userId,
-        users: userEntries
-    })
-
+    const storage = new FakeStorage({userId, userEntries})
     authRepository = new AuthRepositoryImpl(storage)
 }
 
