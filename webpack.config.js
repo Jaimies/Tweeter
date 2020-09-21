@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const path = require("path")
 
 module.exports = {
-    entry: ["./src/main/ts/ui/Main.ts", "./src/main/resources/main.scss"],
+    entry: ["./src/main/ui/Main.ts", "./resources/main.scss"],
     module: {
         rules: [
             {
@@ -35,7 +35,7 @@ module.exports = {
             filename: "[name].css"
         }),
         new HtmlWebpackPlugin({
-            template: "./src/main/resources/index.html",
+            template: "./resources/index.html",
             filename: "index.html"
         })
     ],
