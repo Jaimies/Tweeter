@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import ComposeTweetForm from "./ComposeTweetForm"
-import TweetFeed from "./TweetFeed"
+import ComposeTweetForm from "../views/ComposeTweetForm"
+import TweetFeed from "../views/TweetFeed"
 
 export default {
   components: {TweetFeed, ComposeTweetForm}

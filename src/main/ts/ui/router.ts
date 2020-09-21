@@ -1,9 +1,9 @@
 import Vue from "vue"
 import Router, {NavigationGuardNext, Route, RouteRecord} from "vue-router"
-import Home from "./component/Home"
-import Welcome from "./component/Welcome"
-import Login from "./component/Login"
-import SignUp from "./component/SignUp"
+import Home from "./components/Home"
+import Welcome from "./components/Welcome"
+import Login from "./components/Login"
+import SignUp from "./components/SignUp"
 import {provideCheckIfLoggedInUseCase} from "../di/provideUseCases"
 
 Vue.use(Router)
