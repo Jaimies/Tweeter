@@ -1,5 +1,5 @@
 import MockDate from "mockdate"
-import {getFullDaysSince} from "../../../../main/ts/ui/util/getFullDaysSince"
+import {getFullDaysSince} from "../../../main/ui/util/getFullDaysSince"
 
 beforeAll(() => MockDate.set("2020-01-02Z"))
 afterAll(() => MockDate.reset())

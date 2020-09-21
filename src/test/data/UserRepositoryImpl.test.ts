@@ -1,7 +1,7 @@
-import {UserRepositoryImpl} from "../../../main/ts/data/UserRepositoryImpl"
+import {UserRepositoryImpl} from "../../main/data/UserRepositoryImpl"
 import {FakeStorage} from "./FakeStorage"
-import {UserRepository} from "../../../main/ts/domain/repository/UserRepository"
-import {User} from "../../../main/ts/domain/model/User"
+import {UserRepository} from "../../main/domain/repository/UserRepository"
+import {User} from "../../main/domain/model/User"
 
 const testUser = new User("testuser", "Test User", "user@gmail.com")
 let userRepository: UserRepository
