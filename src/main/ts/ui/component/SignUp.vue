@@ -14,7 +14,7 @@ import BaseInput from "./BaseInput"
 import BaseForm from "./BaseForm"
 import {User} from "../../domain/model/User"
 import {email, minLength, required, sameAs} from "vuelidate/lib/validators"
-import {provideSignUpUseCase} from "../../di/provideSignUpUseCase"
+import {provideSignUpUseCase} from "../../di/provideUseCases"
 
 export default {
   components: {BaseForm, BaseInput},
