@@ -1,7 +1,7 @@
-import {AuthRepositoryImpl} from "../../../main/ts/data/AuthRepositoryImpl"
+import {AuthRepositoryImpl} from "../../main/data/AuthRepositoryImpl"
 import {FakeStorage} from "./FakeStorage"
-import {UserEntry} from "../../../main/ts/data/UserEntry"
-import {AuthRepository} from "../../../main/ts/domain/repository/AuthRepository"
+import {UserEntry} from "../../main/data/UserEntry"
+import {AuthRepository} from "../../main/domain/repository/AuthRepository"
 
 const userEntry = new UserEntry("testUser", "user@gmail.com", "password")
 

@@ -1,4 +1,4 @@
-import {toReadableDate} from "../../../../main/ts/ui/util/toReadableDate"
+import {toReadableDate} from "../../../main/ui/util/toReadableDate"
 import MockDate from "mockdate"
 
 beforeAll(() => MockDate.set("2020-06-01T00:00:00Z"))

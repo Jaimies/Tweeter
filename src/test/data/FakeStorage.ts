@@ -1,4 +1,4 @@
-import {Storage} from "../../../main/ts/data/Storage"
+import {Storage} from "../../main/data/Storage"
 
 export class FakeStorage implements Storage {
     private values: Map<string, any>

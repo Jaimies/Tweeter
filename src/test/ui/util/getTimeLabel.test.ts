@@ -1,7 +1,7 @@
 import MockDate from "mockdate"
-import {getTimeLabel} from "../../../../main/ts/ui/util/getTimeLabel"
-import {getTimeSince} from "../../../../main/ts/ui/util/getTimeSince"
-import {toReadableDate} from "../../../../main/ts/ui/util/toReadableDate"
+import {getTimeLabel} from "../../../main/ui/util/getTimeLabel"
+import {getTimeSince} from "../../../main/ui/util/getTimeSince"
+import {toReadableDate} from "../../../main/ui/util/toReadableDate"
 
 jest.mock("../../../../main/ts/ui/util/getTimeSince", () => ({getTimeSince: jest.fn()}))
 jest.mock("../../../../main/ts/ui/util/toReadableDate", () => ({toReadableDate: jest.fn()}))

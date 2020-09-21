@@ -1,4 +1,4 @@
-import {getTimeSince} from "../../../../main/ts/ui/util/getTimeSince"
+import {getTimeSince} from "../../../main/ui/util/getTimeSince"
 import MockDate from "mockdate"
 
 beforeAll(() => MockDate.set("2020-01-01T12:00:00Z"))
