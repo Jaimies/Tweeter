@@ -4,6 +4,6 @@ export class CheckIfLoggedInUseCase {
     constructor(public authRepository: AuthRepository) {}
 
     run() {
-        return this.authRepository.user != undefined
+        return this.authRepository.userId != undefined
     }
 }

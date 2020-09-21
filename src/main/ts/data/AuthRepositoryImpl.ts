@@ -1,30 +1,29 @@
 import {AuthRepository} from "../domain/repository/AuthRepository"
-import {User} from "../domain/model/User"
 import {Storage} from "./Storage"
 import {UserEntry} from "./UserEntry"
-import {deserializeUserEntry} from "./util/Serialization"
 
 export class AuthRepositoryImpl implements AuthRepository {
     private readonly userEntries: UserEntry[]
 
     constructor(private storage: Storage) {
-        this.userEntries = this.storage.get("users", []).map(deserializeUserEntry)
+        this.userEntries = this.storage.get("users", [])
     }
 
-    get user() {
-        return this.findUserByCredential(this.storage.get("userId", ""))
+    get userId() {
+        return this.storage.get("userId", undefined)
     }
 
     login(credential: string, password: string) {
         if (!this.credentialsAreValid(credential, password))
             return false
 
-        this.storage.set("userId", credential)
+        const userEntry = this.findUserEntryByCredential(credential)
+        this.storage.set("userId", userEntry!.id)
         return true
     }
 
-    signUp(user: User, password: string) {
-        this.userEntries.push(new UserEntry(user, password))
+    signUp(id: string, email: string, password: string) {
+        this.userEntries.push(new  UserEntry(id, email, password))
         this.persistUsers()
     }
 
@@ -39,11 +38,7 @@ export class AuthRepositoryImpl implements AuthRepository {
 
     private findUserEntryByCredential(credential: string): UserEntry | undefined {
         return this.userEntries.find(entry => {
-            return entry.user.id == credential || entry.user.email == credential
+            return entry.id == credential || entry.email == credential
         })
-    }
-
-    private findUserByCredential(credential: string): User | undefined {
-        return this.findUserEntryByCredential(credential)?.user
     }
 }

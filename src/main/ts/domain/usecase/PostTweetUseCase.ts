@@ -1,17 +1,17 @@
 import {TweetRepository} from "../repository/TweetRepository"
 import {Tweet} from "../model/Tweet"
-import {AuthRepository} from "../repository/AuthRepository"
+import {GetCurrentUserUseCase} from "./GetCurrentUserUseCase"
 
 export class PostTweetUseCase {
     constructor(
         private tweetRepository: TweetRepository,
-        private authRepository: AuthRepository
+        private getCurrentUserUseCase: GetCurrentUserUseCase
     ) {}
 
     run(text: string) {
         const tweet = new Tweet(
             text,
-            this.authRepository.user!,
+            this.getCurrentUserUseCase.run()!,
             new Date()
         )
 

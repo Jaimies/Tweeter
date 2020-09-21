@@ -4,7 +4,7 @@ import Home from "./component/Home"
 import Welcome from "./component/Welcome"
 import Login from "./component/Login"
 import SignUp from "./component/SignUp"
-import {provideCheckIfLoggedInUseCase} from "../di/provideCheckIfLoggedInUseCase"
+import {provideCheckIfLoggedInUseCase} from "../di/provideUseCases"
 
 Vue.use(Router)
 

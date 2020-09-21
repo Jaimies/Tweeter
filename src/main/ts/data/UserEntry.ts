@@ -1,5 +1,7 @@
-import {User} from "../domain/model/User"
-
 export class UserEntry {
-    constructor(public user: User, public password: string) {}
+    constructor(
+        public id: string,
+        public email: string,
+        public password: string
+    ) {}
 }
