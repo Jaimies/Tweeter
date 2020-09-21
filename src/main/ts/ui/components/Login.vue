@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import BaseInput from "./BaseInput"
-import BaseForm from "./BaseForm"
+import BaseInput from "../views/BaseInput"
+import BaseForm from "../views/BaseForm"
 import {provideLoginUseCase} from "../../di/provideUseCases"
 
 export default {
