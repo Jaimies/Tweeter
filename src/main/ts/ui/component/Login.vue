@@ -14,7 +14,7 @@
 <script>
 import BaseInput from "./BaseInput"
 import BaseForm from "./BaseForm"
-import {provideLoginUseCase} from "../../di/provideLoginUseCase"
+import {provideLoginUseCase} from "../../di/provideUseCases"
 
 export default {
   components: {BaseForm, BaseInput},

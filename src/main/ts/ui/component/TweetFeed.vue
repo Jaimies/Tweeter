@@ -7,7 +7,7 @@
 <script>
 import TweetFeedItem from "./TweetFeedItem.vue"
 import {mapTweetToPresentation} from "../model/UiTweet"
-import {provideGetTweetsUseCase} from "../../di/provideGetTweetsUseCase"
+import {provideGetTweetsUseCase} from "../../di/provideUseCases"
 import Vue from "vue"
 
 const tweetsObservable = Vue.observable({tweets: provideGetTweetsUseCase().run()})

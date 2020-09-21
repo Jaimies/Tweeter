@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {provideCheckIfLoggedInUseCase} from "../../di/provideCheckIfLoggedInUseCase"
+import {provideCheckIfLoggedInUseCase} from "../../di/provideUseCases"
 
 export default {
   data() {
