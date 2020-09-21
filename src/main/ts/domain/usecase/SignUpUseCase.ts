@@ -1,11 +1,16 @@
 import {AuthRepository} from "../repository/AuthRepository"
 import {User} from "../model/User"
+import {UserRepository} from "../repository/UserRepository"
 
 export class SignUpUseCase {
-    constructor(public authRepository: AuthRepository) {}
+    constructor(
+        private authRepository: AuthRepository,
+        private userRepository: UserRepository
+    ) {}
 
     run(user: User, password: string) {
-        this.authRepository.signUp(user, password)
+        this.authRepository.signUp(user.id, user.email, password)
+        this.userRepository.addUser(user)
         this.authRepository.login(user.id, password)
     }
 }
