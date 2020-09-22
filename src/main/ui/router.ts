@@ -1,6 +1,4 @@
-//@ts-expect-error
 import Vue from "vue"
-//@ts-expect-error
 import Router, {NavigationGuardNext, Route} from "vue-router"
 import Home from "./components/Home.vue"
 import Welcome from "./components/Welcome.vue"
