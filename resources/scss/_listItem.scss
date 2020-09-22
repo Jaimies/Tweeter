@@ -4,6 +4,10 @@
 
   &__header {
     font-weight: bold;
+
+    &.-large {
+      font-size: 19px;
+    }
   }
 
   &__secondaryHeader {
