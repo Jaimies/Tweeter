@@ -15,6 +15,6 @@ export class PostTweetUseCase {
             new Date()
         )
 
-        this.tweetRepository.postTweet(tweet)
+        this.tweetRepository.addTweet(tweet)
     }
 }
