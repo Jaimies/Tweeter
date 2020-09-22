@@ -5,8 +5,13 @@
   &__header {
     font-weight: bold;
 
+    &:hover {
+      text-decoration: underline;
+    }
+
     &.-large {
       font-size: 19px;
+      text-decoration: none;
     }
   }
 
