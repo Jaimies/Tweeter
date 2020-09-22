@@ -1,11 +1,13 @@
+//@ts-expect-error
 import Vue from "vue"
+//@ts-expect-error
 import Router, {NavigationGuardNext, Route} from "vue-router"
-import Home from "./components/Home"
-import Welcome from "./components/Welcome"
-import Login from "./components/Login"
-import SignUp from "./components/SignUp"
-import UserList from "./components/UserList"
-import UserProfile from "./components/UserProfile"
+import Home from "./components/Home.vue"
+import Welcome from "./components/Welcome.vue"
+import Login from "./components/Login.vue"
+import SignUp from "./components/SignUp.vue"
+import UserList from "./components/UserList.vue"
+import UserProfile from "./components/UserProfile.vue"
 import {provideCheckIfLoggedInUseCase} from "../di/provideUseCases"
 import {AuthState} from "./model/AuthState"
 import Authenticated = AuthState.Authenticated
