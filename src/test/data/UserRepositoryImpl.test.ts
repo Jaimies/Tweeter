@@ -2,8 +2,8 @@ import {UserRepositoryImpl} from "../../main/data/UserRepositoryImpl"
 import {FakeStorage} from "./FakeStorage"
 import {UserRepository} from "../../main/domain/repository/UserRepository"
 import {User} from "../../main/domain/model/User"
+import {testUser} from "../testData"
 
-const testUser = new User("testuser", "Test User", "user@gmail.com")
 let userRepository: UserRepository
 
 function initializeUserRepository(users: User[]) {

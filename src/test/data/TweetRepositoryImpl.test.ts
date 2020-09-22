@@ -2,11 +2,8 @@ import {FakeStorage} from "./FakeStorage"
 import {TweetRepositoryImpl} from "../../main/data/TweetRepositoryImpl"
 import {TweetRepository} from "../../main/domain/repository/TweetRepository"
 import {Tweet} from "../../main/domain/model/Tweet"
-import {User} from "../../main/domain/model/User"
 import {Storage} from "../../main/data/Storage"
-
-const testUser = new User("testuser", "Test User", "testuser@gmail.com")
-const testTweet = new Tweet("Tweet body", testUser, new Date())
+import {testTweet} from "../testData"
 
 let tweetRepository: TweetRepository
 let storage: Storage
