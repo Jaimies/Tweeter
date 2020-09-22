@@ -14,7 +14,7 @@ export class TweetRepositoryImpl implements TweetRepository {
         return this.tweets
     }
 
-    postTweet(tweet: Tweet) {
+    addTweet(tweet: Tweet) {
         this.tweets.unshift(tweet)
         this.persistTweets()
     }

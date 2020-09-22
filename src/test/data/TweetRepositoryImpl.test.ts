@@ -26,15 +26,15 @@ it("initializes with some tweets", () => {
     expect(tweetRepository.getTweets()).toEqual([testTweet])
 })
 
-it("posts a tweet", () => {
+it("adds a tweet", () => {
     initializeTweetRepository([])
-    tweetRepository.postTweet(testTweet)
+    tweetRepository.addTweet(testTweet)
     expect(tweetRepository.getTweets()).toEqual([testTweet])
 })
 
 it("persists data", () => {
     initializeTweetRepository([])
-    tweetRepository.postTweet(testTweet)
+    tweetRepository.addTweet(testTweet)
     const newTweetRepository = new TweetRepositoryImpl(storage)
     expect(newTweetRepository.getTweets()).toEqual([testTweet])
 })
