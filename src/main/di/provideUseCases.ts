@@ -9,6 +9,7 @@ import {
     provideTweetRepository,
     provideUserRepository
 } from "./provideRepositories"
+import {GetUsersUseCase} from "../domain/usecase/GetUsersUseCase"
 
 export function provideCheckIfLoggedInUseCase() {
     return new CheckIfLoggedInUseCase(provideAuthRepository())
@@ -32,4 +33,8 @@ export function providePostTweetUseCase() {
 
 export function provideSignUpUseCase() {
     return new SignUpUseCase(provideAuthRepository(), provideUserRepository())
+}
+
+export function provideGetUsersUseCase() {
+    return new GetUsersUseCase(provideUserRepository())
 }
