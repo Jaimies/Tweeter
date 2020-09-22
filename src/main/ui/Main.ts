@@ -1,8 +1,8 @@
 // @ts-expect-error
 import Vue, {CreateElement} from "vue"
+//@ts-expect-error
 import Vuelidate from "vuelidate"
-// @ts-expect-error
-import App from "./App"
+import App from "./App.vue"
 import router from "./router"
 
 Vue.use(Vuelidate)
