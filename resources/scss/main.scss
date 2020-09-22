@@ -1,4 +1,4 @@
-$baseBorder: 1px solid #888;
+@import "./listItem.scss";
 
 * {
   box-sizing: border-box;
@@ -32,4 +32,13 @@ textarea {
 .container {
   width: 598px;
   margin: auto;
+}
+
+.routerLink {
+  color: unset;
+  text-decoration: none;
+}
+
+.block {
+  display: block;
 }

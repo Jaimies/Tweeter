@@ -1,0 +1,21 @@
+.listItem {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+
+  &__header {
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &.-large {
+      font-size: 19px;
+      text-decoration: none;
+    }
+  }
+
+  &__secondaryHeader {
+    color: #666;
+  }
+}
