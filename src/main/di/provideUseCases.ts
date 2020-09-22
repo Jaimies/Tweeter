@@ -10,6 +10,7 @@ import {
     provideUserRepository
 } from "./provideRepositories"
 import {GetUsersUseCase} from "../domain/usecase/GetUsersUseCase"
+import {FindUserByIdUseCase} from "../domain/usecase/FindUserByIdUseCase"
 
 export function provideCheckIfLoggedInUseCase() {
     return new CheckIfLoggedInUseCase(provideAuthRepository())
@@ -37,4 +38,8 @@ export function provideSignUpUseCase() {
 
 export function provideGetUsersUseCase() {
     return new GetUsersUseCase(provideUserRepository())
+}
+
+export function provideFindUserByIdUseCase() {
+    return new FindUserByIdUseCase(provideUserRepository())
 }

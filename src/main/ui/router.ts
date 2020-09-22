@@ -4,7 +4,8 @@ import Home from "./components/Home"
 import Welcome from "./components/Welcome"
 import Login from "./components/Login"
 import SignUp from "./components/SignUp"
-import UserList from "./components/UserList.vue"
+import UserList from "./components/UserList"
+import UserProfile from "./components/UserProfile"
 import {provideCheckIfLoggedInUseCase} from "../di/provideUseCases"
 import {AuthState} from "./model/AuthState"
 import Authenticated = AuthState.Authenticated
@@ -37,6 +38,11 @@ const router = new Router({
         {
             path: "/users",
             component: UserList
+        },
+        {
+            path: "/:id",
+            component: UserProfile,
+            props: true
         }
     ]
 })
