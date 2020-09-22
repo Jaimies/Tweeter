@@ -1,11 +1,9 @@
 import {GetCurrentUserUseCase} from "../../../main/domain/usecase/GetCurrentUserUseCase"
 import {StubAuthRepository} from "./StubAuthRepository"
 import {StubUserRepository} from "./StubUserRepository"
-import {User} from "../../../main/domain/model/User"
+import {testUser} from "../../testData"
 
 let useCase: GetCurrentUserUseCase
-
-const testUser = new User("testuser", "Test User", "testuser@gmail.com")
 
 function initializeUseCase(userId: string | undefined) {
     const authRepository = new StubAuthRepository(userId)
