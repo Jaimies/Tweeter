@@ -3,11 +3,17 @@ import {TweetRepositoryImpl} from "../../main/data/TweetRepositoryImpl"
 import {TweetRepository} from "../../main/domain/repository/TweetRepository"
 import {Tweet} from "../../main/domain/model/Tweet"
 import {Storage} from "../../main/data/Storage"
-import {anotherTestTweet, testTweet} from "../testData"
+import {createTestTweet, createTestUser} from "../testData"
 import {expectObservableValue} from "../RxTestUtils"
 
 let tweetRepository: TweetRepository
 let storage: Storage
+
+const user = createTestUser()
+const anotherUser = createTestUser()
+const tweet = createTestTweet(user)
+const anotherTweet = createTestTweet(user)
+const tweetFromAnotherUser = createTestTweet(anotherUser)
 
 function initializeTweetRepository(tweets: Tweet[]) {
     storage = new FakeStorage({tweets})
@@ -16,23 +22,28 @@ function initializeTweetRepository(tweets: Tweet[]) {
 
 it("initializes with no tweets", done => {
     initializeTweetRepository([])
-    expectObservableValue(tweetRepository.getTweets(), [], done)
+    expectObservableValue(tweetRepository.getTweetsByUserId(user.id), [], done)
 })
 
 it("initializes with some tweets", done => {
-    initializeTweetRepository([testTweet])
-    expectObservableValue(tweetRepository.getTweets(), [testTweet], done)
+    initializeTweetRepository([tweet])
+    expectObservableValue(tweetRepository.getTweetsByUserId(user.id), [tweet], done)
 })
 
 it("adds a tweet and puts it before other tweets", done => {
-    initializeTweetRepository([testTweet])
-    tweetRepository.addTweet(anotherTestTweet)
-    expectObservableValue(tweetRepository.getTweets(), [anotherTestTweet, testTweet], done)
+    initializeTweetRepository([tweet])
+    tweetRepository.addTweet(anotherTweet)
+    expectObservableValue(tweetRepository.getTweetsByUserId(user.id), [anotherTweet, tweet], done)
+})
+
+it("only selects tweets from specified user", done => {
+    initializeTweetRepository([tweet, tweetFromAnotherUser])
+    expectObservableValue(tweetRepository.getTweetsByUserId(user.id), [tweet], done)
 })
 
 it("persists data", done => {
     initializeTweetRepository([])
-    tweetRepository.addTweet(testTweet)
+    tweetRepository.addTweet(tweet)
     const newTweetRepository = new TweetRepositoryImpl(storage)
-    expectObservableValue(newTweetRepository.getTweets(), [testTweet], done)
+    expectObservableValue(newTweetRepository.getTweetsByUserId(user.id), [tweet], done)
 })

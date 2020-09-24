@@ -3,6 +3,7 @@ import {Tweet} from "../domain/model/Tweet"
 import {Storage} from "./Storage"
 import {deserializeTweet} from "./util/Serialization"
 import {BehaviorSubject, Observable} from "rxjs"
+import {filterList} from "../shared/RxOperators"
 
 export class TweetRepositoryImpl implements TweetRepository {
     private readonly tweets: BehaviorSubject<Tweet[]>
@@ -12,8 +13,10 @@ export class TweetRepositoryImpl implements TweetRepository {
         this.tweets = new BehaviorSubject(tweetArray)
     }
 
-    getTweets(): Observable<Tweet[]> {
-        return this.tweets
+    getTweetsByUserId(userId: string): Observable<Tweet[]> {
+        return this.tweets.pipe(
+            filterList(tweet => tweet.author.id == userId)
+        )
     }
 
     addTweet(tweet: Tweet) {
