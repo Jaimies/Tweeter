@@ -2,24 +2,26 @@ import {TweetRepository} from "../domain/repository/TweetRepository"
 import {Tweet} from "../domain/model/Tweet"
 import {Storage} from "./Storage"
 import {deserializeTweet} from "./util/Serialization"
+import {BehaviorSubject, Observable} from "rxjs"
 
 export class TweetRepositoryImpl implements TweetRepository {
-    private readonly tweets: Tweet[]
+    private readonly tweets: BehaviorSubject<Tweet[]>
 
     constructor(private storage: Storage) {
-        this.tweets = this.storage.get("tweets", []).map(deserializeTweet)
+        const tweetArray = this.storage.get("tweets", []).map(deserializeTweet)
+        this.tweets = new BehaviorSubject(tweetArray)
     }
 
-    getTweets(): Tweet[] {
+    getTweets(): Observable<Tweet[]> {
         return this.tweets
     }
 
     addTweet(tweet: Tweet) {
-        this.tweets.unshift(tweet)
+        this.tweets.next([tweet, ...this.tweets.getValue()])
         this.persistTweets()
     }
 
     private persistTweets() {
-        this.storage.set("tweets", this.tweets)
+        this.storage.set("tweets", this.tweets.getValue())
     }
 }

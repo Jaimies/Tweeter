@@ -27,8 +27,10 @@
   },
   "dependencies": {
     "@types/vuelidate": "^0.7.13",
+    "rxjs": "^6.6.3",
     "vue": "^2.6.12",
     "vue-router": "^3.4.3",
+    "vue-rx": "^6.2.0",
     "vuelidate": "^0.7.5"
   },
   "private": true
