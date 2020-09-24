@@ -3,7 +3,7 @@ import {TweetRepositoryImpl} from "../../main/data/TweetRepositoryImpl"
 import {TweetRepository} from "../../main/domain/repository/TweetRepository"
 import {Tweet} from "../../main/domain/model/Tweet"
 import {Storage} from "../../main/data/Storage"
-import {testTweet} from "../testData"
+import {anotherTestTweet, testTweet} from "../testData"
 import {expectObservableValue} from "../RxTestUtils"
 
 let tweetRepository: TweetRepository
@@ -24,10 +24,10 @@ it("initializes with some tweets", done => {
     expectObservableValue(tweetRepository.getTweets(), [testTweet], done)
 })
 
-it("adds a tweet", done => {
-    initializeTweetRepository([])
-    tweetRepository.addTweet(testTweet)
-    expectObservableValue(tweetRepository.getTweets(), [testTweet], done)
+it("adds a tweet and puts it before other tweets", done => {
+    initializeTweetRepository([testTweet])
+    tweetRepository.addTweet(anotherTestTweet)
+    expectObservableValue(tweetRepository.getTweets(), [anotherTestTweet, testTweet], done)
 })
 
 it("persists data", done => {
