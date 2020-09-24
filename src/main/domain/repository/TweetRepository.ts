@@ -1,6 +1,7 @@
 import {Tweet} from "../model/Tweet"
+import {Observable} from "rxjs"
 
 export interface TweetRepository {
-    getTweets(): Tweet[]
+    getTweets(): Observable<Tweet[]>
     addTweet(tweet: Tweet): void
 }
