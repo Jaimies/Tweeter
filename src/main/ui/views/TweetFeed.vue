@@ -7,15 +7,16 @@
 <script>
 import TweetFeedItem from "./TweetFeedItem.vue"
 import {mapTweetToPresentation} from "../model/UiTweet"
-import {provideGetTweetsUseCase} from "../../di/provideUseCases"
+import {provideGetTweetsUseCase, provideGetUserUseCase} from "../../di/provideUseCases"
 import {mapList} from "../../shared/RxOperators"
 
-const tweetsObservable = provideGetTweetsUseCase().run()
+const user = provideGetUserUseCase().run()
+const tweets = provideGetTweetsUseCase().run(user.id)
 
 export default {
   components: {TweetFeedItem},
   subscriptions: () => ({
-    tweets: tweetsObservable.pipe(mapList(mapTweetToPresentation))
+    tweets: tweets.pipe(mapList(mapTweetToPresentation))
   })
 }
 </script>
