@@ -17,7 +17,7 @@ export class TweetRepositoryImpl implements TweetRepository {
     }
 
     addTweet(tweet: Tweet) {
-        this.tweets.next(this.tweets.getValue().concat(tweet))
+        this.tweets.next([tweet, ...this.tweets.getValue()])
         this.persistTweets()
     }
 
