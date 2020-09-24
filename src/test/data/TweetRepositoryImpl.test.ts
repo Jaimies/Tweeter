@@ -4,6 +4,7 @@ import {TweetRepository} from "../../main/domain/repository/TweetRepository"
 import {Tweet} from "../../main/domain/model/Tweet"
 import {Storage} from "../../main/data/Storage"
 import {testTweet} from "../testData"
+import {expectObservableValue} from "../RxTestUtils"
 
 let tweetRepository: TweetRepository
 let storage: Storage
@@ -13,25 +14,25 @@ function initializeTweetRepository(tweets: Tweet[]) {
     tweetRepository = new TweetRepositoryImpl(storage)
 }
 
-it("initializes with no tweets", () => {
+it("initializes with no tweets", done => {
     initializeTweetRepository([])
-    expect(tweetRepository.getTweets()).toEqual([])
+    expectObservableValue(tweetRepository.getTweets(), [], done)
 })
 
-it("initializes with some tweets", () => {
+it("initializes with some tweets", done => {
     initializeTweetRepository([testTweet])
-    expect(tweetRepository.getTweets()).toEqual([testTweet])
+    expectObservableValue(tweetRepository.getTweets(), [testTweet], done)
 })
 
-it("adds a tweet", () => {
+it("adds a tweet", done => {
     initializeTweetRepository([])
     tweetRepository.addTweet(testTweet)
-    expect(tweetRepository.getTweets()).toEqual([testTweet])
+    expectObservableValue(tweetRepository.getTweets(), [testTweet], done)
 })
 
-it("persists data", () => {
+it("persists data", done => {
     initializeTweetRepository([])
     tweetRepository.addTweet(testTweet)
     const newTweetRepository = new TweetRepositoryImpl(storage)
-    expect(newTweetRepository.getTweets()).toEqual([testTweet])
+    expectObservableValue(newTweetRepository.getTweets(), [testTweet], done)
 })
