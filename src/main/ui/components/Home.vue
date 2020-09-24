@@ -9,17 +9,13 @@
 import ComposeTweetForm from "../views/ComposeTweetForm"
 import TweetFeed from "../views/TweetFeed"
 import {provideGetTweetsUseCase, provideGetUserUseCase} from "../../di/provideUseCases"
-import {mapTweetToPresentation} from "../model/UiTweet"
-import {mapList} from "../../shared/RxOperators"
 
 const user = provideGetUserUseCase().run()
 const tweets = provideGetTweetsUseCase().run(user.id)
 
 export default {
   components: {TweetFeed, ComposeTweetForm},
-  subscriptions: () => ({
-    tweets: tweets.pipe(mapList(mapTweetToPresentation))
-  })
+  subscriptions: () => ({tweets})
 }
 </script>
 
