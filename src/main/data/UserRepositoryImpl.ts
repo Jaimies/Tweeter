@@ -1,6 +1,7 @@
 import {UserRepository} from "../domain/repository/UserRepository"
 import {User} from "../domain/model/User"
 import {Storage} from "./Storage"
+import {IllegalArgumentException} from "../shared/IllegalArgumentException"
 
 export class UserRepositoryImpl implements UserRepository {
     private readonly users: User[]
@@ -19,6 +20,16 @@ export class UserRepositoryImpl implements UserRepository {
 
     addUser(user: User) {
         this.users.push(user)
+        this.persistData()
+    }
+
+    updateUser(updatedUser: User) {
+        const userIndex = this.users.findIndex(user => user.id == updatedUser.id)
+
+        if (userIndex < 0)
+            throw new IllegalArgumentException(`User with given id does not exist: ${updatedUser.id}`)
+
+        this.users[userIndex] = updatedUser
         this.persistData()
     }
 
