@@ -2,6 +2,7 @@
   <div class="listItem">
     <div class="listItem__header -large">{{ user.name }}</div>
     <div class="listItem__secondaryHeader">@{{ user.id }}</div>
+    <p class="bio">{{user.bio}}</p>
   </div>
 </template>
 
@@ -14,3 +15,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.bio {
+  margin-top: 10px;
+}
+</style>
