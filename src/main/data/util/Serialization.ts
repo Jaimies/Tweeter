@@ -6,5 +6,5 @@ export function deserializeTweet(object: any) {
 }
 
 export function deserializeUser(object: any) {
-    return new User(object.id, object.name, object.email)
+    return new User(object.id, object.name, object.email, object.bio)
 }
