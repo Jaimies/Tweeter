@@ -11,6 +11,7 @@ import {
 } from "./provideRepositories"
 import {GetUsersUseCase} from "../domain/usecase/GetUsersUseCase"
 import {FindUserByIdUseCase} from "../domain/usecase/FindUserByIdUseCase"
+import {UpdateUserUseCase} from "../domain/usecase/UpdateUserUseCase"
 
 export function provideCheckIfLoggedInUseCase() {
     return new CheckIfLoggedInUseCase(provideAuthRepository())
@@ -42,4 +43,8 @@ export function provideGetUsersUseCase() {
 
 export function provideFindUserByIdUseCase() {
     return new FindUserByIdUseCase(provideUserRepository())
+}
+
+export function provideUpdateUserUseCase() {
+    return new UpdateUserUseCase(provideUserRepository())
 }
