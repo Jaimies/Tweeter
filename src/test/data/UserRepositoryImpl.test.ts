@@ -36,3 +36,18 @@ it("returns undefined when trying to get a user by non-existent id", () => {
     initializeUserRepository([testUser])
     expect(userRepository.findUserById("12341234")).toBe(undefined)
 })
+
+it("updates user", () => {
+    initializeUserRepository([testUser])
+    const updatedUser = {...testUser, name: "New Name"}
+    userRepository.updateUser(updatedUser)
+    expect(userRepository.findUserById(testUser.id)).toEqual(updatedUser)
+})
+
+it("doesn't allow to change user id", () => {
+    initializeUserRepository([testUser])
+    const updatedUser = {...testUser, id: "newuserid"}
+    expect(() => {
+        userRepository.updateUser(updatedUser)
+    }).toThrow()
+})
