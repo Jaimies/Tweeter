@@ -42,6 +42,7 @@ export default {
       this.showEditModal = false
       const newUser = new User(this.user.id, this.name, this.user.email, this.bio)
       provideUpdateUserUseCase().run(newUser)
+      this.$emit("update", newUser)
     }
   }
 }

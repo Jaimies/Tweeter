@@ -1,6 +1,6 @@
 <template>
   <div class="container feed">
-    <UserCard v-if="user" :user="user"/>
+    <UserCard @update="user = $event" v-if="user" :user="user"/>
     <ProfileNotFoundCard v-else/>
 
     <TweetFeed :tweets="tweets"/>
@@ -23,10 +23,8 @@ export default {
       tweets: provideGetTweetsUseCase().run(this.id)
     }
   },
-  computed: {
-    user() {
-      return provideFindUserByIdUseCase().run(this.id)
-    }
+  data() {
+    return {user: provideFindUserByIdUseCase().run(this.id)}
   }
 }
 </script>
