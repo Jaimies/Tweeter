@@ -1,7 +1,7 @@
 <template>
-  <div class="card listItem">
-    <div class="listItem__header -large">{{ user.name }}</div>
-    <div class="listItem__secondaryHeader">@{{ user.id }}</div>
+  <div class="card">
+    <div class="header -large">{{ user.name }}</div>
+    <div class="secondaryHeader">@{{ user.id }}</div>
     <p class="bio">{{ user.bio }}</p>
     <button class="edit" v-if="isCurrentUser" @click="showEditModal = true">Edit</button>
 
@@ -51,10 +51,6 @@ export default {
 <style scoped>
 .bio {
   margin-top: 10px;
-}
-
-.card {
-  position: relative;
 }
 
 .edit {

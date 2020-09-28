@@ -1,0 +1,22 @@
+.card {
+  position: relative;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.header {
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &.-large {
+    font-size: 19px;
+    text-decoration: none;
+  }
+}
+
+.secondaryHeader {
+  color: #666;
+}

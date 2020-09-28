@@ -1,11 +1,11 @@
 <template>
-  <div class="listItem">
+  <div class="card">
     <div>
       <RouterLink :to="`/` + tweet.author.id" class="routerLink">
-        <span class="listItem__header">{{ tweet.author.name }}</span>
-        <span class="listItem__secondaryHeader">@{{ tweet.author.id }}</span>
+        <span class="header">{{ tweet.author.name }}</span>
+        <span class="secondaryHeader">@{{ tweet.author.id }}</span>
       </RouterLink>
-      <time :datetime="tweet.isoDate" class="listItem__secondaryHeader">
+      <time :datetime="tweet.isoDate" class="secondaryHeader">
         {{ tweet.displayDate }}
       </time>
     </div>
