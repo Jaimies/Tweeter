@@ -1,5 +1,5 @@
 <template>
-  <div class="container feed">
+  <div class="feed">
     <ComposeTweetForm/>
     <TweetFeed :tweets="tweets"/>
   </div>
@@ -18,10 +18,3 @@ export default {
   subscriptions: () => ({tweets})
 }
 </script>
-
-<style>
-.feed {
-  border: 1px solid #ddd;
-  border-bottom: none;
-}
-</style>
