@@ -27,7 +27,10 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: [".js", ".ts", ".vue"]
+        extensions: [".js", ".ts", ".vue"],
+        alias: {
+            scss: path.resolve(__dirname, "./resources/scss")
+        }
     },
     plugins: [
         new VueLoaderPlugin(),

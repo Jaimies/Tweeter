@@ -1,5 +1,5 @@
 <template>
-  <div class="container feed">
+  <div class="feed">
     <UserListItem v-for="user of users" :key="user.id" :user="user"/>
   </div>
 </template>

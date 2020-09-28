@@ -1,5 +1,5 @@
 <template>
-  <div class="container feed">
+  <div class="feed">
     <UserCard @update="user = $event" v-if="user" :user="user"/>
     <ProfileNotFoundCard v-else/>
 
