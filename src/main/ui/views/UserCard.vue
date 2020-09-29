@@ -1,8 +1,8 @@
 <template>
   <div class="card">
-    <div class="header -large">{{ user.name }}</div>
-    <div class="secondaryHeader">@{{ user.id }}</div>
-    <p class="bio">{{ user.bio }}</p>
+    <div class="header -large">{{ normalizedUser.name }}</div>
+    <div class="secondaryHeader">@{{ normalizedUser.id }}</div>
+    <p class="bio">{{ normalizedUser.bio }}</p>
     <button class="edit" v-if="isCurrentUser" @click="showEditModal = true">Edit</button>
 
     <BaseModal @close="showEditModal = false" v-if="showEditModal">
@@ -19,6 +19,7 @@ import {provideGetUserUseCase, provideUpdateUserUseCase} from "../../di/provideU
 import BaseModal from "./BaseModal"
 import BaseInput from "./BaseInput"
 import EditProfileModal from "./EditProfileModal"
+import {mapUserToPresentation} from "../model/UiUser"
 
 export default {
   components: {EditProfileModal, BaseInput, BaseModal},
@@ -33,6 +34,9 @@ export default {
     }
   },
   computed: {
+    normalizedUser() {
+      return mapUserToPresentation(this.user)
+    },
     isCurrentUser() {
       return this.user.id == provideGetUserUseCase().run().id
     }
@@ -40,7 +44,7 @@ export default {
   methods: {
     saveProfile() {
       this.showEditModal = false
-      const newUser = new User(this.user.id, this.name, this.user.email, this.bio)
+      const newUser = {...this.user, bio: this.bio, name: this.name}
       provideUpdateUserUseCase().run(newUser)
       this.$emit("update", newUser)
     }
