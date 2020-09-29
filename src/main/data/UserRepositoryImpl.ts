@@ -2,12 +2,13 @@ import {UserRepository} from "../domain/repository/UserRepository"
 import {User} from "../domain/model/User"
 import {Storage} from "./Storage"
 import {IllegalArgumentException} from "../shared/IllegalArgumentException"
+import {deserializeUser} from "./util/Serialization"
 
 export class UserRepositoryImpl implements UserRepository {
     private readonly users: User[]
 
     constructor(private storage: Storage) {
-        this.users = this.storage.get("users", [])
+        this.users = this.storage.get("users", []).map(deserializeUser)
     }
 
     getUsers(): User[] {
