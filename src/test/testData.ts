@@ -8,7 +8,7 @@ export const testUserEntry = createTestUserEntry()
 
 export function createTestUser(): User {
     const id = generateRandomId()
-    return new User(id, "Test User", `${id}@gmail.com`, "User's bio")
+    return new User(id, "Test User", `${id}@gmail.com`, "User's bio", [])
 }
 
 export function createTestTweet(author: User): Tweet {
