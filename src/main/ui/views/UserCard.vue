@@ -38,7 +38,8 @@ export default {
       return mapUserToPresentation(this.user)
     },
     isCurrentUser() {
-      return this.user.id == provideGetUserUseCase().run().id
+      const currentUser = provideGetUserUseCase().run()
+      return currentUser && this.user.id == currentUser.id
     }
   },
   methods: {
