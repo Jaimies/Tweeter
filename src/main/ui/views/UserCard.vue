@@ -3,7 +3,13 @@
     <div class="header -large">{{ normalizedUser.name }}</div>
     <div class="secondaryHeader">@{{ normalizedUser.id }}</div>
     <p class="bio">{{ normalizedUser.bio }}</p>
-    <button class="edit" v-if="isCurrentUser" @click="showEditModal = true">Edit</button>
+
+    <button class="floating" v-if="isCurrentUser" @click="showEditModal = true">Edit</button>
+
+    <ToggleButton class="floating" v-else :enabled="isFollowed" @toggle="toggleFollowing">
+      <template #enabledText>Following</template>
+      <template #disabledText>Follow</template>
+    </ToggleButton>
 
     <BaseModal @close="showEditModal = false" v-if="showEditModal">
       <BaseInput label="Name" v-model="name"/>
@@ -18,11 +24,14 @@ import {User} from "../../domain/model/User"
 import {provideGetUserUseCase, provideUpdateUserUseCase} from "../../di/provideUseCases"
 import BaseModal from "./BaseModal"
 import BaseInput from "./BaseInput"
-import EditProfileModal from "./EditProfileModal"
+import ToggleButton from "./ToggleButton"
 import {mapUserToPresentation} from "../model/UiUser"
+import {unconcat} from "../../shared/ArrayUtil"
+
+const currentUser = provideGetUserUseCase().run()
 
 export default {
-  components: {EditProfileModal, BaseInput, BaseModal},
+  components: {ToggleButton, BaseInput, BaseModal},
   props: {
     user: User
   },
@@ -30,7 +39,8 @@ export default {
     return {
       showEditModal: false,
       name: this.user.name,
-      bio: this.user.bio
+      bio: this.user.bio,
+      isFollowed: currentUser.followsUserWithId(this.user.id)
     }
   },
   computed: {
@@ -38,7 +48,6 @@ export default {
       return mapUserToPresentation(this.user)
     },
     isCurrentUser() {
-      const currentUser = provideGetUserUseCase().run()
       return currentUser && this.user.id == currentUser.id
     }
   },
@@ -48,6 +57,15 @@ export default {
       const newUser = {...this.user, bio: this.bio, name: this.name}
       provideUpdateUserUseCase().run(newUser)
       this.$emit("update", newUser)
+    },
+    toggleFollowing() {
+      const updatedFollowing = this.isFollowed ?
+          currentUser.following.concat(this.user.id) :
+          unconcat(this.isCurrentUser.following, this.user.id)
+
+      const updatedUser = {...currentUser, following: updatedFollowing}
+      provideUpdateUserUseCase().run(updatedUser)
+      this.isFollowed = !this.isFollowed
     }
   }
 }
@@ -58,7 +76,7 @@ export default {
   margin-top: 10px;
 }
 
-.edit {
+.floating {
   position: absolute;
   top: 15px;
   right: 15px;

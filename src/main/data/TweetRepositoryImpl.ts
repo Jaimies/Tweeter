@@ -13,9 +13,9 @@ export class TweetRepositoryImpl implements TweetRepository {
         this.tweets = new BehaviorSubject(tweetArray)
     }
 
-    getTweetsByUserId(userId: string): Observable<Tweet[]> {
+    getTweetsByUserIds(userIds: string[]): Observable<Tweet[]> {
         return this.tweets.pipe(
-            filterList(tweet => tweet.author.id == userId)
+            filterList(tweet => userIds.includes(tweet.author.id))
         )
     }
 
