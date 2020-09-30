@@ -60,8 +60,8 @@ export default {
     },
     toggleFollowing() {
       const updatedFollowing = this.isFollowed ?
-          currentUser.following.concat(this.user.id) :
-          unconcat(this.isCurrentUser.following, this.user.id)
+          unconcat(currentUser.following, this.user.id) :
+          currentUser.following.concat(this.user.id)
 
       const updatedUser = {...currentUser, following: updatedFollowing}
       provideUpdateUserUseCase().run(updatedUser)
