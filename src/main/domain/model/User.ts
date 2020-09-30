@@ -3,6 +3,11 @@ export class User {
         public id: string,
         public name: string,
         public email: string,
-        public bio: string
+        public bio: string,
+        public following: string[]
     ) {}
+
+    followsUserWithId(id: string) {
+        return this.following.includes(id)
+    }
 }
