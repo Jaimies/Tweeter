@@ -4,11 +4,7 @@ import {GetTweetsUseCase} from "../domain/usecase/GetTweetsUseCase"
 import {LoginUseCase} from "../domain/usecase/LoginUseCase"
 import {PostTweetUseCase} from "../domain/usecase/PostTweetUseCase"
 import {SignUpUseCase} from "../domain/usecase/SignUpUseCase"
-import {
-    provideAuthRepository,
-    provideTweetRepository,
-    provideUserRepository
-} from "./provideRepositories"
+import {provideAuthRepository, provideTweetRepository, provideUserRepository} from "./provideRepositories"
 import {GetUsersUseCase} from "../domain/usecase/GetUsersUseCase"
 import {FindUserByIdUseCase} from "../domain/usecase/FindUserByIdUseCase"
 import {UpdateUserUseCase} from "../domain/usecase/UpdateUserUseCase"
@@ -22,7 +18,7 @@ export function provideGetUserUseCase() {
 }
 
 export function provideGetTweetsUseCase(): GetTweetsUseCase {
-    return new GetTweetsUseCase(provideTweetRepository())
+    return new GetTweetsUseCase(provideTweetRepository(), provideGetUserUseCase())
 }
 
 export function provideLoginUseCase() {
