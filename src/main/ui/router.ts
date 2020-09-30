@@ -1,11 +1,5 @@
 import Vue from "vue"
 import Router, {NavigationGuardNext, Route} from "vue-router"
-import Home from "./components/Home.vue"
-import Welcome from "./components/Welcome.vue"
-import Login from "./components/Login.vue"
-import SignUp from "./components/SignUp.vue"
-import UserList from "./components/UserList.vue"
-import UserProfile from "./components/UserProfile.vue"
 import {provideCheckIfLoggedInUseCase} from "../di/provideUseCases"
 import {AuthState} from "./model/AuthState"
 import Authenticated = AuthState.Authenticated
@@ -17,31 +11,31 @@ const router = new Router({
     routes: [
         {
             path: "/",
-            component: Welcome,
+            component: () => import("./components/Welcome.vue"),
             meta: {requiredAuthState: Unauthenticated}
         },
         {
             path: "/login",
-            component: Login,
+            component: ()=> import("./components/Login.vue"),
             meta: {requiredAuthState: Unauthenticated}
         },
         {
             path: "/signup",
-            component: SignUp,
+            component: () => import("./components/SignUp.vue"),
             meta: {requiredAuthState: Unauthenticated}
         },
         {
             path: "/home",
-            component: Home,
+            component: () => import("./components/Home.vue"),
             meta: {requiredAuthState: Authenticated}
         },
         {
             path: "/users",
-            component: UserList
+            component: () => import("./components/UserList.vue")
         },
         {
             path: "/:id",
-            component: UserProfile,
+            component: () => import("./components/UserProfile.vue"),
             props: true
         }
     ]
