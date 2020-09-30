@@ -49,7 +49,7 @@ export default {
       return mapUserToPresentation(this.user)
     },
     isCurrentUser() {
-      return this.user.id == currentUser.id
+      return currentUser && this.user.id == currentUser.id
     }
   },
   methods: {
