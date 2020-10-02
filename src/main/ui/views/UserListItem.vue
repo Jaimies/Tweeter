@@ -2,7 +2,7 @@
    <RouterLink :to="`/` + user.id" class="card routerLink block">
     <div class="header">{{ user.name }}</div>
     <div class="secondaryHeader">@{{ user.id }}</div>
-    <p>User's profile description.</p>
+    <p>{{ user.bio }}</p>
   </RouterLink>
 </template>
 
