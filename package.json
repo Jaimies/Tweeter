@@ -3,7 +3,7 @@
     "watch": "webpack-dev-server",
     "dev": "webpack --mode development",
     "prod": "webpack --mode production",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
