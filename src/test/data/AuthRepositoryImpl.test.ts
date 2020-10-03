@@ -12,37 +12,43 @@ function initializeAuthRepository(userId: string = "", userEntries: UserEntry[] 
     authRepository = new AuthRepositoryImpl(storage)
 }
 
-it("initializes with a user", () => {
-    initializeAuthRepository(id)
-    expect(authRepository.userId).toBe(id)
+describe("get user id from storage", () => {
+    it("initializes with a user", () => {
+        initializeAuthRepository(id)
+        expect(authRepository.userId).toBe(id)
+    })
+
+    it("initializes without a user", () => {
+        initializeAuthRepository("")
+        expect(authRepository.userId).toBe(undefined)
+    })
 })
 
-it("initializes without a user", () => {
-    initializeAuthRepository("")
-    expect(authRepository.userId).toBe(undefined)
+describe("login", () => {
+    it("logs in with username", () => {
+        initializeAuthRepository("")
+        authRepository.login(id, password)
+        expect(authRepository.userId).toEqual(id)
+    })
+
+    it("logs in with email", () => {
+        initializeAuthRepository("")
+        authRepository.login(email, password)
+        expect(authRepository.userId).toEqual(id)
+    })
+
+    it("doesn't log in if credentials don't match", () => {
+        initializeAuthRepository("")
+        authRepository.login("username", "wrongPassword")
+        expect(authRepository.userId).toBe(undefined)
+    })
 })
 
-it("logs in with username", () => {
-    initializeAuthRepository("")
-    authRepository.login(id, password)
-    expect(authRepository.userId).toEqual(id)
-})
-
-it("logs in with email", () => {
-    initializeAuthRepository("")
-    authRepository.login(email, password)
-    expect(authRepository.userId).toEqual(id)
-})
-
-it("doesn't log in if credentials don't match", () => {
-    initializeAuthRepository("")
-    authRepository.login("username", "wrongPassword")
-    expect(authRepository.userId).toBe(undefined)
-})
-
-it("signs up", () => {
-    initializeAuthRepository("", [])
-    authRepository.signUp(id, email, password)
-    authRepository.login(id, password)
-    expect(authRepository.userId).toEqual(id)
+describe("sign up", () => {
+    it("signs up", () => {
+        initializeAuthRepository("", [])
+        authRepository.signUp(id, email, password)
+        authRepository.login(id, password)
+        expect(authRepository.userId).toEqual(id)
+    })
 })
