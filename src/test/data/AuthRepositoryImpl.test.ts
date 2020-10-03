@@ -41,14 +41,8 @@ describe("sign up", () => {
     })
 })
 
-describe("persists data", () => {
-    it("initializes with a user", () => {
-        authRepository.login(user.id, user.password)
-        const newAuthRepository = new AuthRepositoryImpl(storage)
-        expect(newAuthRepository.userId).toBe(user.id)
-    })
-
-    it("initializes without a user", () => {
-        expect(authRepository.userId).toBe(undefined)
-    })
+it("persists data", () => {
+    authRepository.login(user.id, user.password)
+    const newAuthRepository = new AuthRepositoryImpl(storage)
+    expect(newAuthRepository.userId).toBe(user.id)
 })
