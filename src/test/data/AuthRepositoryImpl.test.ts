@@ -1,48 +1,54 @@
 import {AuthRepositoryImpl} from "../../main/data/AuthRepositoryImpl"
 import {FakeStorage} from "./FakeStorage"
-import {UserEntry} from "../../main/data/UserEntry"
 import {AuthRepository} from "../../main/domain/repository/AuthRepository"
-import {testUserEntry} from "../testData"
+import {createTestUserEntry} from "../testData"
+import {Storage} from "../../main/data/Storage"
 
 let authRepository: AuthRepository
-const {email, id, password} = testUserEntry
+let storage: Storage
+const [user, anotherUser] = [createTestUserEntry(), createTestUserEntry()]
 
-function initializeAuthRepository(userId: string = "", userEntries: UserEntry[] = [testUserEntry]) {
-    const storage = new FakeStorage({userId, userEntries})
+beforeEach(() => {
+    storage = new FakeStorage({userEntries: [user]})
     authRepository = new AuthRepositoryImpl(storage)
-}
-
-it("initializes with a user", () => {
-    initializeAuthRepository(id)
-    expect(authRepository.userId).toBe(id)
 })
 
-it("initializes without a user", () => {
-    initializeAuthRepository("")
-    expect(authRepository.userId).toBe(undefined)
+describe("login", () => {
+    it("logs in with username", () => {
+         const success = authRepository.login(user.id, user.password)
+        expect(success).toBe(true)
+        expect(authRepository.userId).toEqual(user.id)
+    })
+
+    it("logs in with email", () => {
+        const success = authRepository.login(user.email, user.password)
+        expect(success).toBe(true)
+        expect(authRepository.userId).toEqual(user.id)
+    })
+
+    it("doesn't log in if credentials don't match", () => {
+        const success = authRepository.login("username", "wrongPassword")
+        expect(success).toBe(false)
+        expect(authRepository.userId).toBe(undefined)
+    })
 })
 
-it("logs in with username", () => {
-    initializeAuthRepository("")
-    authRepository.login(id, password)
-    expect(authRepository.userId).toEqual(id)
+describe("sign up", () => {
+    it("signs up", () => {
+        authRepository.signUp(anotherUser.id, anotherUser.email, anotherUser.password)
+        authRepository.login(anotherUser.id, anotherUser.password)
+        expect(authRepository.userId).toEqual(anotherUser.id)
+    })
 })
 
-it("logs in with email", () => {
-    initializeAuthRepository("")
-    authRepository.login(email, password)
-    expect(authRepository.userId).toEqual(id)
-})
+describe("persists data", () => {
+    it("initializes with a user", () => {
+        authRepository.login(user.id, user.password)
+        const newAuthRepository = new AuthRepositoryImpl(storage)
+        expect(newAuthRepository.userId).toBe(user.id)
+    })
 
-it("doesn't log in if credentials don't match", () => {
-    initializeAuthRepository("")
-    authRepository.login("username", "wrongPassword")
-    expect(authRepository.userId).toBe(undefined)
-})
-
-it("signs up", () => {
-    initializeAuthRepository("", [])
-    authRepository.signUp(id, email, password)
-    authRepository.login(id, password)
-    expect(authRepository.userId).toEqual(id)
+    it("initializes without a user", () => {
+        expect(authRepository.userId).toBe(undefined)
+    })
 })
