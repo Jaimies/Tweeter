@@ -15,17 +15,20 @@ beforeEach(() => {
 
 describe("login", () => {
     it("logs in with username", () => {
-        authRepository.login(user.id, user.password)
+         const success = authRepository.login(user.id, user.password)
+        expect(success).toBe(true)
         expect(authRepository.userId).toEqual(user.id)
     })
 
     it("logs in with email", () => {
-        authRepository.login(user.email, user.password)
+        const success = authRepository.login(user.email, user.password)
+        expect(success).toBe(true)
         expect(authRepository.userId).toEqual(user.id)
     })
 
     it("doesn't log in if credentials don't match", () => {
-        authRepository.login("username", "wrongPassword")
+        const success = authRepository.login("username", "wrongPassword")
+        expect(success).toBe(false)
         expect(authRepository.userId).toBe(undefined)
     })
 })
