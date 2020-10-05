@@ -10,12 +10,12 @@ const useCase = new GetTweetsUseCase(tweetRepository, getCurrentUserUseCase)
 
 afterEach(() => jest.clearAllMocks())
 
-it("works", () => {
+it("gets tweets from user with specified id", () => {
     useCase.run("otherId")
     expect(tweetRepository.getTweetsByUserIds).toBeCalledWith(["otherId"])
 })
 
-it("works differently", () => {
+it("gets tweets from current user and users they follow", () => {
     useCase.run(user.id)
     expect(tweetRepository.getTweetsByUserIds).toBeCalledWith(["id", "id2"])
 })
