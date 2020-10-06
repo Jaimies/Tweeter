@@ -4,18 +4,21 @@
             headingText="Sign up to twitter"
             @submit="signUp">
 
-    <BaseInput v-model="email" label="Email" type="email"/>
-    <p class="error" v-if="!$v.email.isUnique">Email has already been taken.</p>
-    <p class="error" v-else-if="!$v.email.email">Please enter a valid email.</p>
+    <BaseInput v-model="email" label="Email" type="email">
+      <p class="error" v-if="!$v.email.isUnique">Email has already been taken.</p>
+      <p class="error" v-else-if="!$v.email.email">Please enter a valid email.</p>
+    </BaseInput>
 
-    <BaseInput v-model="username" label="Username"/>
-    <p class="error" v-if="!$v.username.isUnique">Username has already been taken.</p>
+    <BaseInput v-model="username" label="Username">
+      <p class="error" v-if="!$v.username.isUnique">Username has already been taken.</p>
+    </BaseInput>
 
     <BaseInput v-model="name" label="Name"/>
 
     <BaseInput v-model="password" label="Password" type="password"/>
-    <BaseInput v-model="confirmPassword" label="Confirm password" type="password"/>
-    <p class="error" v-if="!$v.confirmPassword.sameAsPassword">Passwords do not match.</p>
+    <BaseInput v-model="confirmPassword" label="Confirm password" type="password">
+      <p class="error" v-if="!$v.confirmPassword.sameAsPassword">Passwords do not match.</p>
+    </BaseInput>
   </BaseForm>
 </template>
 

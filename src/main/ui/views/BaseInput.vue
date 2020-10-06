@@ -5,6 +5,8 @@
            :value="value"
            class="input"
            @input="$emit(`input`, $event.target.value)">
+
+    <slot/>
   </label>
 </template>
 
@@ -25,12 +27,12 @@ export default {
 .label {
   display: block;
   text-align: left;
+  margin-bottom: 15px;
 }
 
 .input {
   display: block;
   font-size: 19px;
-  margin-bottom: 15px;
   padding: 5px 10px 5px;
   width: 100%;
 }
