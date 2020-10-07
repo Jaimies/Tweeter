@@ -18,7 +18,7 @@ export class AuthRepositoryImpl implements AuthRepository {
     }
 
     login(credential: string, password: string) {
-        if (!this.credentialsAreValid(credential, password))
+        if (!this.areCredentialsValid(credential, password))
             throw new IllegalArgumentException(INVALID_CREDENTIALS_ERROR)
 
         const userEntry = this.findUserEntryByCredential(credential)
@@ -34,17 +34,17 @@ export class AuthRepositoryImpl implements AuthRepository {
         this.persistUsers()
     }
 
+    areCredentialsValid(credential: string, password: string): boolean {
+        const userEntry = this.findUserEntryByCredential(credential)
+        return userEntry != null && userEntry.password == password
+    }
+
     private persistUsers() {
         this.storage.set("userEntries", this.userEntries)
     }
 
     private credentialsAreTaken(id: string, email: string) {
         return this.userEntries.some(user => user.id == id || user.email == email)
-    }
-
-    private credentialsAreValid(credential: string, password: string): boolean {
-        const userEntry = this.findUserEntryByCredential(credential)
-        return userEntry != null && userEntry.password == password
     }
 
     private findUserEntryByCredential(credential: string): UserEntry | undefined {

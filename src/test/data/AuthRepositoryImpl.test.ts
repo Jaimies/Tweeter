@@ -31,6 +31,13 @@ describe("login", () => {
     })
 })
 
+it("areCredentialsValid()", () => {
+    expect(authRepository.areCredentialsValid(user.id, user.password)).toBe(true)
+    expect(authRepository.areCredentialsValid(user.email, user.password)).toBe(true)
+    expect(authRepository.areCredentialsValid(user.email, "wrongpassword")).toBe(false)
+    expect(authRepository.areCredentialsValid("anotherEmail@gmail.com", user.password)).toBe(false)
+})
+
 describe("sign up", () => {
     it("signs up", () => {
         authRepository.signUp(anotherUser.id, anotherUser.email, anotherUser.password)
