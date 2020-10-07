@@ -4,6 +4,7 @@ import {UserEntry} from "./UserEntry"
 import {IllegalArgumentException} from "../shared/IllegalArgumentException"
 
 const CREDENTIALS_TAKEN_ERROR = "Cannot sign up: username or email is already taken"
+const INVALID_CREDENTIALS_ERROR = "Credentials are invalid"
 
 export class AuthRepositoryImpl implements AuthRepository {
     private readonly userEntries: UserEntry[]
@@ -18,7 +19,7 @@ export class AuthRepositoryImpl implements AuthRepository {
 
     login(credential: string, password: string) {
         if (!this.credentialsAreValid(credential, password))
-            return false
+            throw new IllegalArgumentException(INVALID_CREDENTIALS_ERROR)
 
         const userEntry = this.findUserEntryByCredential(credential)
         this.storage.set("userId", userEntry!.id)
