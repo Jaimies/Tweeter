@@ -9,6 +9,7 @@ import {GetUsersUseCase} from "../domain/usecase/GetUsersUseCase"
 import {FindUserByIdUseCase} from "../domain/usecase/FindUserByIdUseCase"
 import {UpdateUserUseCase} from "../domain/usecase/UpdateUserUseCase"
 import {CheckCredentialAvailabilityUseCase} from "../domain/usecase/CheckCredentialAvailabilityUseCase"
+import {CheckCredentialValidityUseCase} from "../domain/usecase/CheckCredentialValidityUseCase"
 
 export function provideCheckIfLoggedInUseCase() {
     return new CheckIfLoggedInUseCase(provideAuthRepository())
@@ -48,4 +49,8 @@ export function provideUpdateUserUseCase() {
 
 export function provideCheckCredentialAvailabilityUseCase() {
     return new CheckCredentialAvailabilityUseCase(provideUserRepository())
+}
+
+export function provideCheckCredentialValidityUseCase() {
+    return new CheckCredentialValidityUseCase(provideAuthRepository())
 }
