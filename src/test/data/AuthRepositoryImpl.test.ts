@@ -39,6 +39,18 @@ describe("sign up", () => {
         authRepository.login(anotherUser.id, anotherUser.password)
         expect(authRepository.userId).toEqual(anotherUser.id)
     })
+
+    it("throws when trying to sign up with a username that is already taken", () => {
+        expect(() => {
+            authRepository.signUp(user.id, "anotherEmail@gmail.com", "password")
+        }).toThrow()
+    })
+
+    it("throws when trying sign up with an email that is already taken", () => {
+        expect(() => {
+            authRepository.signUp("newid", user.email, "password")
+        }).toThrow()
+    })
 })
 
 it("persists data", () => {

@@ -1,6 +1,9 @@
 import {AuthRepository} from "../domain/repository/AuthRepository"
 import {Storage} from "./Storage"
 import {UserEntry} from "./UserEntry"
+import {IllegalArgumentException} from "../shared/IllegalArgumentException"
+
+const CREDENTIALS_TAKEN_ERROR = "Cannot sign up: username or email is already taken"
 
 export class AuthRepositoryImpl implements AuthRepository {
     private readonly userEntries: UserEntry[]
@@ -23,12 +26,19 @@ export class AuthRepositoryImpl implements AuthRepository {
     }
 
     signUp(id: string, email: string, password: string) {
-        this.userEntries.push(new  UserEntry(id, email, password))
+        if (this.credentialsAreTaken(id, email))
+            throw new IllegalArgumentException(CREDENTIALS_TAKEN_ERROR)
+
+        this.userEntries.push(new UserEntry(id, email, password))
         this.persistUsers()
     }
 
     private persistUsers() {
         this.storage.set("userEntries", this.userEntries)
+    }
+
+    private credentialsAreTaken(id: string, email: string) {
+        return this.userEntries.some(user => user.id == id || user.email == email)
     }
 
     private credentialsAreValid(credential: string, password: string): boolean {
