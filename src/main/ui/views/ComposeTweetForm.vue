@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {providePostTweetUseCase} from "../../di/provideUseCases"
+import {providePostTweetUseCase} from "@/di/provideUseCases"
 
 export default {
   data: () => ({tweetText: ""}),

@@ -14,7 +14,7 @@
 <script>
 import BaseInput from "../views/BaseInput"
 import BaseForm from "../views/BaseForm"
-import {provideLoginUseCase} from "../../di/provideUseCases"
+import {provideLoginUseCase} from "@/di/provideUseCases"
 
 const login = provideLoginUseCase()
 

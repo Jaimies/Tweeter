@@ -20,13 +20,13 @@
 </template>
 
 <script>
-import {User} from "../../domain/model/User"
-import {provideGetUserUseCase, provideUpdateUserUseCase} from "../../di/provideUseCases"
+import {User} from "@/domain/model/User"
+import {provideGetUserUseCase, provideUpdateUserUseCase} from "@/di/provideUseCases"
 import BaseModal from "./BaseModal"
 import BaseInput from "./BaseInput"
 import ToggleButton from "./ToggleButton"
 import {mapUserToPresentation} from "../model/UiUser"
-import {unconcat} from "../../shared/ArrayUtil"
+import {unconcat} from "@/shared/ArrayUtil"
 
 const currentUser = provideGetUserUseCase().run()
 

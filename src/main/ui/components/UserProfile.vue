@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import {provideFindUserByIdUseCase, provideGetTweetsUseCase} from "../../di/provideUseCases"
+import {provideFindUserByIdUseCase, provideGetTweetsUseCase} from "@/di/provideUseCases"
 import UserCard from "../views/UserCard"
 import ProfileNotFoundCard from "../views/UserNotFoundCard"
 import TweetFeed from "../views/TweetFeed"

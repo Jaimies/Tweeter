@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import {provideGetUsersUseCase} from "../../di/provideUseCases"
+import {provideGetUsersUseCase} from "@/di/provideUseCases"
 import UserListItem from "../views/UserListItem"
 
 export default {

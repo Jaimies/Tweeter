@@ -25,9 +25,9 @@
 <script>
 import BaseInput from "../views/BaseInput"
 import BaseForm from "../views/BaseForm"
-import {User} from "../../domain/model/User"
+import {User} from "@/domain/model/User"
 import {email, minLength, required, sameAs} from "vuelidate/lib/validators"
-import {provideSignUpUseCase} from "../../di/provideUseCases"
+import {provideSignUpUseCase} from "@/di/provideUseCases"
 
 const signUp = provideSignUpUseCase()
 

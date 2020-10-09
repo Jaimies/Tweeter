@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import {User} from "../../domain/model/User"
+import {User} from "@/domain/model/User"
 
 export default {
   props: {
