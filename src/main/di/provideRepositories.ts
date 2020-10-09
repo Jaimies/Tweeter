@@ -1,9 +1,9 @@
-import {AuthRepositoryImpl} from "../data/AuthRepositoryImpl"
+import {AuthRepositoryImpl} from "@/data/AuthRepositoryImpl"
 import {provideStorage} from "./provideStorage"
-import {AuthRepository} from "../domain/repository/AuthRepository"
-import {TweetRepositoryImpl} from "../data/TweetRepositoryImpl"
-import {TweetRepository} from "../domain/repository/TweetRepository"
-import {UserRepositoryImpl} from "../data/UserRepositoryImpl"
+import {AuthRepository} from "@/domain/repository/AuthRepository"
+import {TweetRepositoryImpl} from "@/data/TweetRepositoryImpl"
+import {TweetRepository} from "@/domain/repository/TweetRepository"
+import {UserRepositoryImpl} from "@/data/UserRepositoryImpl"
 
 const authRepository = new AuthRepositoryImpl(provideStorage())
 

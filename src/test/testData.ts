@@ -1,6 +1,6 @@
-import {User} from "../main/domain/model/User"
-import {Tweet} from "../main/domain/model/Tweet"
-import {UserEntry} from "../main/data/UserEntry"
+import {User} from "@/domain/model/User"
+import {Tweet} from "@/domain/model/Tweet"
+import {UserEntry} from "@/data/UserEntry"
 
 export const testUser = createTestUser()
 export const testTweet = createTestTweet(testUser)

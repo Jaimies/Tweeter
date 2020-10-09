@@ -1,4 +1,4 @@
-import {StorageImpl} from "../data/StorageImpl"
+import {StorageImpl} from "@/data/StorageImpl"
 
 const storage = new StorageImpl()
 

@@ -1,7 +1,7 @@
-import {UserRepository} from "../domain/repository/UserRepository"
-import {User} from "../domain/model/User"
+import {UserRepository} from "@/domain/repository/UserRepository"
+import {User} from "@/domain/model/User"
 import {Storage} from "./Storage"
-import {IllegalArgumentException} from "../shared/IllegalArgumentException"
+import {IllegalArgumentException} from "@/shared/IllegalArgumentException"
 import {deserializeUser} from "./util/Serialization"
 
 export class UserRepositoryImpl implements UserRepository {

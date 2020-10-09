@@ -1,7 +1,7 @@
-import {AuthRepository} from "../domain/repository/AuthRepository"
+import {AuthRepository} from "@/domain/repository/AuthRepository"
 import {Storage} from "./Storage"
 import {UserEntry} from "./UserEntry"
-import {IllegalArgumentException} from "../shared/IllegalArgumentException"
+import {IllegalArgumentException} from "@/shared/IllegalArgumentException"
 
 const CREDENTIALS_TAKEN_ERROR = "Cannot sign up: username or email is already taken"
 const INVALID_CREDENTIALS_ERROR = "Credentials are invalid"

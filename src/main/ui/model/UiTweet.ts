@@ -1,5 +1,5 @@
 import {mapUserToPresentation, UiUser} from "./UiUser"
-import {Tweet} from "../../domain/model/Tweet"
+import {Tweet} from "@/domain/model/Tweet"
 import {getTimeLabel} from "../util/getTimeLabel"
 
 export class UiTweet {

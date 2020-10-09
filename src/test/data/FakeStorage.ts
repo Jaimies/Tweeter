@@ -1,4 +1,4 @@
-import {Storage} from "../../main/data/Storage"
+import {Storage} from "@/data/Storage"
 
 export class FakeStorage implements Storage {
     private values: Map<string, any>

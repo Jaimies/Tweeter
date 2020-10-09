@@ -1,6 +1,6 @@
 import Vue from "vue"
 import Router, {NavigationGuardNext, Route} from "vue-router"
-import {provideCheckIfLoggedInUseCase} from "../di/provideUseCases"
+import {provideCheckIfLoggedInUseCase} from "@/di/provideUseCases"
 import {AuthState} from "./model/AuthState"
 import Authenticated = AuthState.Authenticated
 import Unauthenticated = AuthState.Unauthenticated

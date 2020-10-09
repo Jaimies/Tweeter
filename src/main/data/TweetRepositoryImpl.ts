@@ -1,9 +1,9 @@
-import {TweetRepository} from "../domain/repository/TweetRepository"
-import {Tweet} from "../domain/model/Tweet"
+import {TweetRepository} from "@/domain/repository/TweetRepository"
+import {Tweet} from "@/domain/model/Tweet"
 import {Storage} from "./Storage"
 import {deserializeTweet} from "./util/Serialization"
 import {BehaviorSubject, Observable} from "rxjs"
-import {filterList} from "../shared/RxOperators"
+import {filterList} from "@/shared/RxOperators"
 
 export class TweetRepositoryImpl implements TweetRepository {
     private readonly tweets: BehaviorSubject<Tweet[]>
