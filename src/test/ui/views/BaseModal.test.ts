@@ -1,7 +1,7 @@
 /** @jest-environment jsdom */
 
 import {mount} from "@vue/test-utils"
-import BaseModal from "@/ui/views/BaseModal"
+import BaseModal from "@/ui/views/BaseModal.vue"
 
 it("emits close event only if overlay is clicked", () => {
     const wrapper = mount(BaseModal)

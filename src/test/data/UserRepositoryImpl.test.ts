@@ -3,6 +3,7 @@ import {FakeStorage} from "./FakeStorage"
 import {UserRepository} from "@/domain/repository/UserRepository"
 import {createTestUser} from "../testData"
 import {Storage} from "@/data/Storage"
+import {User} from "@/domain/model/User"
 
 const [user, anotherUser] = [createTestUser(), createTestUser()]
 
@@ -31,13 +32,13 @@ describe("findUserById()", () => {
 
 describe("updateUser()", () => {
     it("allows to change name", () => {
-        const updatedUser = {...user, name: "New Name"}
+        const updatedUser = {...user, name: "New Name"} as User
         userRepository.updateUser(updatedUser)
         expect(userRepository.findUserById(user.id)).toEqual(updatedUser)
     })
 
     it("doesn't allow to change id", () => {
-        const updatedUser = {...user, id: "newuserid"}
+        const updatedUser = {...user, id: "newuserid"} as User
         expect(() => {
             userRepository.updateUser(updatedUser)
         }).toThrow()
