@@ -4,6 +4,9 @@ module.exports = {
     "transform": {
         ".*\\.(vue)$": "vue-jest"
     },
+    moduleNameMapper: {
+        "^@/(.*)$": "<rootDir>/src/main/$1"
+    },
     moduleFileExtensions: ["js", "ts", "vue"],
     globals: {
         "ts-jest": {

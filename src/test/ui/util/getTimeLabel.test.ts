@@ -1,5 +1,5 @@
 import MockDate from "mockdate"
-import {getTimeLabel} from "../../../main/ui/util/getTimeLabel"
+import {getTimeLabel} from "@/ui/util/getTimeLabel"
 
 beforeAll(() => MockDate.set("2020-01-01T00:00:00Z"))
 afterAll(() => MockDate.reset())

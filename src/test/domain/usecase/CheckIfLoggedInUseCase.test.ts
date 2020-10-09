@@ -1,4 +1,4 @@
-import {CheckIfLoggedInUseCase} from "../../../main/domain/usecase/CheckIfLoggedInUseCase"
+import {CheckIfLoggedInUseCase} from "@/domain/usecase/CheckIfLoggedInUseCase"
 import {StubAuthRepository} from "./StubAuthRepository"
 
 let useCase: CheckIfLoggedInUseCase

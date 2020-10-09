@@ -1,5 +1,5 @@
 import {of} from "rxjs"
-import {filterList, mapList} from "../../main/shared/RxOperators"
+import {filterList, mapList} from "@/shared/RxOperators"
 import {expectObservableValue} from "../RxTestUtils"
 
 it("mapList()", done => {

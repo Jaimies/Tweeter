@@ -1,7 +1,7 @@
 import {FakeStorage} from "./FakeStorage"
-import {TweetRepositoryImpl} from "../../main/data/TweetRepositoryImpl"
-import {TweetRepository} from "../../main/domain/repository/TweetRepository"
-import {Storage} from "../../main/data/Storage"
+import {TweetRepositoryImpl} from "@/data/TweetRepositoryImpl"
+import {TweetRepository} from "@/domain/repository/TweetRepository"
+import {Storage} from "@/data/Storage"
 import {createTestTweet, createTestUser} from "../testData"
 import {expectObservableValue} from "../RxTestUtils"
 

@@ -1,4 +1,4 @@
-import {removeItem, unconcat} from "../../main/shared/ArrayUtil"
+import {removeItem, unconcat} from "@/shared/ArrayUtil"
 
 it("removeItem()", () => {
     const array = [0, 1, 2]

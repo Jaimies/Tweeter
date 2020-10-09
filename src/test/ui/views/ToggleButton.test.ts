@@ -1,6 +1,6 @@
 /** @jest-environment jsdom */
 
-import ToggleButton from "../../../main/ui/views/ToggleButton"
+import ToggleButton from "@/ui/views/ToggleButton"
 import {mount, Wrapper} from "@vue/test-utils"
 import {Vue} from "vue/types/vue"
 

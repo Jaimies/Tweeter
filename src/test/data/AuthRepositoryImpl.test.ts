@@ -1,8 +1,8 @@
-import {AuthRepositoryImpl} from "../../main/data/AuthRepositoryImpl"
+import {AuthRepositoryImpl} from "@/data/AuthRepositoryImpl"
 import {FakeStorage} from "./FakeStorage"
-import {AuthRepository} from "../../main/domain/repository/AuthRepository"
+import {AuthRepository} from "@/domain/repository/AuthRepository"
 import {createTestUserEntry} from "../testData"
-import {Storage} from "../../main/data/Storage"
+import {Storage} from "@/data/Storage"
 
 let authRepository: AuthRepository
 let storage: Storage

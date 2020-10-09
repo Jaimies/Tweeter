@@ -1,4 +1,4 @@
-import {User} from "../../../main/domain/model/User"
+import {User} from "@/domain/model/User"
 
 it("followsUserWithId()", () => {
     const user = new User("id", "name", "email@gmail.com", "bio", ["id1", "id2"])

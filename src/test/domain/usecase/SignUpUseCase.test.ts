@@ -1,6 +1,6 @@
 import {StubUserRepository} from "./StubUserRepository"
 import {createTestUser} from "../../testData"
-import {SignUpUseCase} from "../../../main/domain/usecase/SignUpUseCase"
+import {SignUpUseCase} from "@/domain/usecase/SignUpUseCase"
 import {StubAuthRepository} from "./StubAuthRepository"
 
 const existingUser = createTestUser()

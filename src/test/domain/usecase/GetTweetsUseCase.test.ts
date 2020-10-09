@@ -1,7 +1,7 @@
-import {GetTweetsUseCase} from "../../../main/domain/usecase/GetTweetsUseCase"
+import {GetTweetsUseCase} from "@/domain/usecase/GetTweetsUseCase"
 import {MockTweetRepository} from "./MockTweetRepository"
 import {StubGetCurrentUserUseCase} from "./StubGetCurrentUserUseCase"
-import {User} from "../../../main/domain/model/User"
+import {User} from "@/domain/model/User"
 
 const user = new User("id", "Name", "email@mail.com", "bio", ["id2"])
 const tweetRepository = new MockTweetRepository()

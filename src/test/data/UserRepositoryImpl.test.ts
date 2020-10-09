@@ -1,8 +1,8 @@
-import {UserRepositoryImpl} from "../../main/data/UserRepositoryImpl"
+import {UserRepositoryImpl} from "@/data/UserRepositoryImpl"
 import {FakeStorage} from "./FakeStorage"
-import {UserRepository} from "../../main/domain/repository/UserRepository"
+import {UserRepository} from "@/domain/repository/UserRepository"
 import {createTestUser} from "../testData"
-import {Storage} from "../../main/data/Storage"
+import {Storage} from "@/data/Storage"
 
 const [user, anotherUser] = [createTestUser(), createTestUser()]
 
