@@ -14,10 +14,9 @@
 <script>
 import BaseInput from "../views/BaseInput"
 import BaseForm from "../views/BaseForm"
-import {provideCheckCredentialValidityUseCase, provideLoginUseCase} from "../../di/provideUseCases"
+import {provideLoginUseCase} from "../../di/provideUseCases"
 
 const login = provideLoginUseCase()
-const checkValidity = provideCheckCredentialValidityUseCase()
 
 export default {
   components: {BaseForm, BaseInput},
@@ -33,8 +32,8 @@ export default {
   },
   methods: {
     login() {
-      if (checkValidity.run(this.credential, this.password)) {
-        login.run(this.credential, this.password)
+      if (login.areCredentialsValid(this.credential, this.password)) {
+        login.login(this.credential, this.password)
         this.navigateOnSuccess()
       }
       else this.showErrorMessage()
