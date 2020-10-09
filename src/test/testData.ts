@@ -4,7 +4,6 @@ import {UserEntry} from "@/data/UserEntry"
 
 export const testUser = createTestUser()
 export const testTweet = createTestTweet(testUser)
-export const testUserEntry = createTestUserEntry()
 
 export function createTestUser(): User {
     const id = generateRandomId()
