@@ -13,4 +13,16 @@ export class SignUpUseCase {
         this.userRepository.addUser(user)
         this.authRepository.login(user.id, password)
     }
+
+    isEmailAvailable(email: string): boolean {
+        return this.isUserAvailable(user => user.email == email)
+    }
+
+    isUserIdAvailable(id: string): boolean {
+        return this.isUserAvailable(user => user.id == id)
+    }
+
+    private isUserAvailable(predicate: (user: User) => boolean) {
+        return !this.userRepository.getUsers().some(predicate)
+    }
 }

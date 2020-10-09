@@ -27,9 +27,9 @@ import BaseInput from "../views/BaseInput"
 import BaseForm from "../views/BaseForm"
 import {User} from "../../domain/model/User"
 import {email, minLength, required, sameAs} from "vuelidate/lib/validators"
-import {provideCheckCredentialAvailabilityUseCase, provideSignUpUseCase} from "../../di/provideUseCases"
+import {provideSignUpUseCase} from "../../di/provideUseCases"
 
-const checkAvailability = provideCheckCredentialAvailabilityUseCase()
+const signUp = provideSignUpUseCase()
 
 export default {
   components: {BaseForm, BaseInput},
@@ -45,11 +45,11 @@ export default {
     email: {
       email,
       required,
-      isUnique: value => checkAvailability.isEmailAvailable(value)
+      isUnique: value => signUp.isEmailAvailable(value)
     },
     username: {
       required,
-      isUnique: value => checkAvailability.isUserIdAvailable(value)
+      isUnique: value => signUp.isUserIdAvailable(value)
     },
     password: {required, minLength: minLength(8)},
     confirmPassword: {
@@ -66,7 +66,7 @@ export default {
 
     createUser() {
       const user = new User(this.username, this.name, this.email, "", [])
-      provideSignUpUseCase().run(user, this.password)
+      signUp.run(user, this.password)
     },
 
     navigateHome() {
