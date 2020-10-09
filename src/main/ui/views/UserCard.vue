@@ -40,7 +40,7 @@ export default {
       showEditModal: false,
       name: this.user.name,
       bio: this.user.bio,
-      isFollowed: currentUser.followsUserWithId(this.user.id)
+      isFollowed: currentUser && currentUser.followsUserWithId(this.user.id)
     }
   },
   computed: {
