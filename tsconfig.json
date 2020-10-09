@@ -4,6 +4,10 @@
     "module": "esnext",
     "target": "es2017",
     "esModuleInterop": true,
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/main/*"]
+    }
   }
 }
