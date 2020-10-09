@@ -58,6 +58,12 @@ describe("sign up", () => {
     })
 })
 
+it("logout()", () => {
+    authRepository.login(user.id, user.password)
+    authRepository.logout()
+    expect(authRepository.userId).toBeUndefined()
+})
+
 it("persists data", () => {
     authRepository.login(user.id, user.password)
     const newAuthRepository = new AuthRepositoryImpl(storage)

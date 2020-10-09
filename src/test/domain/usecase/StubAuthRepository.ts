@@ -5,4 +5,5 @@ export class StubAuthRepository implements AuthRepository {
     login = () => {}
     areCredentialsValid = () => true
     signUp = () => {}
+    logout = () => {}
 }

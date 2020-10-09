@@ -34,6 +34,10 @@ export class AuthRepositoryImpl implements AuthRepository {
         this.persistUsers()
     }
 
+    logout() {
+        this.storage.set("userId", null)
+    }
+
     areCredentialsValid(credential: string, password: string): boolean {
         const userEntry = this.findUserEntryByCredential(credential)
         return userEntry != null && userEntry.password == password
