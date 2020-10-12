@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import ComposeTweetForm from "../views/ComposeTweetForm"
-import TweetFeed from "../views/TweetFeed"
+import ComposeTweetForm from "../components/tweet/ComposeForm"
+import TweetFeed from "../components/tweet/Feed"
 import {provideGetTweetsUseCase, provideGetUserUseCase} from "@/di/provideUseCases"
 
 const user = provideGetUserUseCase().run()

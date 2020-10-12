@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {UiTweet} from "../model/UiTweet"
+import {UiTweet} from "@/ui/model/UiTweet"
 
 export default {
   props: {

@@ -6,7 +6,7 @@
 
 <script>
 import {provideGetUsersUseCase} from "@/di/provideUseCases"
-import UserListItem from "../views/UserListItem"
+import UserListItem from "../components/user/ListItem"
 
 export default {
   components: {UserListItem},

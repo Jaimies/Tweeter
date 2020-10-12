@@ -9,9 +9,9 @@
 
 <script>
 import {provideFindUserByIdUseCase, provideGetTweetsUseCase} from "@/di/provideUseCases"
-import UserCard from "../views/UserCard"
-import ProfileNotFoundCard from "../views/UserNotFoundCard"
-import TweetFeed from "../views/TweetFeed"
+import UserCard from "../components/user/Card"
+import ProfileNotFoundCard from "../components/user/NotFoundCard"
+import TweetFeed from "../components/tweet/Feed"
 
 export default {
   components: {TweetFeed, ProfileNotFoundCard, UserCard},

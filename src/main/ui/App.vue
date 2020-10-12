@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import AppFooter from "@/ui/components/AppFooter"
+import AppFooter from "@/ui/components/layout/Footer"
 
 export default {
   components: {AppFooter}

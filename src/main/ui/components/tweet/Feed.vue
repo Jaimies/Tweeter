@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import TweetFeedItem from "./TweetFeedItem.vue"
-import {mapTweetToPresentation} from "../model/UiTweet"
+import TweetFeedItem from "./FeedItem.vue"
+import {mapTweetToPresentation} from "@/ui/model/UiTweet"
 
 export default {
   components: {TweetFeedItem},

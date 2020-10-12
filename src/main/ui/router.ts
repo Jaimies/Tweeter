@@ -11,31 +11,31 @@ const router = new Router({
     routes: [
         {
             path: "/",
-            component: () => import("./components/Welcome.vue"),
+            component: () => import("./pages/Welcome.vue"),
             meta: {requiredAuthState: Unauthenticated}
         },
         {
             path: "/login",
-            component: ()=> import("./components/Login.vue"),
+            component: ()=> import("./pages/Login.vue"),
             meta: {requiredAuthState: Unauthenticated}
         },
         {
             path: "/signup",
-            component: () => import("./components/SignUp.vue"),
+            component: () => import("./pages/SignUp.vue"),
             meta: {requiredAuthState: Unauthenticated}
         },
         {
             path: "/home",
-            component: () => import("./components/Home.vue"),
+            component: () => import("./pages/Home.vue"),
             meta: {requiredAuthState: Authenticated}
         },
         {
             path: "/users",
-            component: () => import("./components/UserList.vue")
+            component: () => import("./pages/Users.vue")
         },
         {
             path: "/:id",
-            component: () => import("./components/UserProfile.vue"),
+            component: () => import("./pages/User.vue"),
             props: true
         }
     ]
