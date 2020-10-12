@@ -6,7 +6,7 @@
         @keydown.enter.ctrl="tweet"></textarea>
 
     <div class="tweet__submit-wrapper">
-      <button :disabled="!tweetText" @click="tweet">Tweet</button>
+      <button :disabled="!tweetIsValid" @click="tweet">Tweet</button>
     </div>
   </div>
 </template>
@@ -18,8 +18,15 @@ export default {
   data: () => ({tweetText: ""}),
   methods: {
     tweet() {
-      providePostTweetUseCase().run(this.tweetText)
-      this.tweetText = ""
+      if (this.tweetIsValid) {
+        providePostTweetUseCase().run(this.tweetText)
+        this.tweetText = ""
+      }
+    }
+  },
+  computed: {
+    tweetIsValid() {
+      return !!this.tweetText.trim()
     }
   }
 }
