@@ -3,7 +3,7 @@
     <textarea
         v-model="tweetText"
         placeholder="What's on your mind?"
-        @keyup.ctlr.enter="tweet"></textarea>
+        @keydown.enter.ctrl="tweet"></textarea>
 
     <div class="tweet__submit-wrapper">
       <button :disabled="!tweetText" @click="tweet">Tweet</button>
