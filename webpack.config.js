@@ -1,3 +1,4 @@
+const {DefinePlugin} = require("webpack")
 const VueLoaderPlugin = require("vue-loader/lib/plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
@@ -41,9 +42,15 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: "./resources/index.html",
             filename: "index.html"
+        }),
+        new DefinePlugin({
+            "process.env.BUILD": JSON.stringify("web")
         })
     ],
     devServer: {
         contentBase: path.resolve(__dirname, "dist/")
+    },
+    stats: {
+        colors: true
     }
 }
