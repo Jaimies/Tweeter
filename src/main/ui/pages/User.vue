@@ -1,6 +1,6 @@
 <template>
   <div class="feed">
-    <UserCard @update="user = $event" v-if="user" :user="user"/>
+    <UserCard @updateUser="user = $event" v-if="user" :user="user"/>
     <ProfileNotFoundCard v-else/>
 
     <TweetFeed :tweets="tweets"/>
