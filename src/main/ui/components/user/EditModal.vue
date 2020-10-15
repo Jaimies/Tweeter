@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import BaseInput from "@/ui/components/ui/BaseInput"
-import BaseModal from "@/ui/components/ui/BaseModal"
+import BaseInput from "@/ui/components/ui/Input"
+import BaseModal from "@/ui/components/ui/Modal"
 import {provideGetUserUseCase, provideUpdateUserUseCase} from "@/di/provideUseCases"
 import {User} from "@/domain/model/User"
 

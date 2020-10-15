@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import BaseInput from "../components/ui/BaseInput"
-import BaseForm from "../components/ui/BaseForm"
+import BaseInput from "../components/ui/Input"
+import BaseForm from "../components/ui/Form"
 import {provideLoginUseCase} from "@/di/provideUseCases"
 
 const login = provideLoginUseCase()
