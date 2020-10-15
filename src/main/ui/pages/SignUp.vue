@@ -1,8 +1,7 @@
 <template>
-  <BaseForm :isValid="!$v.$invalid"
-            buttonText="Sign up"
-            headingText="Sign up to twitter"
-            @submit="signUp">
+  <BaseForm :isValid="!$v.$invalid" @submit="signUp">
+    <template #heading>Signup to Twitter</template>
+    <template #submitBtn>Sign up</template>
 
     <BaseInput v-model="email" label="Email" type="email">
       <p class="error" v-if="!$v.email.isUnique">Email has already been taken.</p>

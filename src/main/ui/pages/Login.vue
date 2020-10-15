@@ -1,6 +1,7 @@
 <template>
-  <BaseForm :isValid="isFormValid" buttonText="Login"
-            headingText="Login to Twitter" @submit="login">
+  <BaseForm :isValid="isFormValid" @submit="login">
+    <template #heading>Login to Twitter</template>
+    <template #submitBtn>Login</template>
 
     <p v-if="wrongCredentials" class="error">
       Seems like you've entered an incorrect email or password

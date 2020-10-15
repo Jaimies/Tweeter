@@ -1,16 +1,18 @@
 <template>
   <form class="form" @submit.prevent="$emit(`submit`)">
-    <h1 class="heading">{{ headingText }}</h1>
+    <h1 class="heading">
+      <slot name="heading"/>
+    </h1>
     <slot/>
-    <button :disabled="!isValid" type="submit">{{ buttonText }}</button>
+    <button :disabled="!isValid" type="submit">
+      <slot name="submitBtn"/>
+    </button>
   </form>
 </template>
 
 <script>
 export default {
   props: {
-    headingText: String,
-    buttonText: String,
     isValid: Boolean
   }
 }
