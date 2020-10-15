@@ -12,10 +12,10 @@
       <p class="error" v-if="!$v.username.isUnique">Username has already been taken.</p>
     </BaseInput>
 
-    <BaseInput v-model="name" label="Name"/>
+    <BaseInput v-model="name" label="Name" autocomplete="name"/>
 
-    <BaseInput v-model="password" label="Password" type="password"/>
-    <BaseInput v-model="confirmPassword" label="Confirm password" type="password">
+    <BaseInput v-model="password" label="Password" type="password" autocomplete="new-password"/>
+    <BaseInput v-model="confirmPassword" label="Confirm password" type="password" autocomplete="new-password">
       <p class="error" v-if="!$v.confirmPassword.sameAsPassword">Passwords do not match.</p>
     </BaseInput>
   </BaseForm>

@@ -7,8 +7,8 @@
       Seems like you've entered an incorrect email or password
     </p>
 
-    <BaseInput v-model="credential" label="Email or username"/>
-    <BaseInput v-model="password" label="Password" type="password"/>
+    <BaseInput v-model="credential" autocomplete="username" label="Email or username"/>
+    <BaseInput v-model="password" label="Password" type="password" autocomplete="current-password"/>
   </BaseForm>
 </template>
 

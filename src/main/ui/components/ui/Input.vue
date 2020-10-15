@@ -3,6 +3,7 @@
     {{ label }}:
     <input :type="type"
            :value="value"
+           :autocomplete="autocomplete"
            class="input"
            @input="$emit(`input`, $event.target.value)">
 
@@ -15,6 +16,10 @@ export default {
   props: {
     value: String,
     label: String,
+    autocomplete: {
+      type: String,
+      default: "on"
+    },
     type: {
       type: String,
       default: "text"
