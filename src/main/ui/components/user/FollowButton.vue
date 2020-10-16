@@ -10,6 +10,7 @@ import ToggleButton from "@/ui/components/ui/ToggleButton"
 import {provideGetUserUseCase, provideUpdateUserUseCase} from "@/di/provideUseCases"
 import {unconcat} from "@/shared/ArrayUtil"
 import {User} from "@/domain/model/User"
+import {clone} from "@/shared/ObjectUtil"
 
 const currentUser = provideGetUserUseCase().run()
 
@@ -29,7 +30,7 @@ export default {
           unconcat(currentUser.following, this.user.id) :
           currentUser.following.concat(this.user.id)
 
-      const updatedUser = {...currentUser, following: updatedFollowing}
+      const updatedUser = clone(currentUser, {following: updatedFollowing})
       provideUpdateUserUseCase().run(updatedUser)
       this.isFollowed = !this.isFollowed
     }
