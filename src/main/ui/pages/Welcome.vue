@@ -9,12 +9,14 @@
 </template>
 
 <script>
-import {provideCheckIfLoggedInUseCase} from "@/di/provideUseCases"
+import {provideGetUserUseCase} from "@/di/provideUseCases"
+
+const user = provideGetUserUseCase().run()
 
 export default {
   data() {
     return {
-      isSignedIn: provideCheckIfLoggedInUseCase().run()
+      isSignedIn: !!user
     }
   }
 }

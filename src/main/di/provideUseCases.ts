@@ -1,4 +1,3 @@
-import {CheckIfLoggedInUseCase} from "@/domain/usecase/CheckIfLoggedInUseCase"
 import {GetCurrentUserUseCase} from "@/domain/usecase/GetCurrentUserUseCase"
 import {GetTweetsUseCase} from "@/domain/usecase/GetTweetsUseCase"
 import {LoginUseCase} from "@/domain/usecase/LoginUseCase"
@@ -9,10 +8,6 @@ import {GetUsersUseCase} from "@/domain/usecase/GetUsersUseCase"
 import {FindUserByIdUseCase} from "@/domain/usecase/FindUserByIdUseCase"
 import {UpdateUserUseCase} from "@/domain/usecase/UpdateUserUseCase"
 import {LogoutUseCase} from "@/domain/usecase/LogoutUseCase"
-
-export function provideCheckIfLoggedInUseCase() {
-    return new CheckIfLoggedInUseCase(provideAuthRepository())
-}
 
 export function provideGetUserUseCase() {
     return new GetCurrentUserUseCase(provideAuthRepository(), provideUserRepository())

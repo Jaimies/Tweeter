@@ -1,6 +1,6 @@
 import Vue from "vue"
 import Router, {NavigationGuardNext, Route} from "vue-router"
-import {provideCheckIfLoggedInUseCase} from "@/di/provideUseCases"
+import {provideGetUserUseCase} from "@/di/provideUseCases"
 import {AuthState} from "./model/AuthState"
 import Authenticated = AuthState.Authenticated
 import Unauthenticated = AuthState.Unauthenticated
@@ -43,7 +43,7 @@ const router = new Router({
 
 router.beforeEach((to: Route, from: Route, next: NavigationGuardNext) => {
     const requiredAuthState = to.meta.requiredAuthState
-    const isAuthenticated = provideCheckIfLoggedInUseCase().run()
+    const isAuthenticated = !!provideGetUserUseCase().run()
 
     next(getNavigationPath(requiredAuthState, isAuthenticated))
 })

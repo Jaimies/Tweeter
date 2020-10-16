@@ -5,14 +5,14 @@
 </template>
 
 <script>
-import {provideCheckIfLoggedInUseCase, provideLogoutUseCase} from "@/di/provideUseCases"
+import {provideGetUserUseCase, provideLogoutUseCase} from "@/di/provideUseCases"
 
 const logout = provideLogoutUseCase()
-const checkIfLoggedIn = provideCheckIfLoggedInUseCase()
+const user = provideGetUserUseCase().run()
 
 export default {
   data: () => ({
-    isLoggedIn: checkIfLoggedIn.run()
+    isLoggedIn: !!user
   }),
   methods: {
     logout() {
