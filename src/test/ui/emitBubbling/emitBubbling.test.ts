@@ -8,7 +8,7 @@ import emitBubbling from "@/ui/emitBubbling"
 
 Vue.use(emitBubbling)
 
-it("works", () => {
+it("emits event on both parent and child components", () => {
     const wrapper = mount(TestComponent)
     // @ts-ignore
     wrapper.vm.$children[0].$emitBubbling("testEvent")
