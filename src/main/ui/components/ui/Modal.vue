@@ -1,5 +1,5 @@
 <template>
-  <div class="overlay" @click.self="$emit('close')">
+  <div class="overlay" @click.self="$emitBubbling('close')">
     <div class="content">
       <slot/>
     </div>
