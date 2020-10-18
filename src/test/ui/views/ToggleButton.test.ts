@@ -29,3 +29,17 @@ it("emits toggle event when clicked", () => {
     wrapper.trigger("click")
     expect(wrapper.emitted()).toHaveProperty("toggle")
 })
+
+it("emits check event if clicked while unchecked", () => {
+    const wrapper = mountComponent(false)
+    wrapper.trigger("click")
+    expect(wrapper.emitted()).toHaveProperty("check")
+    expect(wrapper.emitted()).not.toHaveProperty("uncheck")
+})
+
+it("emits uncheck event if clicked while checked", () => {
+  const wrapper = mountComponent(true)
+  wrapper.trigger("click")
+  expect((wrapper.emitted())).toHaveProperty("uncheck")
+  expect((wrapper.emitted())).not.toHaveProperty("check")
+})
