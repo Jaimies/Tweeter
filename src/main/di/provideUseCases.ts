@@ -6,7 +6,7 @@ import {SignUpUseCase} from "@/domain/usecase/SignUpUseCase"
 import {provideAuthRepository, provideTweetRepository, provideUserRepository} from "./provideRepositories"
 import {GetUsersUseCase} from "@/domain/usecase/GetUsersUseCase"
 import {FindUserByIdUseCase} from "@/domain/usecase/FindUserByIdUseCase"
-import {UpdateUserUseCase} from "@/domain/usecase/UpdateUserUseCase"
+import {UpdateProfileUseCase} from "@/domain/usecase/UpdateProfileUseCase"
 import {LogoutUseCase} from "@/domain/usecase/LogoutUseCase"
 
 export function provideGetUserUseCase() {
@@ -37,8 +37,8 @@ export function provideFindUserByIdUseCase() {
     return new FindUserByIdUseCase(provideUserRepository())
 }
 
-export function provideUpdateUserUseCase() {
-    return new UpdateUserUseCase(provideUserRepository())
+export function provideUpdateProfileUseCase() {
+    return new UpdateProfileUseCase(provideUserRepository())
 }
 
 export function provideLogoutUseCase() {

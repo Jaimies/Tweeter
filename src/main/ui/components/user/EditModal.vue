@@ -9,7 +9,7 @@
 <script>
 import BaseInput from "@/ui/components/ui/Input"
 import BaseModal from "@/ui/components/ui/Modal"
-import {provideGetUserUseCase, provideUpdateUserUseCase} from "@/di/provideUseCases"
+import {provideGetUserUseCase, provideUpdateProfileUseCase} from "@/di/provideUseCases"
 import {User} from "@/domain/model/User"
 import {clone} from "@/shared/ObjectUtil"
 
@@ -29,7 +29,7 @@ export default {
   methods: {
     saveProfile() {
       const updatedUser = clone(this.user, {bio: this.bio, name: this.name})
-      provideUpdateUserUseCase().run(updatedUser)
+      provideUpdateProfileUseCase().run(updatedUser)
       this.$emitBubbling("updateUser", updatedUser)
       this.$emit("close")
     }
