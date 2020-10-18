@@ -4,9 +4,9 @@ import ToggleButton from "@/ui/components/ui/ToggleButton.vue"
 import {mount, Wrapper} from "@vue/test-utils"
 import {Vue} from "vue/types/vue"
 
-function mountComponent(enabled: boolean): Wrapper<Vue> {
+function mountComponent(checked: boolean): Wrapper<Vue> {
     return mount(ToggleButton, {
-        propsData: {enabled},
+        propsData: {checked},
         slots: {
             enabledText: "Enabled",
             disabledText: "Disabled"
