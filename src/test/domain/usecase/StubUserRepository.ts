@@ -5,7 +5,7 @@ export class StubUserRepository implements UserRepository {
     constructor(private users: User[]) {}
 
     addUser = () => {}
-    updateUser = () => {}
+    updateUser = () => this.users[0]
     findUserById = (userId: string) => this.users.find(user => user.id == userId)
     getUsers = () => this.users
 }
