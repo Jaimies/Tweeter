@@ -38,7 +38,7 @@ export function provideFindUserByIdUseCase() {
 }
 
 export function provideUpdateProfileUseCase() {
-    return new UpdateProfileUseCase(provideUserRepository())
+    return new UpdateProfileUseCase(provideUserRepository(), provideAuthRepository())
 }
 
 export function provideLogoutUseCase() {
