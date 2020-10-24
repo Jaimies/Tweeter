@@ -3,6 +3,7 @@ import {FakeStorage} from "./FakeStorage"
 import {UserRepository} from "@/domain/repository/UserRepository"
 import {createTestUser} from "../testData"
 import {Storage} from "@/data/Storage"
+import {ListChange} from "@/domain/model/ListChange"
 
 const [user, anotherUser] = [createTestUser(), createTestUser()]
 
@@ -34,6 +35,11 @@ describe("updateUser()", () => {
         const updatedUser = userRepository.updateUser(user.id, {name: "New name"})
         expect(updatedUser.name).toBe("New name")
         expect(userRepository.findUserById(user.id)!.name).toBe("New name")
+    })
+
+    it("adds item to following", () => {
+        const updatedUser = userRepository.updateUser(user.id, {following: new ListChange.Add("otherid")})
+        expect(updatedUser.following).toEqual(["otherid"])
     })
 
     it("throws if user is not found", () => {

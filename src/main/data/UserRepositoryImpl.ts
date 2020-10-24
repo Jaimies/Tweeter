@@ -18,7 +18,7 @@ export class UserRepositoryImpl implements UserRepository {
     }
 
     findUserById(id: string): User | undefined {
-        return this.getUsers().find(user => user.id == id)
+        return this.users.find(user => user.id == id)
     }
 
     addUser(user: User) {
@@ -28,7 +28,7 @@ export class UserRepositoryImpl implements UserRepository {
 
     updateUser(id: string, change: UserChange): User {
         const index = this.getUserIndexById(id)
-        const updatedUser = clone(this.users[index], change)
+        const updatedUser = applyUserChange(this.users[index], change)
         this.users[index] = updatedUser
         this.persistData()
         return updatedUser
@@ -46,4 +46,13 @@ export class UserRepositoryImpl implements UserRepository {
     private persistData() {
         this.storage.set("users", this.users)
     }
+}
+
+function applyUserChange(user: User, change: UserChange): User {
+    const changedUser = clone(user, change)
+
+    if (change.following)
+        changedUser.following = change.following.apply(user.following)
+
+    return changedUser
 }
