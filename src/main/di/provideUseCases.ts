@@ -9,6 +9,7 @@ import {FindUserByIdUseCase} from "@/domain/usecase/FindUserByIdUseCase"
 import {UpdateProfileUseCase} from "@/domain/usecase/UpdateProfileUseCase"
 import {LogoutUseCase} from "@/domain/usecase/LogoutUseCase"
 import {FollowUserUseCase} from "@/domain/usecase/FollowUserUseCase"
+import {UnfollowUserUseCase} from "@/domain/usecase/UnfollowUserUseCase"
 
 export function provideGetUserUseCase() {
     return new GetCurrentUserUseCase(provideAuthRepository(), provideUserRepository())
@@ -48,4 +49,8 @@ export function provideLogoutUseCase() {
 
 export function provideFollowUserUseCase() {
     return new FollowUserUseCase(provideUserRepository(), provideAuthRepository())
+}
+
+export function provideUnfollowUserUseCase() {
+    return new UnfollowUserUseCase(provideUserRepository(), provideAuthRepository())
 }
