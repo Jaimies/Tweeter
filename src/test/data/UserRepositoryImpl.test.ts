@@ -31,9 +31,9 @@ describe("findUserById()", () => {
 
 describe("updateUser()", () => {
     it("updates name", () => {
-        const updatedUser = userRepository.updateUser(user.id, {name: "New Name"})
+        const updatedUser = userRepository.updateUser(user.id, {name: "New name"})
         expect(updatedUser.name).toBe("New name")
-        expect(userRepository.findUserById(user.id)!.name).toBe("New Name")
+        expect(userRepository.findUserById(user.id)!.name).toBe("New name")
     })
 
     it("throws if user is not found", () => {
