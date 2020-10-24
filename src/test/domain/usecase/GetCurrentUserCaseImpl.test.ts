@@ -1,16 +1,16 @@
-import {GetCurrentUserUseCase} from "@/domain/usecase/user/GetCurrentUserUseCase"
+import {GetCurrentUserUseCaseImpl} from "@/domain/usecaseimpl/user/GetCurrentUserUseCaseImpl"
 import {AuthRepository} from "@/domain/repository/AuthRepository"
 import {StubAuthRepository} from "./StubAuthRepository"
 import {StubUserRepository} from "./StubUserRepository"
 import {testUser} from "../../testData"
 
-let useCase: GetCurrentUserUseCase
+let useCase: GetCurrentUserUseCaseImpl
 let authRepository: AuthRepository
 
 beforeEach(() => {
     authRepository = new StubAuthRepository(undefined)
     const userRepository = new StubUserRepository([testUser])
-    useCase = new GetCurrentUserUseCase(authRepository, userRepository)
+    useCase = new GetCurrentUserUseCaseImpl(authRepository, userRepository)
 })
 
 it("returns undefined if there is no signed in user", () => {

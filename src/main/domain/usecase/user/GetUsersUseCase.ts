@@ -1,10 +1,5 @@
-import {UserRepository} from "../../repository/UserRepository"
-import {User} from "../../model/User"
+import {User} from "@/domain/model/User"
 
-export class GetUsersUseCase {
-    constructor(private usersRepository: UserRepository) {}
-
-    run(): User[] {
-        return this.usersRepository.getUsers()
-    }
+export interface GetUsersUseCase {
+    run(userId: string): User[]
 }

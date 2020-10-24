@@ -1,19 +1,6 @@
-import {TweetRepository} from "../../repository/TweetRepository"
-import {GetCurrentUserUseCase} from "../user/GetCurrentUserUseCase"
-import {Tweet} from "../../model/Tweet"
 import {Observable} from "rxjs"
-import {checkIsDefined} from "@/shared/Preconditions"
+import {Tweet} from "@/domain/model/Tweet"
 
-const AUTH_REQUIRED = "Authentication is required to get feed."
-
-export class GetFeedUseCase {
-    constructor(
-        private tweetRepository: TweetRepository,
-        private getUser: GetCurrentUserUseCase
-    ) {}
-
-    run(): Observable<Tweet[]> {
-        const user = checkIsDefined(this.getUser.run(), AUTH_REQUIRED)
-        return this.tweetRepository.getTweetsByUserIds([user.id, ...user.following])
-    }
+export interface GetFeedUseCase {
+    run(): Observable<Tweet[]>
 }

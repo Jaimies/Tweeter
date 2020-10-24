@@ -1,11 +1,6 @@
-import {TweetRepository} from "@/domain/repository/TweetRepository"
-import {Tweet} from "@/domain/model/Tweet"
 import {Observable} from "rxjs"
+import {Tweet} from "@/domain/model/Tweet"
 
-export class GetTweetsByUserUseCase {
-    constructor(private tweetRepository: TweetRepository) {}
-
-    run(userId: string): Observable<Tweet[]> {
-        return this.tweetRepository.getTweetsByUserIds([userId])
-    }
+export interface GetTweetsByUserUseCase {
+    run(userId: string): Observable<Tweet[]>
 }

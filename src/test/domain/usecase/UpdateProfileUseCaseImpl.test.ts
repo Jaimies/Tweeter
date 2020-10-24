@@ -1,16 +1,16 @@
-import {UpdateProfileUseCase} from "@/domain/usecase/user/UpdateProfileUseCase"
+import {UpdateProfileUseCaseImpl} from "@/domain/usecaseimpl/user/UpdateProfileUseCaseImpl"
 import {StubAuthRepository} from "./StubAuthRepository"
 import {MockUserRepository} from "./MockUserRepository"
 
 const change = {bio: "New bio", name: "New name"}
 
 const userRepository = new MockUserRepository()
-let useCase: UpdateProfileUseCase
+let useCase: UpdateProfileUseCaseImpl
 let authRepository: StubAuthRepository
 
 beforeEach(() => {
     authRepository = new StubAuthRepository("userid")
-    useCase = new UpdateProfileUseCase(userRepository, authRepository)
+    useCase = new UpdateProfileUseCaseImpl(userRepository, authRepository)
 })
 
 it("updates the user", () => {

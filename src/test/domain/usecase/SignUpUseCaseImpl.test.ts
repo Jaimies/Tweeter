@@ -1,13 +1,13 @@
 import {StubUserRepository} from "./StubUserRepository"
 import {createTestUser} from "../../testData"
-import {SignUpUseCase} from "@/domain/usecase/auth/SignUpUseCase"
+import {SignUpUseCaseImpl} from "@/domain/usecaseimpl/auth/SignUpUseCaseImpl"
 import {StubAuthRepository} from "./StubAuthRepository"
 
 const existingUser = createTestUser()
 const anotherExistingUser = createTestUser()
 
 const userRepository = new StubUserRepository([existingUser, anotherExistingUser])
-const useCase = new SignUpUseCase(new StubAuthRepository(undefined), userRepository)
+const useCase = new SignUpUseCaseImpl(new StubAuthRepository(undefined), userRepository)
 
 it("isEmailAvailable()", () => {
     expect(useCase.isEmailAvailable(existingUser.email)).toBe(false)
