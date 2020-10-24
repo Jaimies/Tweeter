@@ -1,5 +1,9 @@
 <template>
-  <ToggleButton class="floating-btn" :enabled="isFollowed" @toggle="toggleFollowing">
+  <ToggleButton class="floating-btn"
+                @toggle="isFollowed = !isFollowed"
+                @check="follow"
+                @uncheck="unfollow"
+                :checked="isFollowed">
     <template #enabledText>Following</template>
     <template #disabledText>Follow</template>
   </ToggleButton>
@@ -7,10 +11,8 @@
 
 <script>
 import ToggleButton from "@/ui/components/ui/ToggleButton"
-import {provideGetUserUseCase, provideUpdateProfileUseCase} from "@/di/provideUseCases"
-import {unconcat} from "@/shared/ArrayUtil"
+import {provideFollowUserUseCase, provideGetUserUseCase, provideUnfollowUserUseCase} from "@/di/provideUseCases"
 import {User} from "@/domain/model/User"
-import {clone} from "@/shared/ObjectUtil"
 
 const currentUser = provideGetUserUseCase().run()
 
@@ -25,14 +27,11 @@ export default {
     }
   },
   methods: {
-    toggleFollowing() {
-      const updatedFollowing = this.isFollowed ?
-          unconcat(currentUser.following, this.user.id) :
-          currentUser.following.concat(this.user.id)
-
-      const updatedUser = clone(currentUser, {following: updatedFollowing})
-      provideUpdateProfileUseCase().run(updatedUser)
-      this.isFollowed = !this.isFollowed
+    follow() {
+      provideFollowUserUseCase().run(this.user.id)
+    },
+    unfollow() {
+      provideUnfollowUserUseCase().run(this.user.id)
     }
   }
 }
