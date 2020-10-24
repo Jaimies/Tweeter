@@ -1,7 +1,7 @@
 import {UserRepository} from "../repository/UserRepository"
 import {AuthRepository} from "@/domain/repository/AuthRepository"
 import {User} from "@/domain/model/User"
-import {IllegalStateException} from "@/shared/IllegalStateException"
+import {checkIsDefined} from "@/shared/Preconditions"
 
 const UNAUTHENTICATED_ERROR = "Authentication is required for updating profile"
 
@@ -17,11 +17,7 @@ export class UpdateProfileUseCase {
     ) {}
 
     run(update: ProfileUpdate): User {
-        const userId = this.authRepository.userId
-
-        if(!userId)
-            throw new IllegalStateException(UNAUTHENTICATED_ERROR)
-
-        return this.userRepository.updateUser(userId, update)
+        const userId = checkIsDefined(this.authRepository.userId, UNAUTHENTICATED_ERROR)
+        return this.userRepository.updateUser(userId!, update)
     }
 }
