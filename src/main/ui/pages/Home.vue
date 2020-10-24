@@ -8,10 +8,9 @@
 <script>
 import ComposeTweetForm from "../components/tweet/ComposeForm"
 import TweetFeed from "../components/tweet/Feed"
-import {provideGetTweetsUseCase, provideGetUserUseCase} from "@/di/provideUseCases"
+import {provideGetFeedUseCase} from "@/di/provideUseCases"
 
-const user = provideGetUserUseCase().run()
-const tweets = provideGetTweetsUseCase().run(user.id)
+const tweets = provideGetFeedUseCase().run()
 
 export default {
   components: {TweetFeed, ComposeTweetForm},

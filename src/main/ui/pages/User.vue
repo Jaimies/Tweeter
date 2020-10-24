@@ -8,10 +8,13 @@
 </template>
 
 <script>
-import {provideFindUserByIdUseCase, provideGetTweetsUseCase} from "@/di/provideUseCases"
+import {provideFindUserByIdUseCase, provideGetTweetsByUserUseCase} from "@/di/provideUseCases"
 import UserCard from "../components/user/Card"
 import ProfileNotFoundCard from "../components/user/NotFoundCard"
 import TweetFeed from "../components/tweet/Feed"
+
+const getTweets = provideGetTweetsByUserUseCase()
+const findUser = provideFindUserByIdUseCase()
 
 export default {
   components: {TweetFeed, ProfileNotFoundCard, UserCard},
@@ -19,12 +22,10 @@ export default {
     id: String
   },
   subscriptions() {
-    return {
-      tweets: provideGetTweetsUseCase().run(this.id)
-    }
+    return {tweets: getTweets.run(this.id)}
   },
   data() {
-    return {user: provideFindUserByIdUseCase().run(this.id)}
+    return {user: findUser.run(this.id)}
   }
 }
 </script>

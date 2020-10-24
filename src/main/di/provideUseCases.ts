@@ -1,5 +1,5 @@
 import {GetCurrentUserUseCase} from "@/domain/usecase/GetCurrentUserUseCase"
-import {GetTweetsUseCase} from "@/domain/usecase/GetTweetsUseCase"
+import {GetFeedUseCase} from "@/domain/usecase/GetFeedUseCase"
 import {LoginUseCase} from "@/domain/usecase/LoginUseCase"
 import {PostTweetUseCase} from "@/domain/usecase/PostTweetUseCase"
 import {SignUpUseCase} from "@/domain/usecase/SignUpUseCase"
@@ -10,13 +10,18 @@ import {UpdateProfileUseCase} from "@/domain/usecase/UpdateProfileUseCase"
 import {LogoutUseCase} from "@/domain/usecase/LogoutUseCase"
 import {FollowUserUseCase} from "@/domain/usecase/FollowUserUseCase"
 import {UnfollowUserUseCase} from "@/domain/usecase/UnfollowUserUseCase"
+import {GetTweetsByUserUseCase} from "@/domain/usecase/GetTweetsByUserUseCase"
 
 export function provideGetUserUseCase() {
     return new GetCurrentUserUseCase(provideAuthRepository(), provideUserRepository())
 }
 
-export function provideGetTweetsUseCase(): GetTweetsUseCase {
-    return new GetTweetsUseCase(provideTweetRepository(), provideGetUserUseCase())
+export function provideGetFeedUseCase(): GetFeedUseCase {
+    return new GetFeedUseCase(provideTweetRepository(), provideGetUserUseCase())
+}
+
+export function provideGetTweetsByUserUseCase() : GetTweetsByUserUseCase{
+    return new GetTweetsByUserUseCase(provideTweetRepository())
 }
 
 export function provideLoginUseCase() {
