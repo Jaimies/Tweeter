@@ -1,9 +1,10 @@
-import {UserRepository, UserChange} from "@/domain/repository/UserRepository"
+import {UserRepository} from "@/domain/repository/UserRepository"
 import {User} from "@/domain/model/User"
 import {Storage} from "./Storage"
 import {IllegalArgumentException} from "@/shared/IllegalArgumentException"
 import {deserializeUser} from "./util/Serialization"
 import {clone} from "@/shared/ObjectUtil"
+import {UserChange} from "@/domain/model/UserChange"
 
 export class UserRepositoryImpl implements UserRepository {
     private readonly users: User[]
