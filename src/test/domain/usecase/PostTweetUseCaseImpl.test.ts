@@ -2,13 +2,12 @@ import {PostTweetUseCaseImpl} from "@/domain/usecaseimpl/tweet/PostTweetUseCaseI
 import {MockTweetRepository} from "./MockTweetRepository"
 import {StubGetCurrentUserUseCase} from "./StubGetCurrentUserUseCase"
 import {testUser} from "../../testData"
-import {GetCurrentUserUseCaseImpl} from "@/domain/usecaseimpl/user/GetCurrentUserUseCaseImpl"
 import {Tweet} from "@/domain/model/Tweet"
 import MockDate from "mockdate"
 
 const tweetRepository = new MockTweetRepository()
 const getCurrentUserUseCase = new StubGetCurrentUserUseCase(testUser)
-const useCase = new PostTweetUseCaseImpl(tweetRepository, getCurrentUserUseCase as unknown as GetCurrentUserUseCaseImpl)
+const useCase = new PostTweetUseCaseImpl(tweetRepository, getCurrentUserUseCase)
 
 const currentDate = new Date()
 

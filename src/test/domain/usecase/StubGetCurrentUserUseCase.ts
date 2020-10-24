@@ -1,6 +1,7 @@
 import {User} from "@/domain/model/User"
+import {GetCurrentUserUseCase} from "@/domain/usecase/user/GetCurrentUserUseCase"
 
-export class StubGetCurrentUserUseCase {
+export class StubGetCurrentUserUseCase implements GetCurrentUserUseCase {
     constructor(public user: User | undefined) {}
 
     run() {
