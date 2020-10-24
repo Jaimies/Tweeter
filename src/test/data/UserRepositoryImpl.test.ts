@@ -30,13 +30,13 @@ describe("findUserById()", () => {
 })
 
 describe("updateUser()", () => {
-    it("allows to change name", () => {
+    it("updates name", () => {
         const updatedUser = userRepository.updateUser(user.id, {name: "New Name"})
         expect(updatedUser.name).toBe("New name")
         expect(userRepository.findUserById(user.id)!.name).toBe("New Name")
     })
 
-    it("doesn't allow to change id", () => {
+    it("throws if user is not found", () => {
         expect(() => {
             userRepository.updateUser("otherId", {})
         }).toThrow()
