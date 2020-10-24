@@ -20,3 +20,8 @@ it("calls addTweet() with the right arguments", () => {
         new Tweet("Tweet body", testUser, currentDate)
     )
 })
+
+it("throws if unauthenticated", () => {
+    getCurrentUserUseCase.user = undefined
+    expect(() => useCase.run("Tweet body")).toThrow()
+})
