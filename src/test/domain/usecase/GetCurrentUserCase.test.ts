@@ -1,4 +1,4 @@
-import {GetCurrentUserUseCase} from "@/domain/usecase/GetCurrentUserUseCase"
+import {GetCurrentUserUseCase} from "@/domain/usecase/user/GetCurrentUserUseCase"
 import {AuthRepository} from "@/domain/repository/AuthRepository"
 import {StubAuthRepository} from "./StubAuthRepository"
 import {StubUserRepository} from "./StubUserRepository"

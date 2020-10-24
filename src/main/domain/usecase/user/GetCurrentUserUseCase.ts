@@ -1,6 +1,6 @@
-import {AuthRepository} from "../repository/AuthRepository"
-import {UserRepository} from "../repository/UserRepository"
-import {User} from "../model/User"
+import {AuthRepository} from "../../repository/AuthRepository"
+import {UserRepository} from "../../repository/UserRepository"
+import {User} from "../../model/User"
 
 export class GetCurrentUserUseCase {
     constructor(private authRepository: AuthRepository, private userRepository: UserRepository) {}

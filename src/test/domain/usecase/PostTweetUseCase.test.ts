@@ -1,8 +1,8 @@
-import {PostTweetUseCase} from "@/domain/usecase/PostTweetUseCase"
+import {PostTweetUseCase} from "@/domain/usecase/tweet/PostTweetUseCase"
 import {MockTweetRepository} from "./MockTweetRepository"
 import {StubGetCurrentUserUseCase} from "./StubGetCurrentUserUseCase"
 import {testUser} from "../../testData"
-import {GetCurrentUserUseCase} from "@/domain/usecase/GetCurrentUserUseCase"
+import {GetCurrentUserUseCase} from "@/domain/usecase/user/GetCurrentUserUseCase"
 import {Tweet} from "@/domain/model/Tweet"
 import MockDate from "mockdate"
 

@@ -1,4 +1,4 @@
-import {UserRepository} from "../repository/UserRepository"
+import {UserRepository} from "../../repository/UserRepository"
 import {AuthRepository} from "@/domain/repository/AuthRepository"
 import {User} from "@/domain/model/User"
 import {checkIsDefined} from "@/shared/Preconditions"

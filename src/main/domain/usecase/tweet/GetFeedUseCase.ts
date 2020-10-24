@@ -1,6 +1,6 @@
-import {TweetRepository} from "../repository/TweetRepository"
-import {GetCurrentUserUseCase} from "./GetCurrentUserUseCase"
-import {Tweet} from "../model/Tweet"
+import {TweetRepository} from "../../repository/TweetRepository"
+import {GetCurrentUserUseCase} from "../user/GetCurrentUserUseCase"
+import {Tweet} from "../../model/Tweet"
 import {Observable} from "rxjs"
 import {checkIsDefined} from "@/shared/Preconditions"
 

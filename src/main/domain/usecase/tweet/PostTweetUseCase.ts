@@ -1,6 +1,6 @@
-import {TweetRepository} from "../repository/TweetRepository"
-import {Tweet} from "../model/Tweet"
-import {GetCurrentUserUseCase} from "./GetCurrentUserUseCase"
+import {TweetRepository} from "../../repository/TweetRepository"
+import {Tweet} from "../../model/Tweet"
+import {GetCurrentUserUseCase} from "../user/GetCurrentUserUseCase"
 import {checkIsDefined} from "@/shared/Preconditions"
 
 const AUTH_REQUIRED = "Authentication is required to post a tweet"

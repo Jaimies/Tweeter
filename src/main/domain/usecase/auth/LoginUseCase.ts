@@ -1,4 +1,4 @@
-import {AuthRepository} from "../repository/AuthRepository"
+import {AuthRepository} from "../../repository/AuthRepository"
 
 export class LoginUseCase {
     constructor(public authRepository: AuthRepository) {}

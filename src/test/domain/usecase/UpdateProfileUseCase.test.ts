@@ -1,4 +1,4 @@
-import {UpdateProfileUseCase} from "@/domain/usecase/UpdateProfileUseCase"
+import {UpdateProfileUseCase} from "@/domain/usecase/user/UpdateProfileUseCase"
 import {StubAuthRepository} from "./StubAuthRepository"
 import {MockUserRepository} from "./MockUserRepository"
 

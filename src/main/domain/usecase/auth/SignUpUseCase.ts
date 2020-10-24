@@ -1,6 +1,6 @@
-import {AuthRepository} from "../repository/AuthRepository"
-import {User} from "../model/User"
-import {UserRepository} from "../repository/UserRepository"
+import {AuthRepository} from "../../repository/AuthRepository"
+import {User} from "../../model/User"
+import {UserRepository} from "../../repository/UserRepository"
 
 export class SignUpUseCase {
     constructor(
