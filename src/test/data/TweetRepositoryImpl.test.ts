@@ -23,12 +23,14 @@ function createRepository(tweets: Tweet[]) : TweetRepository {
 it("adds a tweet and puts it before other tweets", done => {
     const tweetRepository = createRepository([tweet])
     tweetRepository.addTweet(anotherTweet)
-    expectObservableValue(tweetRepository.getTweetsByUserIds([user.id]), [anotherTweet, tweet], done)
+    const tweets = tweetRepository.getTweetsByUserIds([user.id])
+    expectObservableValue(tweets, [anotherTweet, tweet], done)
 })
 
 it("only selects tweets from specified user", done => {
     const tweetRepository = createRepository([tweet, tweetFromUser2, tweetFromUser3])
-    expectObservableValue(tweetRepository.getTweetsByUserIds([user.id, user2.id]), [tweet, tweetFromUser2], done)
+    const tweets = tweetRepository.getTweetsByUserIds([user.id, user2.id])
+    expectObservableValue(tweets, [tweet, tweetFromUser2], done)
 })
 
 it("persists data", done => {
