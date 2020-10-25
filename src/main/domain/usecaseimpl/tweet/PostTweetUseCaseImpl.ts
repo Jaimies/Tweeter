@@ -14,7 +14,7 @@ export class PostTweetUseCaseImpl implements PostTweetUseCase {
 
     run(text: string) {
         const currentUser = checkIsDefined(this.getUser.run(), AUTH_REQUIRED)
-        const tweet = new Tweet(text, currentUser, new Date())
+        const tweet = new Tweet("", text, currentUser, new Date())
         this.tweetRepository.addTweet(tweet)
     }
 }

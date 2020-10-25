@@ -4,6 +4,7 @@ import {getTimeLabel} from "../util/getTimeLabel"
 
 export class UiTweet {
     constructor(
+        public id: string,
         public body: string,
         public author: UiUser,
         public displayDate: string,
@@ -11,8 +12,9 @@ export class UiTweet {
     ) {}
 }
 
-export function mapTweetToPresentation({body, author, date}: Tweet) {
+export function mapTweetToPresentation({id, body, author, date}: Tweet) {
     return new UiTweet(
+        id,
         body,
         mapUserToPresentation(author),
         getTimeLabel(date),
