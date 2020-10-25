@@ -1,8 +1,10 @@
 <template>
   <div class="card">
     <UserHeader :user="user"/>
-    <EditButton :user="user" v-if="isCurrentUser"/>
-    <FollowButton :user="user" v-else/>
+    <template v-if="isAuthenticated">
+      <EditButton :user="user" v-if="isCurrentUser"/>
+      <FollowButton :user="user" v-else/>
+    </template>
   </div>
 </template>
 
@@ -22,6 +24,7 @@ export default {
   },
   data() {
     return {
+      isAuthenticated: currentUser != undefined,
       isCurrentUser: currentUser && currentUser.id == this.user.id
     }
   }
