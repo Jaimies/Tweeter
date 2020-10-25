@@ -1,7 +1,7 @@
 <template>
   <button @click="emitEvents">
-    <span v-if="checked"><slot name="enabledText"/></span>
-    <span v-else><slot name="disabledText"/></span>
+    <template v-if="checked"><slot name="enabledText"/></template>
+    <template v-else><slot name="disabledText"/></template>
   </button>
 </template>
 
