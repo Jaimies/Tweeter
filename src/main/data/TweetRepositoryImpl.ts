@@ -4,6 +4,8 @@ import {Storage} from "./Storage"
 import {deserializeTweet} from "./util/Serialization"
 import {BehaviorSubject, Observable} from "rxjs"
 import {filterList} from "@/shared/RxOperators"
+import {clone} from "@/shared/ObjectUtil"
+import {generateHash} from "@/shared/generateHash"
 
 export class TweetRepositoryImpl implements TweetRepository {
     private readonly tweets: BehaviorSubject<Tweet[]>
@@ -20,7 +22,8 @@ export class TweetRepositoryImpl implements TweetRepository {
     }
 
     addTweet(tweet: Tweet) {
-        this.tweets.next([tweet, ...this.tweets.getValue()])
+        const tweetWithId = clone(tweet, {id: generateHash()})
+        this.tweets.next([tweetWithId, ...this.tweets.getValue()])
         this.persistTweets()
     }
 

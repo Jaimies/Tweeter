@@ -24,7 +24,11 @@ it("adds a tweet and puts it before other tweets", done => {
     const tweetRepository = createRepository([tweet])
     tweetRepository.addTweet(anotherTweet)
     const tweets = tweetRepository.getTweetsByUserIds([user.id])
-    expectObservableValue(tweets, [anotherTweet, tweet], done)
+    expectObservableValue(tweets, [anotherTweet, tweet].map(withAnyId), done)
+
+    function withAnyId(tweet: Tweet) {
+        return {...tweet, id: expect.any(String)}
+    }
 })
 
 it("only selects tweets from specified user", done => {
