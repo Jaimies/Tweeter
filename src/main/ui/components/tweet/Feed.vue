@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TweetFeedItem v-for="tweet of normalizedTweets" :tweet="tweet"/>
+    <TweetFeedItem v-for="tweet of normalizedTweets" :tweet="tweet" :key="tweet.id"/>
   </div>
 </template>
 
