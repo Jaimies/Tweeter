@@ -1,7 +1,3 @@
 export class UserEntry {
-    constructor(
-        public id: string,
-        public email: string,
-        public password: string
-    ) {}
+    constructor(public email: string, public password: string) {}
 }

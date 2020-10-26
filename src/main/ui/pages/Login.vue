@@ -7,7 +7,7 @@
       Seems like you've entered an incorrect email or password
     </p>
 
-    <BaseInput v-model="credential" autocomplete="username" label="Email or username"/>
+    <BaseInput v-model="credential" type="email" label="Email"/>
     <BaseInput v-model="password" label="Password" type="password" autocomplete="current-password"/>
   </BaseForm>
 </template>
@@ -36,8 +36,7 @@ export default {
       if (login.areCredentialsValid(this.credential, this.password)) {
         login.login(this.credential, this.password)
         this.navigateOnSuccess()
-      }
-      else this.showErrorMessage()
+      } else this.showErrorMessage()
     },
 
     navigateOnSuccess() {

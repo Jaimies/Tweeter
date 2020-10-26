@@ -10,9 +10,9 @@ export class SignUpUseCaseImpl implements SignUpUseCase {
     ) {}
 
     run(user: User, password: string) {
-        this.authRepository.signUp(user.id, user.email, password)
+        this.authRepository.signUp(user.email, password)
         this.userRepository.addUser(user)
-        this.authRepository.login(user.id, password)
+        this.authRepository.login(user.email, password)
     }
 
     isEmailAvailable(email: string): boolean {

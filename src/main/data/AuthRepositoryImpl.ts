@@ -17,20 +17,20 @@ export class AuthRepositoryImpl implements AuthRepository {
         return this.storage.get("userId", undefined)
     }
 
-    login(credential: string, password: string) {
-        if (!this.areCredentialsValid(credential, password))
+    login(email: string, password: string) {
+        if (!this.areCredentialsValid(email, password))
             throw new IllegalArgumentException(INVALID_CREDENTIALS_ERROR)
 
-        const userEntry = this.findUserEntryByCredential(credential)
+        const userEntry = this.findUserEntryByEmail(credential)
         this.storage.set("userId", userEntry!.id)
         return true
     }
 
-    signUp(id: string, email: string, password: string) {
-        if (this.credentialsAreTaken(id, email))
+    signUp(email: string, password: string) {
+        if (this.emailIsTaken(email))
             throw new IllegalArgumentException(CREDENTIALS_TAKEN_ERROR)
 
-        this.userEntries.push(new UserEntry(id, email, password))
+        this.userEntries.push(new UserEntry(email, password))
         this.persistUsers()
     }
 
@@ -38,8 +38,8 @@ export class AuthRepositoryImpl implements AuthRepository {
         this.storage.set("userId", null)
     }
 
-    areCredentialsValid(credential: string, password: string): boolean {
-        const userEntry = this.findUserEntryByCredential(credential)
+    areCredentialsValid(email: string, password: string): boolean {
+        const userEntry = this.findUserEntryByEmail(email)
         return userEntry != null && userEntry.password == password
     }
 
@@ -47,13 +47,11 @@ export class AuthRepositoryImpl implements AuthRepository {
         this.storage.set("userEntries", this.userEntries)
     }
 
-    private credentialsAreTaken(id: string, email: string) {
-        return this.userEntries.some(user => user.id == id || user.email == email)
+    private emailIsTaken(email: string) {
+        return this.userEntries.some(user => user.email == email)
     }
 
-    private findUserEntryByCredential(credential: string): UserEntry | undefined {
-        return this.userEntries.find(entry => {
-            return entry.id == credential || entry.email == credential
-        })
+    private findUserEntryByEmail(email: string): UserEntry | undefined {
+        return this.userEntries.find(entry => entry.email == email)
     }
 }
