@@ -1,71 +1,46 @@
 import {AuthRepositoryImpl} from "@/data/AuthRepositoryImpl"
-import {FakeStorage} from "./FakeStorage"
-import {AuthRepository} from "@/domain/repository/AuthRepository"
-import {createTestUserEntry} from "../testData"
-import {Storage} from "@/data/Storage"
+import {AuthRepository, LoginResult, SignUpResult} from "@/domain/repository/AuthRepository"
+import {StubSignInFirebaseAuth, StubSignUpFirebaseAuth} from "./StubFirebaseAuth"
 
-let authRepository: AuthRepository
-let storage: Storage
-const [user, anotherUser] = [createTestUserEntry(), createTestUserEntry()]
+describe("login()", () => {
+    function createRepository(errorCode: string | null): AuthRepository {
+        // @ts-ignore
+        return new AuthRepositoryImpl(new StubSignInFirebaseAuth(errorCode))
+    }
 
-beforeEach(() => {
-    storage = new FakeStorage({userEntries: [user]})
-    authRepository = new AuthRepositoryImpl(storage)
-})
-
-describe("login", () => {
-    it("logs in with username", () => {
-        authRepository.login(user.id, user.password)
-        expect(authRepository.userId).toEqual(user.id)
+    it.each([
+        [null, LoginResult.Success],
+        ["auth/user-not-found", LoginResult.UserNotFound],
+        ["auth/wrong-password", LoginResult.WrongPassword],
+    ])("when error is %o returns %o", async (errorCode, expectedResult) => {
+        const repository = createRepository(errorCode)
+        const result = await repository.login("email", "password")
+        expect(result).toBe(expectedResult)
     })
 
-    it("logs in with email", () => {
-        authRepository.login(user.email, user.password)
-        expect(authRepository.userId).toEqual(user.id)
-    })
-
-    it("doesn't log in if credentials don't match", () => {
-        expect(() => {
-            authRepository.login("username", "wrongPassword")
-        }).toThrow()
+    it("throws on other errors", async () => {
+        const repository = createRepository("auth/account-disabled")
+        await expect(repository.login("email", "password")).rejects.toBeDefined()
     })
 })
 
-it("areCredentialsValid()", () => {
-    expect(authRepository.areCredentialsValid(user.id, user.password)).toBe(true)
-    expect(authRepository.areCredentialsValid(user.email, user.password)).toBe(true)
-    expect(authRepository.areCredentialsValid(user.email, "wrongpassword")).toBe(false)
-    expect(authRepository.areCredentialsValid("anotherEmail@gmail.com", user.password)).toBe(false)
-})
+describe("signUp()", () => {
+    function createRepository(errorCode: string | null): AuthRepository {
+        // @ts-ignore
+        return new AuthRepositoryImpl(new StubSignUpFirebaseAuth(errorCode))
+    }
 
-describe("sign up", () => {
-    it("signs up", () => {
-        authRepository.signUp(anotherUser.id, anotherUser.email, anotherUser.password)
-        authRepository.login(anotherUser.id, anotherUser.password)
-        expect(authRepository.userId).toEqual(anotherUser.id)
+    it.each([
+        [null, SignUpResult.Success],
+        ["auth/email-already-in-use", SignUpResult.EmailTaken],
+    ])("when error is %o returns %o", async (errorCode, expectedResult) => {
+        const repository = createRepository(errorCode)
+        const result = await repository.signUp("email", "password")
+        expect(result).toBe(expectedResult)
     })
 
-    it("throws when trying to sign up with a username that is already taken", () => {
-        expect(() => {
-            authRepository.signUp(user.id, "anotherEmail@gmail.com", "password")
-        }).toThrow()
+    it("throws on other errors", async () => {
+        const repository = createRepository("auth/account-disabled")
+        await expect(repository.signUp("email", "password")).rejects.toBeDefined()
     })
-
-    it("throws when trying sign up with an email that is already taken", () => {
-        expect(() => {
-            authRepository.signUp("newid", user.email, "password")
-        }).toThrow()
-    })
-})
-
-it("logout()", () => {
-    authRepository.login(user.id, user.password)
-    authRepository.logout()
-    expect(authRepository.userId).toBeUndefined()
-})
-
-it("persists data", () => {
-    authRepository.login(user.id, user.password)
-    const newAuthRepository = new AuthRepositoryImpl(storage)
-    expect(newAuthRepository.userId).toBe(user.id)
 })

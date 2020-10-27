@@ -1,7 +1,9 @@
+export enum SignUpResult {Success="success", EmailTaken = "email taken"}
+export enum LoginResult {Success= "success", UserNotFound = "user not found", WrongPassword = "wrong password"}
+
 export interface AuthRepository {
     userId: string | undefined
-    areCredentialsValid(credential: string, password: string): boolean
-    login(email: string, password: string): void
-    signUp(email: string, password: string): void
-    logout(): void
+    login(email: string, password: string): Promise<LoginResult>
+    signUp(email: string, password: string): Promise<SignUpResult>
+    logout(): Promise<void>
 }

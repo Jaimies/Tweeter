@@ -4,8 +4,10 @@ import {AuthRepository} from "@/domain/repository/AuthRepository"
 import {TweetRepositoryImpl} from "@/data/TweetRepositoryImpl"
 import {TweetRepository} from "@/domain/repository/TweetRepository"
 import {UserRepositoryImpl} from "@/data/UserRepositoryImpl"
+import {getFirebaseAuth} from "@/data/Firebase";
 
-const authRepository = new AuthRepositoryImpl(provideStorage())
+const auth = getFirebaseAuth()
+const authRepository = new AuthRepositoryImpl(auth)
 
 export function provideAuthRepository(): AuthRepository {
     return authRepository

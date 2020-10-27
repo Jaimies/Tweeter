@@ -1,4 +1,4 @@
-import {AuthRepository} from "../../repository/AuthRepository"
+import {AuthRepository, SignUpResult} from "../../repository/AuthRepository"
 import {User} from "../../model/User"
 import {UserRepository} from "../../repository/UserRepository"
 import {SignUpUseCase} from "@/domain/usecase/auth/SignUpUseCase"
@@ -9,10 +9,11 @@ export class SignUpUseCaseImpl implements SignUpUseCase {
         private userRepository: UserRepository
     ) {}
 
-    run(user: User, password: string) {
-        this.authRepository.signUp(user.email, password)
+    async run(user: User, password: string): Promise<SignUpResult> {
+        const signUpResult = await this.authRepository.signUp(user.email, password)
         this.userRepository.addUser(user)
-        this.authRepository.login(user.email, password)
+        await this.authRepository.login(user.email, password)
+        return signUpResult
     }
 
     isEmailAvailable(email: string): boolean {

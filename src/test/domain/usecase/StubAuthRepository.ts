@@ -1,9 +1,9 @@
-import {AuthRepository} from "@/domain/repository/AuthRepository"
+import {AuthRepository, LoginResult, SignUpResult} from "@/domain/repository/AuthRepository"
 
 export class StubAuthRepository implements AuthRepository {
     constructor(public userId: string | undefined) {}
-    login = () => {}
-    areCredentialsValid = () => true
-    signUp = () => {}
-    logout = () => {}
+
+    login = async () => LoginResult.Success
+    signUp = async () => SignUpResult.Success
+    logout = async () => {}
 }
