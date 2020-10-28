@@ -3,7 +3,7 @@ import {Tweet} from "@/domain/model/Tweet"
 import {Observable} from "rxjs"
 import {Firestore} from "@/data/Firebase";
 import {collectionData} from "rxfire/firestore";
-import * as firebase from "firebase/app"
+import firebase from "firebase/app"
 import {mapList} from "@/shared/RxOperators";
 import {deserializeTweet} from "@/data/util/Serialization";
 import CollectionReference = firebase.firestore.CollectionReference;

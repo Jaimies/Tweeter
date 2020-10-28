@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@types/vuelidate": "^0.7.13",
-    "firebase": "^7.24.0",
+    "firebase": "^8.0.0",
     "rxfire": "^4.0.0",
     "rxjs": "^6.6.3",
     "vue": "^2.6.12",
