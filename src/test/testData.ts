@@ -10,6 +10,6 @@ export function createTestUser(): User {
     return new User(id, "Test User", `${id}@gmail.com`, "User's bio", [])
 }
 
-export function createTestTweet(author: User): Tweet {
-    return new Tweet(generateHash(), `Tweet body ${generateHash()}`, author, new Date())
+export function createTestTweet(author: User, date: Date = new Date("2018-01-01")): Tweet {
+    return new Tweet(generateHash(), `Tweet body ${generateHash()}`, author, date)
 }

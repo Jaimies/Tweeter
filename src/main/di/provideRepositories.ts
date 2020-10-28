@@ -4,16 +4,18 @@ import {AuthRepository} from "@/domain/repository/AuthRepository"
 import {TweetRepositoryImpl} from "@/data/TweetRepositoryImpl"
 import {TweetRepository} from "@/domain/repository/TweetRepository"
 import {UserRepositoryImpl} from "@/data/UserRepositoryImpl"
-import {getFirebaseAuth} from "@/data/Firebase";
+import {getFirebaseAuth, getFirestore} from "@/data/Firebase";
 
 const auth = getFirebaseAuth()
+const db = getFirestore()
+
 const authRepository = new AuthRepositoryImpl(auth)
 
 export function provideAuthRepository(): AuthRepository {
     return authRepository
 }
 
-const tweetRepository = new TweetRepositoryImpl(provideStorage())
+const tweetRepository = new TweetRepositoryImpl(db)
 
 export function provideTweetRepository(): TweetRepository {
     return tweetRepository

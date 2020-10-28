@@ -1,33 +1,32 @@
 import {TweetRepository} from "@/domain/repository/TweetRepository"
 import {Tweet} from "@/domain/model/Tweet"
-import {Storage} from "./Storage"
-import {deserializeTweet} from "./util/Serialization"
-import {BehaviorSubject, Observable} from "rxjs"
-import {filterList} from "@/shared/RxOperators"
-import {clone} from "@/shared/ObjectUtil"
-import {generateHash} from "@/shared/generateHash"
+import {Observable} from "rxjs"
+import {Firestore} from "@/data/Firebase";
+import {collectionData} from "rxfire/firestore";
+import * as firebase from "firebase/app"
+import {mapList} from "@/shared/RxOperators";
+import {deserializeTweet} from "@/data/util/Serialization";
+import CollectionReference = firebase.firestore.CollectionReference;
+import {toPlainObject} from "@/shared/ObjectUtil";
 
 export class TweetRepositoryImpl implements TweetRepository {
-    private readonly tweets: BehaviorSubject<Tweet[]>
+    private tweetsCollection: CollectionReference
 
-    constructor(private storage: Storage) {
-        const tweetArray = this.storage.get("tweets", []).map(deserializeTweet)
-        this.tweets = new BehaviorSubject(tweetArray)
+    constructor(private db: Firestore) {
+        this.tweetsCollection = db.collection("tweets")
     }
 
     getTweetsByUserIds(userIds: string[]): Observable<Tweet[]> {
-        return this.tweets.pipe(
-            filterList(tweet => userIds.includes(tweet.author.id))
+        const query = this.tweetsCollection
+            .where("author.id", "in", userIds)
+            .orderBy("date", "desc")
+
+        return collectionData(query).pipe(
+            mapList(deserializeTweet)
         )
     }
 
     addTweet(tweet: Tweet) {
-        const tweetWithId = clone(tweet, {id: generateHash()})
-        this.tweets.next([tweetWithId, ...this.tweets.getValue()])
-        this.persistTweets()
-    }
-
-    private persistTweets() {
-        this.storage.set("tweets", this.tweets.getValue())
+        return this.tweetsCollection.add(toPlainObject(tweet))
     }
 }
