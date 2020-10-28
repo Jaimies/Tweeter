@@ -1,9 +1,10 @@
 import {Observable} from "rxjs"
-import DoneCallback = jest.DoneCallback
 
-export function expectObservableValue<T>(observable: Observable<T>, expectedValue: T, done: DoneCallback) {
-    observable.subscribe(value => {
-        expect(value).toEqual(expectedValue)
-        done()
+export function expectObservableValue<T>(observable: Observable<T>, expectedValue: T) {
+    return new Promise(resolve => {
+        observable.subscribe(value => {
+            expect(value).toEqual(expectedValue)
+            resolve()
+        })
     })
 }
