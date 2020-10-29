@@ -1,10 +1,12 @@
 import {Observable} from "rxjs"
+import {first} from "rxjs/operators";
 
-export function expectObservableValue<T>(observable: Observable<T>, expectedValue: T) {
+export async function expectObservableValue<T>(observable: Observable<T>, expectedValue: T) {
+    expect(await getObservableValue(observable)).toEqual(expectedValue)
+}
+
+export function getObservableValue<T>(observable: Observable<T>): Promise<T> {
     return new Promise(resolve => {
-        observable.subscribe(value => {
-            expect(value).toEqual(expectedValue)
-            resolve()
-        })
+        observable.pipe(first()).subscribe(resolve)
     })
 }
