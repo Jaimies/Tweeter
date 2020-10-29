@@ -5,7 +5,7 @@ import {GetUsersUseCase} from "@/domain/usecase/user/GetUsersUseCase"
 export class GetUsersUseCaseImpl implements GetUsersUseCase {
     constructor(private usersRepository: UserRepository) {}
 
-    run(): User[] {
+    run(): Promise<User[]> {
         return this.usersRepository.getUsers()
     }
 }
