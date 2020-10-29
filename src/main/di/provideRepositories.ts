@@ -1,5 +1,4 @@
 import {AuthRepositoryImpl} from "@/data/AuthRepositoryImpl"
-import {provideStorage} from "./provideStorage"
 import {AuthRepository} from "@/domain/repository/AuthRepository"
 import {TweetRepositoryImpl} from "@/data/TweetRepositoryImpl"
 import {TweetRepository} from "@/domain/repository/TweetRepository"
@@ -21,7 +20,7 @@ export function provideTweetRepository(): TweetRepository {
     return tweetRepository
 }
 
-const userRepository = new UserRepositoryImpl(provideStorage())
+const userRepository = new UserRepositoryImpl(db)
 
 export function provideUserRepository() {
     return userRepository
