@@ -1,6 +1,5 @@
 import {UserRepository} from "../../repository/UserRepository"
 import {AuthRepository} from "@/domain/repository/AuthRepository"
-import {User} from "@/domain/model/User"
 import {checkIsDefined} from "@/shared/Preconditions"
 import {ProfileUpdate, UpdateProfileUseCase} from "@/domain/usecase/user/UpdateProfileUseCase"
 
@@ -12,8 +11,8 @@ export class UpdateProfileUseCaseImpl implements UpdateProfileUseCase {
         private authRepository: AuthRepository
     ) {}
 
-    run(update: ProfileUpdate): User {
+    run(update: ProfileUpdate) {
         const userId = checkIsDefined(this.authRepository.userId, UNAUTHENTICATED_ERROR)
-        return this.userRepository.updateUser(userId!, update)
+        this.userRepository.updateUser(userId!, update)
     }
 }

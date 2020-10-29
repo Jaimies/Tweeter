@@ -13,8 +13,8 @@ const currentDate = new Date()
 
 beforeAll(() => MockDate.set(currentDate))
 
-it("calls addTweet() with the right arguments", () => {
-    useCase.run("Tweet body")
+it("calls addTweet() with the right arguments", async () => {
+    await useCase.run("Tweet body")
     expect(tweetRepository.addTweet).toBeCalledWith(
         new Tweet("", "Tweet body", testUser, currentDate)
     )
@@ -22,5 +22,5 @@ it("calls addTweet() with the right arguments", () => {
 
 it("throws if unauthenticated", () => {
     getCurrentUserUseCase.user = undefined
-    expect(() => useCase.run("Tweet body")).toThrow()
+    expect(useCase.run("Tweet body")).rejects.toThrow()
 })

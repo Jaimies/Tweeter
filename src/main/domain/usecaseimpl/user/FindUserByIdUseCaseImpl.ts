@@ -5,7 +5,7 @@ import {FindUserByIdUseCase} from "@/domain/usecase/user/FindUserByIdUseCase"
 export class FindUserByIdUseCaseImpl implements FindUserByIdUseCase {
     constructor(private userRepository: UserRepository) {}
 
-    run(id: string): User | undefined {
-        return this.userRepository.findUserById(id)
+    run(id: string): Promise<User | undefined> {
+        return this.userRepository.findUserByUsername(id)
     }
 }

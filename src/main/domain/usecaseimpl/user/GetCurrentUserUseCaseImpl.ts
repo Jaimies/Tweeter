@@ -6,9 +6,9 @@ import {GetCurrentUserUseCase} from "@/domain/usecase/user/GetCurrentUserUseCase
 export class GetCurrentUserUseCaseImpl implements GetCurrentUserUseCase {
     constructor(private authRepository: AuthRepository, private userRepository: UserRepository) {}
 
-    run(): User | undefined {
+    async run(): Promise<User | undefined> {
         const userId = this.authRepository.userId
         if (!userId) return undefined
-        return this.userRepository.findUserById(userId)
+        return this.userRepository.findUserByUsername(userId)
     }
 }

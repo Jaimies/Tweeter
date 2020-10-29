@@ -1,3 +1,3 @@
 export interface PostTweetUseCase {
-    run(userId: string): void
+    run(userId: string): Promise<void>
 }

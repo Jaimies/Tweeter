@@ -4,7 +4,7 @@ import {GetCurrentUserUseCase} from "@/domain/usecase/user/GetCurrentUserUseCase
 export class StubGetCurrentUserUseCase implements GetCurrentUserUseCase {
     constructor(public user: User | undefined) {}
 
-    run() {
+    async run() {
         return this.user
     }
 }

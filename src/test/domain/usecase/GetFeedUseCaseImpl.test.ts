@@ -8,7 +8,7 @@ const tweetRepository = new MockTweetRepository()
 const getCurrentUserUseCase = new StubGetCurrentUserUseCase(user)
 const useCase = new GetFeedUseCaseImpl(tweetRepository, getCurrentUserUseCase)
 
-it("gets tweets from current user and users they follow", () => {
-    useCase.run()
+it("gets tweets from current user and users they follow", async () => {
+    await useCase.run()
     expect(tweetRepository.getTweetsByUserIds).toBeCalledWith(["id", "id2"])
 })

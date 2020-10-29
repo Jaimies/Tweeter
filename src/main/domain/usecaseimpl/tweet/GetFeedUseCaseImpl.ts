@@ -13,8 +13,8 @@ export class GetFeedUseCaseImpl implements GetFeedUseCase {
         private getUser: GetCurrentUserUseCase
     ) {}
 
-    run(): Observable<Tweet[]> {
-        const user = checkIsDefined(this.getUser.run(), AUTH_REQUIRED)
+    async run(): Promise<Observable<Tweet[]>> {
+        const user = checkIsDefined(await this.getUser.run(), AUTH_REQUIRED)
         return this.tweetRepository.getTweetsByUserIds([user.id, ...user.following])
     }
 }

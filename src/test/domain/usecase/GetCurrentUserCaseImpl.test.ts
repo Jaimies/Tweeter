@@ -13,11 +13,11 @@ beforeEach(() => {
     useCase = new GetCurrentUserUseCaseImpl(authRepository, userRepository)
 })
 
-it("returns undefined if there is no signed in user", () => {
-    expect(useCase.run()).toBeUndefined()
+it("returns undefined if there is no signed in user", async () => {
+    expect(await useCase.run()).toBeUndefined()
 })
 
-it("returns the current user if one exists", () => {
+it("returns the current user if one exists", async () => {
     authRepository.userId = testUser.id
-    expect(useCase.run()).toBe(testUser)
+    expect(await useCase.run()).toBe(testUser)
 })
