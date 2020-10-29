@@ -5,6 +5,6 @@ export function deserializeTweet({id, author, body, date}: any) {
     return new Tweet(id, body, deserializeUser(author), date.toDate())
 }
 
-export function deserializeUser({bio, email, following, id, name}: any) {
-    return new User(id, name, email, bio, following)
+export function deserializeUser({id, username, bio, email, following, name}: any) {
+    return new User(id, username, name, email, bio, following)
 }
