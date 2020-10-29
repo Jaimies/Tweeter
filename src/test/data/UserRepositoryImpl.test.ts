@@ -1,55 +1,54 @@
 import {UserRepositoryImpl} from "@/data/UserRepositoryImpl"
-import {FakeStorage} from "./FakeStorage"
-import {UserRepository} from "@/domain/repository/UserRepository"
 import {createTestUser} from "../testData"
-import {Storage} from "@/data/Storage"
+import {deleteAllDocs, getTestFirestore} from "./FirestoreTestUtils"
 import {ListChange} from "@/domain/model/ListChange"
+import {User} from "@/domain/model/User"
 
-const [user, anotherUser] = [createTestUser(), createTestUser()]
+const user = createTestUser()
 
-let userRepository: UserRepository
-let storage: Storage
+const db = getTestFirestore()
+const usersCollection = db.collection("users")
+const userRepository = new UserRepositoryImpl(db)
 
-beforeEach(() => {
-    storage = new FakeStorage({users: [user]})
-    userRepository = new UserRepositoryImpl(storage)
-})
+afterEach(() => deleteAllDocs(usersCollection))
+afterAll(() => db.terminate())
 
-it("addUser()", () => {
-    userRepository.addUser(anotherUser)
-    expect(userRepository.getUsers()).toEqual([user, anotherUser])
+it("addUser()", async () => {
+    await userRepository.addUser(user)
+    expect(await userRepository.getUsers()).toEqual([withAnyId(user)])
 })
 
 describe("findUserById()", () => {
-    it("returns the needed user", () => {
-        expect(userRepository.findUserById(user.id)).toEqual(user)
+    it("returns the needed user", async () => {
+        await userRepository.addUser(user)
+        expect(await userRepository.findUserByUsername(user.username)).toEqual(withAnyId(user))
     })
 
-    it("returns undefined if there is no user with such id", () => {
-        expect(userRepository.findUserById("12341234")).toBe(undefined)
+    it("returns undefined if user is not found", async () => {
+        expect(await userRepository.findUserByUsername(user.username)).toBe(undefined)
     })
 })
 
 describe("updateUser()", () => {
-    it("updates name", () => {
-        const updatedUser = userRepository.updateUser(user.id, {name: "New name"})
-        expect(updatedUser.name).toBe("New name")
-        expect(userRepository.findUserById(user.id)!.name).toBe("New name")
+    it("updates name", async () => {
+        await userRepository.addUser(user)
+        await userRepository.updateUser(user.username, {name: "New name"})
+        const updatedUser = await userRepository.findUserByUsername(user.username)
+        expect(updatedUser!.name).toBe("New name")
     })
 
-    it("adds item to following", () => {
-        const updatedUser = userRepository.updateUser(user.id, {following: new ListChange.Add("otherid")})
-        expect(updatedUser.following).toEqual(["otherid"])
+    it("adds item to following", async () => {
+        await userRepository.addUser(user)
+        await userRepository.updateUser(user.username, {following: new ListChange.Add("otherid")})
+        const updatedUser = await userRepository.findUserByUsername(user.username)
+        expect(updatedUser!.following).toEqual(["otherid"])
     })
 
     it("throws if user is not found", () => {
-        expect(() => {
-            userRepository.updateUser("otherId", {})
-        }).toThrow()
+        expect(userRepository.updateUser("otherId", {})).rejects.toThrow()
     })
 })
 
-it("persists data", () => {
-    const newUserRepository = new UserRepositoryImpl(storage)
-    expect(newUserRepository.getUsers()).toEqual([user])
-})
+function withAnyId(user: User): object {
+    return {...user, id: expect.any(String)}
+}

@@ -1,58 +1,61 @@
 import {UserRepository} from "@/domain/repository/UserRepository"
 import {User} from "@/domain/model/User"
-import {Storage} from "./Storage"
-import {IllegalArgumentException} from "@/shared/IllegalArgumentException"
 import {deserializeUser} from "./util/Serialization"
-import {clone} from "@/shared/ObjectUtil"
+import {clone, toPlainObject} from "@/shared/ObjectUtil"
 import {UserChange} from "@/domain/model/UserChange"
+import {CollectionReference, FieldValue, Firestore} from "@/data/Firebase"
+import {IllegalArgumentException} from "@/shared/IllegalArgumentException";
+import {ListChange} from "@/domain/model/ListChange";
 
 export class UserRepositoryImpl implements UserRepository {
-    private readonly users: User[]
+    private usersCollection: CollectionReference
 
-    constructor(private storage: Storage) {
-        this.users = this.storage.get("users", []).map(deserializeUser)
+    constructor(private db: Firestore) {
+        this.usersCollection = this.db.collection("users")
     }
 
-    getUsers(): User[] {
-        return this.users
+    async getUsers(): Promise<User[]> {
+        const snapshot = await this.usersCollection.get()
+        return snapshot.docs.map(doc => deserializeUser(doc.id, doc.data()))
     }
 
-    findUserById(id: string): User | undefined {
-        return this.users.find(user => user.id == id)
+    async findUserByUsername(username: string): Promise<User | undefined> {
+        const doc = await this.getUserByUsername(username)
+        if (doc == undefined) return undefined
+        return deserializeUser(doc.id, doc.data())
     }
 
-    addUser(user: User) {
-        this.users.push(user)
-        this.persistData()
+    addUser(user: User): Promise<void> {
+        const doc = this.usersCollection.doc()
+        const {id, ...userWithoutId} = toPlainObject(user)
+        return doc.set(userWithoutId).then(() => {})
     }
 
-    updateUser(id: string, change: UserChange): User {
-        const index = this.getUserIndexById(id)
-        const updatedUser = applyUserChange(this.users[index], change)
-        this.users[index] = updatedUser
-        this.persistData()
-        return updatedUser
+    async updateUser(username: string, change: UserChange) {
+        const doc = await this.getUserByUsername(username)
+
+        if (doc == undefined)
+            throw new IllegalArgumentException("unable to update user that does not exist")
+
+        return doc.ref.set(applyUserChange(change), {merge: true})
     }
 
-    private getUserIndexById(id: string): number {
-        const index = this.users.findIndex(user => user.id == id)
+    private async getUserByUsername(username: string) {
+        const snapshot = await this.usersCollection
+            .where("username", "==", username)
+            .limit(1)
+            .get()
 
-        if (index < 0)
-            throw new IllegalArgumentException(`User with given id does not exist: ${id}`)
-
-        return index
-    }
-
-    private persistData() {
-        this.storage.set("users", this.users)
+        return snapshot.docs[0]
     }
 }
 
-function applyUserChange(user: User, change: UserChange): User {
-    const changedUser = clone(user, change)
+function applyUserChange(change: UserChange): object {
+    if (change.following) return clone(change, {following: toFieldValue(change.following)})
+    return change
+}
 
-    if (change.following)
-        changedUser.following = change.following.apply(user.following)
-
-    return changedUser
+function toFieldValue<T>(change: ListChange<T>) {
+    if (change instanceof ListChange.Add) return FieldValue.arrayUnion(change.value)
+    return FieldValue.arrayRemove(change.value)
 }
