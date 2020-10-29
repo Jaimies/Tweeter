@@ -1,13 +1,13 @@
 import {TweetRepository} from "@/domain/repository/TweetRepository"
 import {Tweet} from "@/domain/model/Tweet"
 import {Observable} from "rxjs"
-import {Firestore} from "@/data/Firebase";
-import {collectionData} from "rxfire/firestore";
+import {Firestore} from "@/data/Firebase"
+import {collectionData} from "rxfire/firestore"
 import firebase from "firebase/app"
-import {mapList} from "@/shared/RxOperators";
-import {deserializeTweet} from "@/data/util/Serialization";
-import CollectionReference = firebase.firestore.CollectionReference;
-import {toPlainObject} from "@/shared/ObjectUtil";
+import {mapList} from "@/shared/RxOperators"
+import {deserializeTweet} from "@/data/util/Serialization"
+import {toPlainObject} from "@/shared/ObjectUtil"
+import CollectionReference = firebase.firestore.CollectionReference
 
 export class TweetRepositoryImpl implements TweetRepository {
     private tweetsCollection: CollectionReference
@@ -27,6 +27,6 @@ export class TweetRepositoryImpl implements TweetRepository {
     }
 
     addTweet(tweet: Tweet) {
-        return this.tweetsCollection.add(toPlainObject(tweet))
+        return this.tweetsCollection.add(toPlainObject(tweet)).then(() => {})
     }
 }
