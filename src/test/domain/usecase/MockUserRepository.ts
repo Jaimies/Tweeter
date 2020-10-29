@@ -1,8 +1,8 @@
 import {UserRepository} from "@/domain/repository/UserRepository"
 
 export class MockUserRepository implements UserRepository {
-    addUser= () => {}
-    findUserById = () => undefined
-    getUsers = () => []
+    getUsers = async () => []
+    findUserByUsername = async () => undefined
+    addUser = async () => {}
     updateUser = jest.fn()
 }
