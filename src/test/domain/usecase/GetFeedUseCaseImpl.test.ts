@@ -2,7 +2,7 @@ import {GetFeedUseCaseImpl} from "@/domain/usecaseimpl/tweet/GetFeedUseCaseImpl"
 import {MockTweetRepository} from "./MockTweetRepository"
 import {StubGetCurrentUserUseCase} from "./StubGetCurrentUserUseCase"
 import {User} from "@/domain/model/User"
-import {getValue} from "../../RxTestUtils"
+import {getValue} from "@/shared/RxUtil"
 
 const user = new User("id", "username", "Name", "email@mail.com", "bio", ["id2"])
 const tweetRepository = new MockTweetRepository()

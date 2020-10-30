@@ -1,6 +1,6 @@
 import {TweetRepositoryImpl} from "@/data/TweetRepositoryImpl"
 import {createTestTweet, createTestUser} from "../testData"
-import {getValue} from "../RxTestUtils"
+import {getValue} from "@/shared/RxUtil"
 import {Tweet} from "@/domain/model/Tweet"
 import {addData, deleteAllDocs, getTestFirestore} from "./FirestoreTestUtils"
 

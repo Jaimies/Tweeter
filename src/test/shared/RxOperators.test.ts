@@ -1,6 +1,6 @@
 import {of} from "rxjs"
 import {filterList, mapList} from "@/shared/RxOperators"
-import {getValue} from "../RxTestUtils"
+import {getValue} from "@/shared/RxUtil"
 
 it("mapList()", async () => {
     const observable = of([1, 2])
