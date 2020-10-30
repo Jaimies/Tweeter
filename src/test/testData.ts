@@ -1,6 +1,6 @@
 import {User} from "@/domain/model/User"
 import {Tweet} from "@/domain/model/Tweet"
-import {generateHash} from "@/shared/generateHash"
+import {generateHash} from "./generateHash"
 
 export const testUser = createTestUser()
 export const testTweet = createTestTweet(testUser)
