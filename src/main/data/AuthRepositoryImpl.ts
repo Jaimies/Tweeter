@@ -1,13 +1,14 @@
 import {AuthRepository, LoginResult, SignUpResult} from "@/domain/repository/AuthRepository"
-import {FirebaseAuth} from "@/data/Firebase";
+import {FirebaseAuth} from "@/data/Firebase"
+import {authState} from "rxfire/auth"
+import {map} from "rxjs/operators"
 
 export class AuthRepositoryImpl implements AuthRepository {
-    constructor(private auth: FirebaseAuth) {
-    }
+    userId = authState(this.auth).pipe(
+        map(user => user?.uid)
+    )
 
-    get userId(): string | undefined {
-        return this.auth.currentUser?.uid
-    }
+    constructor(private auth: FirebaseAuth) {}
 
     async login(email: string, password: string): Promise<LoginResult> {
         try {

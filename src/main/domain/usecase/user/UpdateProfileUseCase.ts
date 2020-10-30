@@ -4,5 +4,5 @@ export interface ProfileUpdate {
 }
 
 export interface UpdateProfileUseCase {
-    run(update: ProfileUpdate): void
+    run(update: ProfileUpdate): Promise<void>
 }

@@ -13,14 +13,12 @@ beforeEach(() => {
     useCase = new UpdateProfileUseCaseImpl(userRepository, authRepository)
 })
 
-it("updates the user", () => {
-    useCase.run(change)
+it("updates the user", async () => {
+    await useCase.run(change)
     expect(userRepository.updateUser).toBeCalledWith("userid", change)
 })
 
-it("throws if unauthenticated", () => {
-    authRepository.userId = undefined
-    expect(() => {
-        useCase.run(change)
-    }).toThrow()
+it("throws if unauthenticated", async () => {
+    authRepository.userId.next(undefined)
+    await expect(useCase.run(change)).rejects.toThrow()
 })
