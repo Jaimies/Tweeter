@@ -1,5 +1,5 @@
 import {User} from "@/domain/model/User"
 
-export interface FindUserByIdUseCase {
+export interface FindUserUseCase {
     run(id: string): Promise<User | undefined>
 }

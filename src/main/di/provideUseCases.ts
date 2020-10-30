@@ -5,7 +5,7 @@ import {PostTweetUseCaseImpl} from "@/domain/usecaseimpl/tweet/PostTweetUseCaseI
 import {SignUpUseCaseImpl} from "@/domain/usecaseimpl/auth/SignUpUseCaseImpl"
 import {provideAuthRepository, provideTweetRepository, provideUserRepository} from "./provideRepositories"
 import {GetUsersUseCaseImpl} from "@/domain/usecaseimpl/user/GetUsersUseCaseImpl"
-import {FindUserByIdUseCaseImpl} from "@/domain/usecaseimpl/user/FindUserByIdUseCaseImpl"
+import {FindUserUseCaseImpl} from "@/domain/usecaseimpl/user/FindUserUseCaseImpl"
 import {UpdateProfileUseCaseImpl} from "@/domain/usecaseimpl/user/UpdateProfileUseCaseImpl"
 import {LogoutUseCaseImpl} from "@/domain/usecaseimpl/auth/LogoutUseCaseImpl"
 import {FollowUserUseCaseImpl} from "@/domain/usecaseimpl/follow/FollowUserUseCaseImpl"
@@ -16,7 +16,7 @@ import {LoginUseCase} from "@/domain/usecase/auth/LoginUseCase"
 import {PostTweetUseCase} from "@/domain/usecase/tweet/PostTweetUseCase"
 import {SignUpUseCase} from "@/domain/usecase/auth/SignUpUseCase"
 import {GetUsersUseCase} from "@/domain/usecase/user/GetUsersUseCase"
-import {FindUserByIdUseCase} from "@/domain/usecase/user/FindUserByIdUseCase"
+import {FindUserUseCase} from "@/domain/usecase/user/FindUserUseCase"
 import {UpdateProfileUseCase} from "@/domain/usecase/user/UpdateProfileUseCase"
 import {LogoutUseCase} from "@/domain/usecase/auth/LogoutUseCase"
 import {FollowUserUseCase} from "@/domain/usecase/follow/FollowUserUseCase"
@@ -50,8 +50,8 @@ export function provideGetUsersUseCase(): GetUsersUseCase {
     return new GetUsersUseCaseImpl(provideUserRepository())
 }
 
-export function provideFindUserByIdUseCase(): FindUserByIdUseCase {
-    return new FindUserByIdUseCaseImpl(provideUserRepository())
+export function provideFindUserUseCase(): FindUserUseCase {
+    return new FindUserUseCaseImpl(provideUserRepository())
 }
 
 export function provideUpdateProfileUseCase(): UpdateProfileUseCase {

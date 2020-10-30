@@ -8,13 +8,13 @@
 </template>
 
 <script>
-import {provideFindUserByIdUseCase, provideGetTweetsByUserUseCase} from "@/di/provideUseCases"
+import {provideFindUserUseCase, provideGetTweetsByUserUseCase} from "@/di/provideUseCases"
 import UserCard from "../components/user/Card"
 import ProfileNotFoundCard from "../components/user/NotFoundCard"
 import TweetFeed from "../components/tweet/Feed"
 
 const getTweets = provideGetTweetsByUserUseCase()
-const findUser = provideFindUserByIdUseCase()
+const findUser = provideFindUserUseCase()
 
 export default {
   components: {TweetFeed, ProfileNotFoundCard, UserCard},
