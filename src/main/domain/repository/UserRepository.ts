@@ -5,5 +5,5 @@ export interface UserRepository {
     getUsers(): Promise<User[]>
     findUserByUsername(username: string): Promise<User | undefined>
     addUser(user: User): Promise<void>
-    updateUser(username: string, change: UserChange): Promise<void>
+    updateUser(id: string, change: UserChange): Promise<void>
 }

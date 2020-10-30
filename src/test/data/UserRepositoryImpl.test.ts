@@ -14,13 +14,13 @@ afterEach(() => deleteAllDocs(usersCollection))
 afterAll(() => db.terminate())
 
 it("addUser()", async () => {
-    await userRepository.addUser(user)
+    await userRepository.addUser("userId", user)
     expect(await userRepository.getUsers()).toEqual([withAnyId(user)])
 })
 
 describe("findUserById()", () => {
     it("returns the needed user", async () => {
-        await userRepository.addUser(user)
+        await userRepository.addUser("userId", user)
         expect(await userRepository.findUserByUsername(user.username)).toEqual(withAnyId(user))
     })
 
@@ -31,15 +31,15 @@ describe("findUserById()", () => {
 
 describe("updateUser()", () => {
     it("updates name", async () => {
-        await userRepository.addUser(user)
-        await userRepository.updateUser(user.username, {name: "New name"})
+        await userRepository.addUser("userId", user)
+        await userRepository.updateUser("userId", {name: "New name"})
         const updatedUser = await userRepository.findUserByUsername(user.username)
         expect(updatedUser!.name).toBe("New name")
     })
 
     it("adds item to following", async () => {
-        await userRepository.addUser(user)
-        await userRepository.updateUser(user.username, {following: new ListChange.Add("otherid")})
+        await userRepository.addUser("userId", user)
+        await userRepository.updateUser("userId", {following: new ListChange.Add("otherid")})
         const updatedUser = await userRepository.findUserByUsername(user.username)
         expect(updatedUser!.following).toEqual(["otherid"])
     })

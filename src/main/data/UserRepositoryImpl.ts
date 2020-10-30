@@ -31,10 +31,10 @@ export class UserRepositoryImpl implements UserRepository {
         return doc.set(userWithoutId).then(() => {})
     }
 
-    async updateUser(username: string, change: UserChange) {
-        const doc = await this.getUserByUsername(username)
+    async updateUser(id: string, change: UserChange) {
+        const doc = await this.usersCollection.doc(id).get()
 
-        if (doc == undefined)
+        if (!doc.exists)
             throw new IllegalArgumentException("unable to update user that does not exist")
 
         return doc.ref.set(applyUserChange(change), {merge: true})
