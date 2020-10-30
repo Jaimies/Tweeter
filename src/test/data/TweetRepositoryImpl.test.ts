@@ -1,7 +1,6 @@
 import {TweetRepositoryImpl} from "@/data/TweetRepositoryImpl"
-import {TweetRepository} from "@/domain/repository/TweetRepository"
 import {createTestTweet, createTestUser} from "../testData"
-import {getObservableValue} from "../RxTestUtils"
+import {getValue} from "../RxTestUtils"
 import {Tweet} from "@/domain/model/Tweet"
 import {addData, deleteAllDocs, getTestFirestore} from "./FirestoreTestUtils"
 
@@ -20,13 +19,13 @@ afterAll(() => tweetsCollection.firestore.terminate())
 it("selects tweets from specified user", async () => {
     await addData(tweetsCollection, [tweet, tweetFromUser2, tweetFromUser3])
     const tweets = tweetRepository.getTweetsByUserIds([user.id, user2.id])
-    expect(await getObservableValue(tweets)).toEqual([tweetFromUser2, tweet])
+    expect(await getValue(tweets)).toEqual([tweetFromUser2, tweet])
 })
 
 it("adds a tweet", async () => {
     await tweetRepository.addTweet(tweet)
     const tweets = tweetRepository.getTweetsByUserIds([user.id])
-    expect(await getObservableValue(tweets)).toEqual([withAnyId(tweet)])
+    expect(await getValue(tweets)).toEqual([withAnyId(tweet)])
 
     function withAnyId(tweet: Tweet) {
         return {...tweet, id: expect.any(String)}
