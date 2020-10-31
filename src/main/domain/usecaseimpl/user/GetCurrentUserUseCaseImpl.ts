@@ -10,6 +10,6 @@ export class GetCurrentUserUseCaseImpl implements GetCurrentUserUseCase {
     async run(): Promise<User | undefined> {
         const userId = await getValue(this.authRepository.userId)
         if (!userId) return undefined
-        return this.userRepository.findUserByUsername(userId)
+        return this.userRepository.findUserById(userId)
     }
 }
