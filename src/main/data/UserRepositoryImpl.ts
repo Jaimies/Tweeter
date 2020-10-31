@@ -6,6 +6,8 @@ import {UserChange} from "@/domain/model/UserChange"
 import {CollectionReference, FieldValue, Firestore} from "@/data/Firebase"
 import {IllegalArgumentException} from "@/shared/IllegalArgumentException"
 import {ListChange} from "@/domain/model/ListChange"
+import firebase from "firebase"
+import DocumentSnapshot = firebase.firestore.DocumentSnapshot
 
 export class UserRepositoryImpl implements UserRepository {
     private usersCollection: CollectionReference
@@ -20,9 +22,13 @@ export class UserRepositoryImpl implements UserRepository {
     }
 
     async findUserByUsername(username: string): Promise<User | undefined> {
-        const doc = await this.getUserByUsername(username)
-        if (doc == undefined) return undefined
-        return deserializeUser(doc.id, doc.data())
+        const snapshot = await this.getUserByUsername(username)
+        return toUser(snapshot)
+    }
+
+    async findUserById(id: string): Promise<User | undefined> {
+        const snapshot = await this.usersCollection.doc(id).get()
+        return toUser(snapshot)
     }
 
     addUser(userId: string, user: User): Promise<void> {
@@ -58,4 +64,9 @@ function applyUserChange(change: UserChange): object {
 function toFieldValue<T>(change: ListChange<T>) {
     if (change instanceof ListChange.Add) return FieldValue.arrayUnion(change.value)
     return FieldValue.arrayRemove(change.value)
+}
+
+function toUser(snapshot: DocumentSnapshot | undefined) {
+    if(!snapshot?.exists) return undefined
+    return deserializeUser(snapshot.id, snapshot.data())
 }

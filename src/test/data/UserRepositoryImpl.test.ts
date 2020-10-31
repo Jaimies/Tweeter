@@ -18,7 +18,7 @@ it("addUser()", async () => {
     expect(await userRepository.getUsers()).toEqual([withAnyId(user)])
 })
 
-describe("findUserById()", () => {
+describe("findUserByUsername()", () => {
     it("returns the needed user", async () => {
         await userRepository.addUser("userId", user)
         expect(await userRepository.findUserByUsername(user.username)).toEqual(withAnyId(user))
@@ -26,6 +26,17 @@ describe("findUserById()", () => {
 
     it("returns undefined if user is not found", async () => {
         expect(await userRepository.findUserByUsername(user.username)).toBe(undefined)
+    })
+})
+
+describe("findUserById()", () => {
+    it("returns the needed user", async () => {
+        await userRepository.addUser("userId", user)
+        expect(await userRepository.findUserById("userId")).toEqual(withAnyId(user))
+    })
+
+    it("returns undefined if user is not found", async () => {
+        expect(await userRepository.findUserByUsername("userId")).toBe(undefined)
     })
 })
 
