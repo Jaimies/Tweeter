@@ -1,13 +1,11 @@
 import {TweetRepository} from "@/domain/repository/TweetRepository"
 import {Tweet} from "@/domain/model/Tweet"
 import {Observable} from "rxjs"
-import {Firestore} from "@/data/Firebase"
 import {collectionData} from "rxfire/firestore"
-import firebase from "firebase/app"
 import {mapList} from "@/shared/RxOperators"
 import {deserializeTweet} from "@/data/util/Serialization"
 import {toPlainObject} from "@/shared/ObjectUtil"
-import CollectionReference = firebase.firestore.CollectionReference
+import {CollectionReference, Firestore} from "@/data/Firebase"
 
 export class TweetRepositoryImpl implements TweetRepository {
     private tweetsCollection: CollectionReference

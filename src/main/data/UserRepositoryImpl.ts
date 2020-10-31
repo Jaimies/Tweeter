@@ -3,11 +3,9 @@ import {User} from "@/domain/model/User"
 import {deserializeUser} from "./util/Serialization"
 import {clone, toPlainObject} from "@/shared/ObjectUtil"
 import {UserChange} from "@/domain/model/UserChange"
-import {CollectionReference, FieldValue, Firestore} from "@/data/Firebase"
+import {CollectionReference, DocumentSnapshot, FieldValue, Firestore} from "@/data/Firebase"
 import {IllegalArgumentException} from "@/shared/IllegalArgumentException"
 import {ListChange} from "@/domain/model/ListChange"
-import firebase from "firebase"
-import DocumentSnapshot = firebase.firestore.DocumentSnapshot
 
 export class UserRepositoryImpl implements UserRepository {
     private usersCollection: CollectionReference
