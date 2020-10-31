@@ -41,9 +41,9 @@ describe("other methods", () => {
         expect(useCase.isEmailAvailable("newuser@gmail.com")).toBe(true)
     })
 
-    it("isUserIdAvailable()", () => {
-        expect(useCase.isUserIdAvailable(existingUser.username)).toBe(false)
-        expect(useCase.isUserIdAvailable(anotherExistingUser.username)).toBe(false)
-        expect(useCase.isUserIdAvailable("newid")).toBe(true)
+    it("isUsernameAvailable()", () => {
+        expect(useCase.isUsernameAvailable(existingUser.username)).toBe(false)
+        expect(useCase.isUsernameAvailable(anotherExistingUser.username)).toBe(false)
+        expect(useCase.isUsernameAvailable("newUsername")).toBe(true)
     })
 })

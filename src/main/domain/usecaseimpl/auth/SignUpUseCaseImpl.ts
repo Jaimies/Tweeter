@@ -28,8 +28,8 @@ export class SignUpUseCaseImpl implements SignUpUseCase {
         return Promise.all([addUser, login])
     }
 
-    isUserIdAvailable(id: string): boolean {
-        return this.isUserAvailable(user => user.id == id)
+    isUsernameAvailable(username: string): boolean {
+        return this.isUserAvailable(user => user.id == username)
     }
 
     private isUserAvailable(predicate: (user: User) => boolean) {
