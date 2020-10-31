@@ -1,3 +1,3 @@
 export interface UnfollowUserUseCase {
-    run(userId: string): void
+    run(userId: string): Promise<void>
 }

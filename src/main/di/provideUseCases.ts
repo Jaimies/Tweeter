@@ -21,6 +21,7 @@ import {UpdateProfileUseCase} from "@/domain/usecase/user/UpdateProfileUseCase"
 import {LogoutUseCase} from "@/domain/usecase/auth/LogoutUseCase"
 import {FollowUserUseCase} from "@/domain/usecase/follow/FollowUserUseCase"
 import {UnfollowUserUseCase} from "@/domain/usecase/follow/UnfollowUserUseCase"
+import {FollowingUpdater} from "@/domain/usecaseimpl/follow/FollowingUpdater"
 
 export function provideGetUserUseCase(): GetCurrentUserUseCase {
     return new GetCurrentUserUseCaseImpl(provideAuthRepository(), provideUserRepository())
@@ -62,10 +63,14 @@ export function provideLogoutUseCase(): LogoutUseCase {
     return new LogoutUseCaseImpl(provideAuthRepository())
 }
 
+function provideFollowingUpdater() {
+    return new FollowingUpdater(provideAuthRepository(), provideUserRepository())
+}
+
 export function provideFollowUserUseCase(): FollowUserUseCase {
-    return new FollowUserUseCaseImpl(provideUserRepository(), provideAuthRepository())
+    return new FollowUserUseCaseImpl(provideFollowingUpdater())
 }
 
 export function provideUnfollowUserUseCase(): UnfollowUserUseCase {
-    return new UnfollowUserUseCaseImpl(provideUserRepository(), provideAuthRepository())
+    return new UnfollowUserUseCaseImpl(provideFollowingUpdater())
 }
