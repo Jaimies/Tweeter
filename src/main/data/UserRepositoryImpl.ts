@@ -4,8 +4,8 @@ import {deserializeUser} from "./util/Serialization"
 import {clone, toPlainObject} from "@/shared/ObjectUtil"
 import {UserChange} from "@/domain/model/UserChange"
 import {CollectionReference, FieldValue, Firestore} from "@/data/Firebase"
-import {IllegalArgumentException} from "@/shared/IllegalArgumentException";
-import {ListChange} from "@/domain/model/ListChange";
+import {IllegalArgumentException} from "@/shared/IllegalArgumentException"
+import {ListChange} from "@/domain/model/ListChange"
 
 export class UserRepositoryImpl implements UserRepository {
     private usersCollection: CollectionReference
@@ -25,8 +25,8 @@ export class UserRepositoryImpl implements UserRepository {
         return deserializeUser(doc.id, doc.data())
     }
 
-    addUser(user: User): Promise<void> {
-        const doc = this.usersCollection.doc()
+    addUser(userId: string, user: User): Promise<void> {
+        const doc = this.usersCollection.doc(userId)
         const {id, ...userWithoutId} = toPlainObject(user)
         return doc.set(userWithoutId).then(() => {})
     }
