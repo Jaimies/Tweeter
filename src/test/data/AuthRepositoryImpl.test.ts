@@ -31,12 +31,12 @@ describe("signUp()", () => {
     }
 
     it.each([
-        [null, SignUpResult.Success],
+        [null, new SignUpResult.Success("uid")],
         ["auth/email-already-in-use", SignUpResult.EmailTaken],
     ])("when error is %o returns %o", async (errorCode, expectedResult) => {
         const repository = createRepository(errorCode)
         const result = await repository.signUp("email", "password")
-        expect(result).toBe(expectedResult)
+        expect(result).toEqual(expectedResult)
     })
 
     it("throws on other errors", async () => {

@@ -1,14 +1,14 @@
-import {FirebaseAuth} from "@/data/Firebase";
+import {FirebaseAuth} from "@/data/Firebase"
 
 export class StubSignUpFirebaseAuth implements FirebaseAuth {
     constructor(private errorCode: string | null) {}
 
     // @ts-ignore
-    async createUserWithEmailAndPassword(email: string, password: string) {
+    async createUserWithEmailAndPassword() {
         if (this.errorCode != null)
             throwError(this.errorCode)
 
-        return undefined;
+        return {user: {uid: "uid"}}
     }
 }
 
@@ -16,11 +16,11 @@ export class StubSignInFirebaseAuth implements FirebaseAuth {
     constructor(private errorCode: string | null) {}
 
     // @ts-ignore
-    async signInWithEmailAndPassword(email: string, password: string) {
+    async signInWithEmailAndPassword() {
         if (this.errorCode != null)
             throwError(this.errorCode)
 
-        return undefined;
+        return undefined
     }
 }
 

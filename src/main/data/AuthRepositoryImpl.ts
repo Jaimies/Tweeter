@@ -28,16 +28,14 @@ export class AuthRepositoryImpl implements AuthRepository {
 
     async signUp(email: string, password: string): Promise<SignUpResult> {
         try {
-            await this.auth.createUserWithEmailAndPassword(email, password)
-
+            const credential = await this.auth.createUserWithEmailAndPassword(email, password)
+            return new SignUpResult.Success(credential.user!.uid)
         } catch (e) {
             if (e.code == "auth/email-already-in-use")
                 return SignUpResult.EmailTaken
 
             throw e
         }
-
-        return SignUpResult.Success
     }
 
     logout(): Promise<void> {

@@ -1,7 +1,15 @@
 import {Observable} from "rxjs"
 
-export enum SignUpResult {Success="success", EmailTaken = "email taken"}
-export enum LoginResult {Success= "success", UserNotFound = "user not found", WrongPassword = "wrong password"}
+export class SignUpResult {
+    static EmailTaken = new SignUpResult()
+    static Success = class extends SignUpResult {
+        constructor(public userId: string) { super() }
+    }
+
+    protected constructor() {}
+}
+
+export enum LoginResult {Success = "success", UserNotFound = "user not found", WrongPassword = "wrong password"}
 
 export interface AuthRepository {
     userId: Observable<string | undefined>
