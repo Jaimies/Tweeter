@@ -18,25 +18,18 @@ it("addUser()", async () => {
     expect(await userRepository.getUsers()).toEqual([withAnyId(user)])
 })
 
-describe("findUserByUsername()", () => {
-    it("returns the needed user", async () => {
-        await userRepository.addUser("userId", user)
-        expect(await userRepository.findUserByUsername(user.username)).toEqual(withAnyId(user))
-    })
-
-    it("returns undefined if user is not found", async () => {
-        expect(await userRepository.findUserByUsername(user.username)).toBe(undefined)
-    })
-})
-
-describe("findUserById()", () => {
+describe("findUserBy*()", () => {
     it("returns the needed user", async () => {
         await userRepository.addUser("userId", user)
         expect(await userRepository.findUserById("userId")).toEqual(withAnyId(user))
+        expect(await userRepository.findUserByUsername(user.username)).toEqual(withAnyId(user))
+        expect(await userRepository.findUserByEmail(user.email)).toEqual(withAnyId(user))
     })
 
     it("returns undefined if user is not found", async () => {
-        expect(await userRepository.findUserByUsername("userId")).toBe(undefined)
+        expect(await userRepository.findUserById(user.id)).toBe(undefined)
+        expect(await userRepository.findUserByUsername(user.username)).toBe(undefined)
+        expect(await userRepository.findUserByEmail(user.email)).toBe(undefined)
     })
 })
 

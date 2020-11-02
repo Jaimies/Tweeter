@@ -3,6 +3,7 @@ import {UserChange} from "@/domain/model/UserChange"
 
 export interface UserRepository {
     getUsers(): Promise<User[]>
+    findUserByEmail(email: string): Promise<User | undefined>
     findUserByUsername(username: string): Promise<User | undefined>
     findUserById(username: string): Promise<User | undefined>
     addUser(id: string, user: User): Promise<void>

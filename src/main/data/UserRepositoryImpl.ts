@@ -20,7 +20,12 @@ export class UserRepositoryImpl implements UserRepository {
     }
 
     async findUserByUsername(username: string): Promise<User | undefined> {
-        const snapshot = await this.getUserByUsername(username)
+        const snapshot = await this.getDocumentByField("username", username)
+        return toUser(snapshot)
+    }
+
+    async findUserByEmail(email: string): Promise<User | undefined> {
+        const snapshot = await this.getDocumentByField("email", email)
         return toUser(snapshot)
     }
 
@@ -44,12 +49,9 @@ export class UserRepositoryImpl implements UserRepository {
         return doc.ref.set(applyUserChange(change), {merge: true})
     }
 
-    private async getUserByUsername(username: string) {
-        const snapshot = await this.usersCollection
-            .where("username", "==", username)
-            .limit(1)
-            .get()
-
+    private async getDocumentByField(field: string, value: string): Promise<DocumentSnapshot | undefined> {
+        const query = this.usersCollection.where(field, "==", value).limit(1)
+        const snapshot = await query.get()
         return snapshot.docs[0]
     }
 }
