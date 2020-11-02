@@ -1,7 +1,7 @@
 import Vue from "vue"
 import Router, {NavigationGuardNext, Route} from "vue-router"
-import {provideGetUserUseCase} from "@/di/provideUseCases"
-import {AuthState} from "./model/AuthState"
+import {AuthState} from "@/domain/model/AuthState"
+import {provideGetAuthStateUseCase} from "@/di/provideUseCases"
 import Authenticated = AuthState.Authenticated
 import Unauthenticated = AuthState.Unauthenticated
 
@@ -41,20 +41,21 @@ const router = new Router({
     ]
 })
 
-router.beforeEach((to: Route, from: Route, next: NavigationGuardNext) => {
+router.beforeEach(async (to: Route, from: Route, next: NavigationGuardNext) => {
     const requiredAuthState = to.meta.requiredAuthState
-    const isAuthenticated = !!provideGetUserUseCase().run()
-
-    next(getNavigationPath(requiredAuthState, isAuthenticated))
+    const actualAuthState = await provideGetAuthStateUseCase().run()
+    next(getNavigationPath(requiredAuthState, actualAuthState))
 })
 
-function getNavigationPath(requiredAuthState: AuthState, isAuthenticated: boolean): string | undefined {
-    if (requiredAuthState == Authenticated && !isAuthenticated)
-        return "/"
-    if (requiredAuthState == Unauthenticated && isAuthenticated)
-        return "/home"
+function getNavigationPath(requiredAuthState: AuthState, actualAuthState: AuthState): string | undefined {
+    if(requiredAuthState == actualAuthState)
+        return undefined
 
-    return undefined
+    if (requiredAuthState == Authenticated)
+        return "/"
+
+    if (requiredAuthState == Unauthenticated)
+        return "/home"
 }
 
 export default router
