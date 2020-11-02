@@ -34,6 +34,6 @@ it("adds a tweet", async () => {
     }
 })
 
-export function createTestTweet(author: User, date: Date = new Date("2018-01-01")): Tweet {
+export function createTestTweet(author: User, date: Date): Tweet {
     return new Tweet(generateHash(), `Tweet body ${generateHash()}`, author, date)
 }
