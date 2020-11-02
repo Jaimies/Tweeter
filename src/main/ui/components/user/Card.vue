@@ -15,8 +15,6 @@ import UserHeader from "@/ui/components/user/Header"
 import EditButton from "@/ui/components/user/EditButton"
 import {provideGetUserUseCase} from "@/di/provideUseCases"
 
-const currentUser = provideGetUserUseCase().run()
-
 export default {
   components: {EditButton, UserHeader, FollowButton},
   props: {
@@ -24,9 +22,15 @@ export default {
   },
   data() {
     return {
-      isAuthenticated: currentUser != undefined,
-      isCurrentUser: currentUser && currentUser.id == this.user.id
+      isAuthenticated: null,
+      isCurrentUser: null
     }
+  },
+
+  async created() {
+    const currentUser = await provideGetUserUseCase().run()
+    this.isAuthenticated = !!currentUser
+    this.isCurrentUser = currentUser.id == this.user.id
   }
 }
 </script>
