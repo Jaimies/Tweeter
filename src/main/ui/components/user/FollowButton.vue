@@ -14,7 +14,7 @@ import ToggleButton from "@/ui/components/ui/ToggleButton"
 import {provideFollowUserUseCase, provideGetUserUseCase, provideUnfollowUserUseCase} from "@/di/provideUseCases"
 import {User} from "@/domain/model/User"
 
-const currentUser = provideGetUserUseCase().run()
+const currentUser = await provideGetUserUseCase().run()
 
 export default {
   components: {ToggleButton},
