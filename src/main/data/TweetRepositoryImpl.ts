@@ -19,7 +19,7 @@ export class TweetRepositoryImpl implements TweetRepository {
             .where("author.id", "in", userIds)
             .orderBy("date", "desc")
 
-        return collectionData(query).pipe(
+        return collectionData(query, "id").pipe(
             mapList(deserializeTweet)
         )
     }

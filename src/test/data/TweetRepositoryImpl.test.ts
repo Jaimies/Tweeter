@@ -21,19 +21,20 @@ afterAll(() => tweetsCollection.firestore.terminate())
 it("selects tweets from specified user", async () => {
     await addData(tweetsCollection, [tweet, tweetFromUser2, tweetFromUser3])
     const tweets = tweetRepository.getTweetsByUserIds([user.id, user2.id])
-    expect(await getValue(tweets)).toEqual([tweetFromUser2, tweet])
+    expect(await getValue(tweets)).toEqual([tweetFromUser2, tweet].map(withValidId))
 })
 
 it("adds a tweet", async () => {
     await tweetRepository.addTweet(tweet)
     const tweets = tweetRepository.getTweetsByUserIds([user.id])
-    expect(await getValue(tweets)).toEqual([withAnyId(tweet)])
-
-    function withAnyId(tweet: Tweet) {
-        return {...tweet, id: expect.any(String)}
-    }
+    expect(await getValue(tweets)).toEqual([withValidId(tweet)])
 })
 
+function withValidId(tweet: Tweet) {
+    // with non-empty id
+    return {...tweet, id: expect.stringMatching(/\S/)}
+}
+
 export function createTestTweet(author: User, date: Date): Tweet {
-    return new Tweet(generateHash(), `Tweet body ${generateHash()}`, author, date)
+    return new Tweet("", `Tweet body ${generateHash()}`, author, date)
 }
