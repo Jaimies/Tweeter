@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header -large">{{ user.name }}</div>
-    <div class="secondaryHeader">@{{ user.id }}</div>
+    <div class="secondaryHeader">@{{ user.username }}</div>
     <p class="bio">{{ user.bio }}</p>
   </div>
 </template>
