@@ -34,7 +34,7 @@ export function provideGetFeedUseCase(): GetFeedUseCaseImpl {
 }
 
 export function provideGetTweetsByUserUseCase(): GetTweetsByUserUseCaseImpl {
-    return new GetTweetsByUserUseCaseImpl(provideTweetRepository())
+    return new GetTweetsByUserUseCaseImpl(provideTweetRepository(), provideUserRepository())
 }
 
 export function provideLoginUseCase(): LoginUseCase {
