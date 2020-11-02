@@ -11,9 +11,10 @@ import BaseInput from "@/ui/components/ui/Input"
 import BaseModal from "@/ui/components/ui/Modal"
 import {provideGetUserUseCase, provideUpdateProfileUseCase} from "@/di/provideUseCases"
 import {User} from "@/domain/model/User"
+import {clone} from "@/shared/ObjectUtil"
 
 const currentUser = provideGetUserUseCase().run()
-const updateUserUseCase = provideUpdateProfileUseCase()
+const updateProfileUseCase = provideUpdateProfileUseCase()
 
 export default {
   components: {BaseInput, BaseModal},
@@ -27,8 +28,9 @@ export default {
     }
   },
   methods: {
-    saveProfile() {
-      const updatedUser = updateUserUseCase.run({bio: this.bio, name: this.name})
+    async saveProfile() {
+      await updateProfileUseCase.run({bio: this.bio, name: this.name})
+      const updatedUser = clone(this.user, {name: this.name, bio: this.bio})
       this.$emitBubbling("updateUser", updatedUser)
       this.$emit("close")
     }
