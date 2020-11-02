@@ -16,6 +16,7 @@
 import BaseInput from "../components/ui/Input"
 import BaseForm from "../components/ui/Form"
 import {provideLoginUseCase} from "@/di/provideUseCases"
+import {LoginResult} from "@/domain/repository/AuthRepository"
 
 const login = provideLoginUseCase()
 
@@ -32,11 +33,13 @@ export default {
     }
   },
   methods: {
-    login() {
-      if (login.areCredentialsValid(this.credential, this.password)) {
-        login.login(this.credential, this.password)
+    async login() {
+      const loginResult = await login.login(this.credential, this.password)
+
+      if (loginResult == LoginResult.WrongPassword)
+        this.showErrorMessage()
+      else
         this.navigateOnSuccess()
-      } else this.showErrorMessage()
     },
 
     navigateOnSuccess() {
