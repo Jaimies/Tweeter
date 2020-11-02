@@ -52,5 +52,8 @@ module.exports = {
     },
     stats: {
         colors: true
+    },
+    experiments: {
+        topLevelAwait: true
     }
 }
