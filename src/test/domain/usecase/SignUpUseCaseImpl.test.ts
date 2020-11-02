@@ -28,22 +28,22 @@ describe("run()", () => {
     })
 })
 
-describe("other methods", () => {
+describe("check credential availability", () => {
     const existingUser = createTestUser()
     const anotherExistingUser = createTestUser()
 
     const userRepository = new StubUserRepository([existingUser, anotherExistingUser])
     const useCase = new SignUpUseCaseImpl(new StubAuthRepository(undefined), userRepository)
 
-    it("isEmailAvailable()", () => {
-        expect(useCase.isEmailAvailable(existingUser.email)).toBe(false)
-        expect(useCase.isEmailAvailable(anotherExistingUser.email)).toBe(false)
-        expect(useCase.isEmailAvailable("newuser@gmail.com")).toBe(true)
+    it("isEmailAvailable()", async () => {
+        expect(await useCase.isEmailAvailable(existingUser.email)).toBe(false)
+        expect(await useCase.isEmailAvailable(anotherExistingUser.email)).toBe(false)
+        expect(await useCase.isEmailAvailable("newuser@gmail.com")).toBe(true)
     })
 
-    it("isUsernameAvailable()", () => {
-        expect(useCase.isUsernameAvailable(existingUser.username)).toBe(false)
-        expect(useCase.isUsernameAvailable(anotherExistingUser.username)).toBe(false)
-        expect(useCase.isUsernameAvailable("newUsername")).toBe(true)
+    it("isUsernameAvailable()", async () => {
+        expect(await useCase.isUsernameAvailable(existingUser.username)).toBe(false)
+        expect(await useCase.isUsernameAvailable(anotherExistingUser.username)).toBe(false)
+        expect(await useCase.isUsernameAvailable("newUsername")).toBe(true)
     })
 })

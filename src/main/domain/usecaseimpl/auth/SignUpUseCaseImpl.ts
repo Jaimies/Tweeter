@@ -18,21 +18,17 @@ export class SignUpUseCaseImpl implements SignUpUseCase {
         return signUpResult
     }
 
-    isEmailAvailable(email: string): boolean {
-        return this.isUserAvailable(user => user.email == email)
-    }
-
     private loginAndAddUserToDB(userId: string, user: User, password: string) {
         const addUser = this.userRepository.addUser(userId, user)
         const login = this.authRepository.login(user.email, password)
         return Promise.all([addUser, login])
     }
 
-    isUsernameAvailable(username: string): boolean {
-        return this.isUserAvailable(user => user.id == username)
+    isEmailAvailable(email: string): Promise<boolean> {
+        return this.userRepository.findUserByEmail(email).then(user => !user)
     }
 
-    private isUserAvailable(predicate: (user: User) => boolean) {
-        return !this.userRepository.getUsers().some(predicate)
+    isUsernameAvailable(username: string): Promise<boolean> {
+        return this.userRepository.findUserByUsername(username).then(user => !user)
     }
 }
