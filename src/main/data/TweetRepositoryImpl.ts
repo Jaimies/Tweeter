@@ -25,6 +25,8 @@ export class TweetRepositoryImpl implements TweetRepository {
     }
 
     addTweet(tweet: Tweet) {
-        return this.tweetsCollection.add(toPlainObject(tweet)).then(() => {})
+        const {id, ...tweetWithoutId} = tweet
+        const plainTweet = toPlainObject(tweetWithoutId)
+        return this.tweetsCollection.add(plainTweet).then(() => {})
     }
 }

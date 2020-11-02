@@ -24,10 +24,18 @@ it("selects tweets from specified user", async () => {
     expect(await getValue(tweets)).toEqual([tweetFromUser2, tweet].map(withValidId))
 })
 
-it("adds a tweet", async () => {
-    await tweetRepository.addTweet(tweet)
-    const tweets = tweetRepository.getTweetsByUserIds([user.id])
-    expect(await getValue(tweets)).toEqual([withValidId(tweet)])
+describe("addTweet()", () => {
+    it("adds a tweet", async () => {
+        await tweetRepository.addTweet(tweet)
+        const tweets = tweetRepository.getTweetsByUserIds([user.id])
+        expect(await getValue(tweets)).toEqual([withValidId(tweet)])
+    })
+
+    it("does not store the id field in the database", async () => {
+        await tweetRepository.addTweet(tweet)
+        const snapshot = await tweetsCollection.get()
+        expect(snapshot.docs[0].data().id).toBeUndefined()
+    })
 })
 
 function withValidId(tweet: Tweet) {
