@@ -1,7 +1,7 @@
 <template>
-  <RouterLink :to="`/` + user.id" class="card routerLink block">
+  <RouterLink :to="`/` + user.username" class="card routerLink block">
     <div class="header">{{ user.name }}</div>
-    <div class="secondaryHeader">@{{ user.id }}</div>
+    <div class="secondaryHeader">@{{ user.username }}</div>
     <p class="bio">{{ user.bio }}</p>
 
     <FollowButton :user="user" @click.native.prevent/>
