@@ -1,8 +1,10 @@
 import {TweetRepositoryImpl} from "@/data/TweetRepositoryImpl"
-import {createTestTweet, createTestUser} from "../testData"
+import {createTestUser} from "../testData"
 import {getValue} from "@/shared/RxUtil"
 import {Tweet} from "@/domain/model/Tweet"
 import {addData, deleteAllDocs, getTestFirestore} from "./FirestoreTestUtils"
+import {User} from "@/domain/model/User"
+import {generateHash} from "../generateHash"
 
 const [user, user2, user3] = [createTestUser(), createTestUser(), createTestUser()]
 const tweet = createTestTweet(user, new Date("2020-01-01"))
@@ -32,3 +34,6 @@ it("adds a tweet", async () => {
     }
 })
 
+export function createTestTweet(author: User, date: Date = new Date("2018-01-01")): Tweet {
+    return new Tweet(generateHash(), `Tweet body ${generateHash()}`, author, date)
+}
