@@ -8,15 +8,21 @@
 import {provideGetUserUseCase, provideLogoutUseCase} from "@/di/provideUseCases"
 
 const logout = provideLogoutUseCase()
-const user = provideGetUserUseCase().run()
+const getUser = provideGetUserUseCase()
 
 export default {
   data: () => ({
-    isLoggedIn: !!user
+    isLoggedIn: null
   }),
+
+  async created() {
+    const user = await getUser.run()
+    this.isLoggedIn = !!user
+  },
+
   methods: {
-    logout() {
-      logout.run()
+    async logout() {
+      await logout.run()
       location.reload()
     }
   }
