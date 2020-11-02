@@ -3,7 +3,6 @@ import {Tweet} from "@/domain/model/Tweet"
 import {generateHash} from "./generateHash"
 
 export const testUser = createTestUser()
-export const testTweet = createTestTweet(testUser)
 
 export function createTestUser(): User {
     const id = generateHash()
