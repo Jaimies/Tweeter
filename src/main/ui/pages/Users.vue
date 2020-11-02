@@ -12,8 +12,12 @@ export default {
   components: {UserListItem},
   data() {
     return {
-      users: provideGetUsersUseCase().run()
+      users: null
     }
+  },
+
+  async created() {
+    this.users = await provideGetUsersUseCase().run()
   }
 }
 </script>
