@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     normalizedTweets() {
-      return this.tweets.map(mapTweetToPresentation)
+      return this.tweets?.map(mapTweetToPresentation)
     }
   }
 }
