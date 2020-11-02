@@ -5,6 +5,6 @@ export class LogoutUseCaseImpl implements LogoutUseCase {
     constructor(private authRepository: AuthRepository) {}
 
     run() {
-        this.authRepository.logout()
+        return this.authRepository.logout()
     }
 }

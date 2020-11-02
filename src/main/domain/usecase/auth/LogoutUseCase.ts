@@ -1,3 +1,3 @@
 export interface LogoutUseCase {
-    run(): void
+    run(): Promise<void>
 }
