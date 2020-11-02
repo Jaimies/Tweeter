@@ -1,9 +1,9 @@
 <template>
   <div class="card">
     <div>
-      <RouterLink :to="`/` + tweet.author.id" class="routerLink">
+      <RouterLink :to="`/` + tweet.author.username" class="routerLink">
         <span class="header">{{ tweet.author.name }}</span>
-        <span class="secondaryHeader">@{{ tweet.author.id }}</span>
+        <span class="secondaryHeader">@{{ tweet.author.username }}</span>
       </RouterLink>
       <time :datetime="tweet.isoDate" class="secondaryHeader">
         {{ tweet.displayDate }}
