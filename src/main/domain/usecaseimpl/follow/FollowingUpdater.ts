@@ -13,7 +13,6 @@ export class FollowingUpdater {
     async run(following: ListChange<string>, errorMessage: string) {
         const userId = await getValue(this.authRepository.userId)
         checkIsDefined(userId, errorMessage)
-        const user = await this.userRepository.findUserById(userId!)
-        return this.userRepository.updateUser(user!.username, {following})
+        return this.userRepository.updateUser(userId!, {following})
     }
 }
