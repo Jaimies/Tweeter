@@ -48,7 +48,7 @@ export default {
     },
     username: {
       required,
-      isUnique: value => signUp.isUserIdAvailable(value)
+      isUnique: value => signUp.isUsernameAvailable(value)
     },
     password: {required, minLength: minLength(8)},
     confirmPassword: {
@@ -56,16 +56,16 @@ export default {
     }
   },
   methods: {
-    signUp() {
+    async signUp() {
       if (!this.$v.$invalid) {
-        this.createUser()
+        await this.createUser()
         this.navigateHome()
       }
     },
 
     createUser() {
       const user = new User("", this.username, this.name, this.email, "", [])
-      signUp.run(user, this.password)
+      return signUp.run(user, this.password)
     },
 
     navigateHome() {
