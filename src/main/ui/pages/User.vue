@@ -19,13 +19,17 @@ const findUser = provideFindUserUseCase()
 export default {
   components: {TweetFeed, ProfileNotFoundCard, UserCard},
   props: {
-    id: String
+    username: String
   },
   subscriptions() {
-    return {tweets: getTweets.run(this.id)}
+    return {tweets: getTweets.run(this.username)}
   },
   data() {
-    return {user: findUser.run(this.id)}
+    return {user: null}
+  },
+
+  async created() {
+    this.user = await findUser.run(this.username)
   }
 }
 </script>

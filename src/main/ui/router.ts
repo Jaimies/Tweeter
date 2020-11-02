@@ -34,7 +34,7 @@ const router = new Router({
             component: () => import("./pages/Users.vue")
         },
         {
-            path: "/:id",
+            path: "/:username",
             component: () => import("./pages/User.vue"),
             props: true
         }
