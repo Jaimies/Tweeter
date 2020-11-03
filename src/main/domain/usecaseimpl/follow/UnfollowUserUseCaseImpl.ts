@@ -8,6 +8,6 @@ export class UnfollowUserUseCaseImpl implements UnfollowUserUseCase {
     constructor(private followingUpdater: FollowingUpdater) {}
 
     run(userId: string) {
-        return this.followingUpdater.run(new ListChange.Add(userId), AUTH_REQUIRED)
+        return this.followingUpdater.run(new ListChange.Remove(userId), AUTH_REQUIRED)
     }
 }
