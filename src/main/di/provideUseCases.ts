@@ -50,7 +50,7 @@ export function provideSignUpUseCase(): SignUpUseCase {
 }
 
 export function provideGetUsersUseCase(): GetUsersUseCase {
-    return new GetUsersUseCaseImpl(provideUserRepository())
+    return new GetUsersUseCaseImpl(provideUserRepository(), provideAuthRepository())
 }
 
 export function provideFindUserUseCase(): FindUserUseCase {
