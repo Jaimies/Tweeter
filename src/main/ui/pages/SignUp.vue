@@ -1,5 +1,5 @@
 <template>
-  <BaseForm :isValid="!$v.$invalid" @submit="signUp">
+  <BaseForm :isValid="!$v.$invalid" @submit="signUp" v-if="!isLoading">
     <template #heading>Signup to Twitter</template>
     <template #submitBtn>Sign up</template>
 
@@ -19,6 +19,8 @@
       <p class="error" v-if="!$v.confirmPassword.sameAsPassword">Passwords do not match.</p>
     </BaseInput>
   </BaseForm>
+
+  <Spinner v-else/>
 </template>
 
 <script>
@@ -27,17 +29,19 @@ import BaseForm from "../components/ui/Form"
 import {User} from "@/domain/model/User"
 import {email, minLength, required, sameAs} from "vuelidate/lib/validators"
 import {provideSignUpUseCase} from "@/di/provideUseCases"
+import Spinner from "@/ui/components/ui/Spinner"
 
 const signUp = provideSignUpUseCase()
 
 export default {
-  components: {BaseForm, BaseInput},
+  components: {Spinner, BaseForm, BaseInput},
   data: () => ({
     email: null,
     username: null,
     name: null,
     password: null,
-    confirmPassword: null
+    confirmPassword: null,
+    isLoading: false
   }),
 
   validations: {
@@ -58,6 +62,7 @@ export default {
   methods: {
     async signUp() {
       if (!this.$v.$invalid) {
+        this.isLoading = true
         await this.createUser()
         this.navigateHome()
       }
