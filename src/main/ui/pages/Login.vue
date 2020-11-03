@@ -12,7 +12,7 @@
       login attempts. Please try again later.
     </p>
 
-    <BaseInput v-model="credential" type="email" label="Email"/>
+    <BaseInput v-model="email" type="email" label="Email"/>
     <BaseInput v-model="password" label="Password" type="password" autocomplete="current-password"/>
   </BaseForm>
 
@@ -31,7 +31,7 @@ const login = provideLoginUseCase()
 export default {
   components: {Spinner, BaseForm, BaseInput},
   data: () => ({
-    credential: null,
+    email: null,
     password: null,
     wrongCredentials: false,
     tooManyAttempts: false,
@@ -39,7 +39,7 @@ export default {
   }),
   computed: {
     isFormValid() {
-      return !!this.credential && !!this.password
+      return !!this.email && !!this.password
     }
   },
   methods: {
@@ -73,7 +73,7 @@ export default {
     },
 
     async performLogin() {
-      const loginResult = await login.login(this.credential, this.password)
+      const loginResult = await login.login(this.email, this.password)
 
       if (loginResult == LoginResult.Success)
         this.navigateOnSuccess()
