@@ -9,7 +9,12 @@ export class SignUpResult {
     protected constructor() {}
 }
 
-export enum LoginResult {Success = "success", UserNotFound = "user not found", WrongPassword = "wrong password"}
+export enum LoginResult {
+    Success = "success",
+    UserNotFound = "user not found",
+    WrongPassword = "wrong password",
+    TooManyAttempts = "too many attempts"
+}
 
 export interface AuthRepository {
     userId: Observable<string | undefined>

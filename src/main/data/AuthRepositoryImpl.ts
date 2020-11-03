@@ -20,6 +20,9 @@ export class AuthRepositoryImpl implements AuthRepository {
             if (e.code == "auth/wrong-password")
                 return LoginResult.WrongPassword
 
+            if(e.code == "auth/too-many-requests")
+                return LoginResult.TooManyAttempts
+
             throw e
         }
 

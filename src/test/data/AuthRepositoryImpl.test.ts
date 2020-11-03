@@ -12,6 +12,7 @@ describe("login()", () => {
         [null, LoginResult.Success],
         ["auth/user-not-found", LoginResult.UserNotFound],
         ["auth/wrong-password", LoginResult.WrongPassword],
+        ["auth/too-many-requests", LoginResult.TooManyAttempts],
     ])("when error is %o returns %o", async (errorCode, expectedResult) => {
         const repository = createRepository(errorCode)
         const result = await repository.login("email", "password")
