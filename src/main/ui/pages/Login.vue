@@ -7,6 +7,11 @@
       Seems like you've entered an incorrect email or password
     </p>
 
+    <p v-if="tooManyAttempts" class="error">
+      Access to this account has been temporarily disabled due to many failed
+      login attempts. Please try again later.
+    </p>
+
     <BaseInput v-model="credential" type="email" label="Email"/>
     <BaseInput v-model="password" label="Password" type="password" autocomplete="current-password"/>
   </BaseForm>
@@ -29,6 +34,7 @@ export default {
     credential: null,
     password: null,
     wrongCredentials: false,
+    tooManyAttempts: false,
     isLoading: false
   }),
   computed: {
@@ -37,13 +43,10 @@ export default {
     }
   },
   methods: {
-    async login() {
-      this.isLoading = true
-      const loginResult = await login.login(this.credential, this.password)
-      if (loginResult == LoginResult.WrongPassword)
-        this.showErrorMessage()
-      else
-        this.navigateOnSuccess()
+    login() {
+      this.showLoader()
+      this.hideErrors()
+      this.performLogin()
     },
 
     navigateOnSuccess() {
@@ -51,10 +54,34 @@ export default {
       location.reload()
     },
 
-    showErrorMessage() {
+    showErrorMessage(loginResult) {
+      if (loginResult == LoginResult.WrongPassword)
+        this.wrongCredentials = true
+      else
+        this.tooManyAttempts = true
+    },
+
+    showLoader() {
+      this.isLoading = true
+    },
+    hideLoader() {
       this.isLoading = false
-      this.wrongCredentials = true
-    }
+    },
+    hideErrors() {
+      this.wrongCredentials = false
+      this.tooManyAttempts = false
+    },
+
+    async performLogin() {
+      const loginResult = await login.login(this.credential, this.password)
+
+      if (loginResult == LoginResult.Success)
+        this.navigateOnSuccess()
+      else {
+        this.hideLoader()
+        this.showErrorMessage(loginResult)
+      }
+    },
   }
 }
 </script>
