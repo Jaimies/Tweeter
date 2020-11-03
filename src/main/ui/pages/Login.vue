@@ -1,5 +1,5 @@
 <template>
-  <BaseForm :isValid="isFormValid" @submit="login">
+  <BaseForm :isValid="isFormValid" @submit="login" v-if="!isLoading">
     <template #heading>Login to Twitter</template>
     <template #submitBtn>Login</template>
 
@@ -10,6 +10,8 @@
     <BaseInput v-model="credential" type="email" label="Email"/>
     <BaseInput v-model="password" label="Password" type="password" autocomplete="current-password"/>
   </BaseForm>
+
+  <Spinner v-else/>
 </template>
 
 <script>
@@ -17,15 +19,17 @@ import BaseInput from "../components/ui/Input"
 import BaseForm from "../components/ui/Form"
 import {provideLoginUseCase} from "@/di/provideUseCases"
 import {LoginResult} from "@/domain/repository/AuthRepository"
+import Spinner from "@/ui/components/ui/Spinner"
 
 const login = provideLoginUseCase()
 
 export default {
-  components: {BaseForm, BaseInput},
+  components: {Spinner, BaseForm, BaseInput},
   data: () => ({
     credential: null,
     password: null,
-    wrongCredentials: false
+    wrongCredentials: false,
+    isLoading: false
   }),
   computed: {
     isFormValid() {
@@ -34,8 +38,8 @@ export default {
   },
   methods: {
     async login() {
+      this.isLoading = true
       const loginResult = await login.login(this.credential, this.password)
-
       if (loginResult == LoginResult.WrongPassword)
         this.showErrorMessage()
       else
@@ -48,6 +52,7 @@ export default {
     },
 
     showErrorMessage() {
+      this.isLoading = false
       this.wrongCredentials = true
     }
   }
