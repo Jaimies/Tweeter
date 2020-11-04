@@ -1,5 +1,5 @@
-import {CollectionReference, Firestore, getFirestore} from "@/data/Firebase";
-import {toPlainObject} from "@/shared/ObjectUtil";
+import {CollectionReference, Firestore, getFirestore} from "@/data/Firebase"
+import {toPlainObject} from "@/shared/ObjectUtil"
 
 export function getTestFirestore(): Firestore {
     const db = getFirestore()
