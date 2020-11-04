@@ -17,6 +17,6 @@ export default {
     isLoading() {
       return this.$store.state.isLoading
     }
-}
+  }
 }
 </script>

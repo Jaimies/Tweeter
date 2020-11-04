@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <RouterLink to="/users" class="link">Browse users</RouterLink>
+    <RouterLink class="link" to="/users">Browse users</RouterLink>
   </div>
 </template>
 
@@ -17,7 +17,7 @@
   color: inherit;
 
   &:hover {
-     text-decoration: none;
-   }
+    text-decoration: none;
+  }
 }
 </style>

@@ -17,7 +17,7 @@ const router = new Router({
         },
         {
             path: "/login",
-            component: ()=> import("./pages/Login.vue"),
+            component: () => import("./pages/Login.vue"),
             meta: {requiredAuthState: Unauthenticated}
         },
         {
@@ -52,7 +52,7 @@ router.beforeEach(async (to: Route, from: Route, next: NavigationGuardNext) => {
 router.afterEach(() => store.commit("hideLoader"))
 
 function getNavigationPath(requiredAuthState: AuthState, actualAuthState: AuthState): string | undefined {
-    if(requiredAuthState == actualAuthState)
+    if (requiredAuthState == actualAuthState)
         return undefined
 
     if (requiredAuthState == Authenticated)

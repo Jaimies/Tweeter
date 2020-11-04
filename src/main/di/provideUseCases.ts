@@ -77,6 +77,6 @@ export function provideUnfollowUserUseCase(): UnfollowUserUseCase {
     return new UnfollowUserUseCaseImpl(provideFollowingUpdater())
 }
 
-export function provideGetAuthStateUseCase() : GetAuthStateUseCase {
+export function provideGetAuthStateUseCase(): GetAuthStateUseCase {
     return new GetAuthStateUseCaseImpl(provideAuthRepository())
 }

@@ -20,7 +20,7 @@ export class GetTweetsByUserUseCaseImpl implements GetTweetsByUserUseCase {
     }
 
     private getTweetsByUser(user: User | undefined) {
-        if(!user) return []
+        if (!user) return []
         return this.tweetRepository.getTweetsByUserIds([user.id])
     }
 }

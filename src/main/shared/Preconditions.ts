@@ -1,4 +1,4 @@
- import {IllegalStateException} from "@/shared/IllegalStateException"
+import {IllegalStateException} from "@/shared/IllegalStateException"
 
 export function checkIsDefined<T>(value: T | null | undefined, message: string): T {
     if (value == null)

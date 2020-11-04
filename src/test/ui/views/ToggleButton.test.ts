@@ -38,8 +38,8 @@ it("emits check event if clicked while unchecked", () => {
 })
 
 it("emits uncheck event if clicked while checked", () => {
-  const wrapper = mountComponent(true)
-  wrapper.trigger("click")
-  expect((wrapper.emitted())).toHaveProperty("uncheck")
-  expect((wrapper.emitted())).not.toHaveProperty("check")
+    const wrapper = mountComponent(true)
+    wrapper.trigger("click")
+    expect((wrapper.emitted())).toHaveProperty("uncheck")
+    expect((wrapper.emitted())).not.toHaveProperty("check")
 })

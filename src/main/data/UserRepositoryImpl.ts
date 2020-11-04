@@ -67,6 +67,6 @@ function toFieldValue<T>(change: ListChange<T>) {
 }
 
 function toUser(snapshot: DocumentSnapshot | undefined) {
-    if(!snapshot?.exists) return undefined
+    if (!snapshot?.exists) return undefined
     return deserializeUser(snapshot.id, snapshot.data())
 }
