@@ -2,6 +2,7 @@ import Vue from "vue"
 import Router, {NavigationGuardNext, Route} from "vue-router"
 import {AuthState} from "@/domain/model/AuthState"
 import {provideGetAuthStateUseCase} from "@/di/provideUseCases"
+import store from "@/ui/store"
 import Authenticated = AuthState.Authenticated
 import Unauthenticated = AuthState.Unauthenticated
 
@@ -42,10 +43,13 @@ const router = new Router({
 })
 
 router.beforeEach(async (to: Route, from: Route, next: NavigationGuardNext) => {
+    store.commit("showLoader")
     const requiredAuthState = to.meta.requiredAuthState
     const actualAuthState = await provideGetAuthStateUseCase().run()
     next(getNavigationPath(requiredAuthState, actualAuthState))
 })
+
+router.afterEach(() => store.commit("hideLoader"))
 
 function getNavigationPath(requiredAuthState: AuthState, actualAuthState: AuthState): string | undefined {
     if(requiredAuthState == actualAuthState)
