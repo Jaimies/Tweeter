@@ -9,8 +9,8 @@ function mountComponent(checked: boolean): Wrapper<Vue> {
         propsData: {checked},
         slots: {
             enabledText: "Enabled",
-            disabledText: "Disabled"
-        }
+            disabledText: "Disabled",
+        },
     })
 }
 

@@ -7,7 +7,7 @@ import {getValue} from "@/shared/RxUtil"
 export class GetUsersUseCaseImpl implements GetUsersUseCase {
     constructor(
         private usersRepository: UserRepository,
-        private authRepository: AuthRepository
+        private authRepository: AuthRepository,
     ) {}
 
     async run(): Promise<User[]> {

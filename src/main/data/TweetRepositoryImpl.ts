@@ -20,7 +20,7 @@ export class TweetRepositoryImpl implements TweetRepository {
             .orderBy("date", "desc")
 
         return collectionData(query, "id").pipe(
-            mapList(deserializeTweet)
+            mapList(deserializeTweet),
         )
     }
 

@@ -4,7 +4,7 @@ export class UiUser {
     constructor(
         public username: string,
         public name: string,
-        public bio: string
+        public bio: string,
     ) {}
 }
 

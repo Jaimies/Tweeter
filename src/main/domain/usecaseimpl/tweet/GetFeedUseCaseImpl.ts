@@ -12,14 +12,14 @@ const AUTH_REQUIRED = "Authentication is required to get feed."
 export class GetFeedUseCaseImpl implements GetFeedUseCase {
     constructor(
         private tweetRepository: TweetRepository,
-        private getUser: GetCurrentUserUseCase
+        private getUser: GetCurrentUserUseCase,
     ) {}
 
     run(): Observable<Tweet[]> {
         const user$ = from(this.getUser.run())
 
         return user$.pipe(
-            switchMap(user => this.getTweetsForUser(user))
+            switchMap(user => this.getTweetsForUser(user)),
         )
     }
 

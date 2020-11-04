@@ -13,5 +13,5 @@ Vue.use(emitBubbling)
 export const vue = new Vue({
     router,
     store,
-    render: (h: CreateElement) => h(App)
+    render: (h: CreateElement) => h(App),
 }).$mount("#app")

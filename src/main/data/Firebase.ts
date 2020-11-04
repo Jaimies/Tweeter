@@ -15,7 +15,7 @@ const firebaseConfig = {
     projectId: "tweeter-dfa01",
     storageBucket: "tweeter-dfa01.appspot.com",
     messagingSenderId: "149840259429",
-    appId: "1:149840259429:web:542929c80b04be1eecd98c"
+    appId: "1:149840259429:web:542929c80b04be1eecd98c",
 }
 
 firebase.initializeApp(firebaseConfig)
@@ -34,5 +34,5 @@ export {
     FieldValue,
     CollectionReference,
     DocumentReference,
-    DocumentSnapshot
+    DocumentSnapshot,
 }

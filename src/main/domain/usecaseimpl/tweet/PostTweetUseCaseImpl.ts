@@ -9,7 +9,7 @@ const AUTH_REQUIRED = "Authentication is required to post a tweet"
 export class PostTweetUseCaseImpl implements PostTweetUseCase {
     constructor(
         private tweetRepository: TweetRepository,
-        private getUser: GetCurrentUserUseCase
+        private getUser: GetCurrentUserUseCase,
     ) {}
 
     async run(text: string) {

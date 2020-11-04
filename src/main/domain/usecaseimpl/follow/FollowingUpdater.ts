@@ -7,7 +7,7 @@ import {ListChange} from "@/domain/model/ListChange"
 export class FollowingUpdater {
     constructor(
         private authRepository: AuthRepository,
-        private userRepository: UserRepository
+        private userRepository: UserRepository,
     ) {}
 
     async run(following: ListChange<string>, errorMessage: string) {

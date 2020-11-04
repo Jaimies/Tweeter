@@ -5,7 +5,7 @@ import {map} from "rxjs/operators"
 
 export class AuthRepositoryImpl implements AuthRepository {
     userId = authState(this.auth).pipe(
-        map(user => user?.uid)
+        map(user => user?.uid),
     )
 
     constructor(private auth: FirebaseAuth) {}

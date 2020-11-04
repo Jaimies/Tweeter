@@ -13,33 +13,33 @@ const router = new Router({
         {
             path: "/",
             component: () => import("./pages/Welcome.vue"),
-            meta: {requiredAuthState: Unauthenticated}
+            meta: {requiredAuthState: Unauthenticated},
         },
         {
             path: "/login",
             component: () => import("./pages/Login.vue"),
-            meta: {requiredAuthState: Unauthenticated}
+            meta: {requiredAuthState: Unauthenticated},
         },
         {
             path: "/signup",
             component: () => import("./pages/SignUp.vue"),
-            meta: {requiredAuthState: Unauthenticated}
+            meta: {requiredAuthState: Unauthenticated},
         },
         {
             path: "/home",
             component: () => import("./pages/Home.vue"),
-            meta: {requiredAuthState: Authenticated}
+            meta: {requiredAuthState: Authenticated},
         },
         {
             path: "/users",
-            component: () => import("./pages/Users.vue")
+            component: () => import("./pages/Users.vue"),
         },
         {
             path: "/:username",
             component: () => import("./pages/User.vue"),
-            props: true
-        }
-    ]
+            props: true,
+        },
+    ],
 })
 
 router.beforeEach(async (to: Route, from: Route, next: NavigationGuardNext) => {

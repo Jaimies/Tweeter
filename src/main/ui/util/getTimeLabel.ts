@@ -74,5 +74,5 @@ const monthNames = [
     "Sep",
     "Oct",
     "Nov",
-    "Dec"
+    "Dec",
 ]

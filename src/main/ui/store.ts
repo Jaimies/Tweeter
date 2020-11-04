@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        isLoading: true
+        isLoading: true,
     },
     mutations: {
         hideLoader(state) {
@@ -14,8 +14,8 @@ const store = new Vuex.Store({
 
         showLoader(state) {
             state.isLoading = true
-        }
-    }
+        },
+    },
 })
 
 export default store

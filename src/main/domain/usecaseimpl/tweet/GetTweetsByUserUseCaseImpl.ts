@@ -9,13 +9,13 @@ import {User} from "@/domain/model/User"
 export class GetTweetsByUserUseCaseImpl implements GetTweetsByUserUseCase {
     constructor(
         private tweetRepository: TweetRepository,
-        private userRepository: UserRepository
+        private userRepository: UserRepository,
     ) {}
 
     run(username: string): Observable<Tweet[]> {
         const user$ = from(this.userRepository.findUserByUsername(username))
         return user$.pipe(
-            switchMap(user => this.getTweetsByUser(user))
+            switchMap(user => this.getTweetsByUser(user)),
         )
     }
 

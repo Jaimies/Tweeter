@@ -9,7 +9,7 @@ const UNAUTHENTICATED_ERROR = "Authentication is required for updating profile"
 export class UpdateProfileUseCaseImpl implements UpdateProfileUseCase {
     constructor(
         private userRepository: UserRepository,
-        private authRepository: AuthRepository
+        private authRepository: AuthRepository,
     ) {}
 
     async run(update: ProfileUpdate) {

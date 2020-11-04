@@ -5,6 +5,6 @@ export class Tweet {
         public id: string,
         public body: string,
         public author: User,
-        public date: Date
+        public date: Date,
     ) {}
 }

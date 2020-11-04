@@ -8,7 +8,7 @@ export class UiTweet {
         public body: string,
         public author: UiUser,
         public displayDate: string,
-        public isoDate: string
+        public isoDate: string,
     ) {}
 }
 
@@ -18,6 +18,6 @@ export function mapTweetToPresentation({id, body, author, date}: Tweet) {
         body,
         mapUserToPresentation(author),
         getTimeLabel(date),
-        date.toISOString()
+        date.toISOString(),
     )
 }

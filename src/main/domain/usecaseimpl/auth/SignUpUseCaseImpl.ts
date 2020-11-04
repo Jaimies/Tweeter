@@ -6,7 +6,7 @@ import {SignUpUseCase} from "@/domain/usecase/auth/SignUpUseCase"
 export class SignUpUseCaseImpl implements SignUpUseCase {
     constructor(
         private authRepository: AuthRepository,
-        private userRepository: UserRepository
+        private userRepository: UserRepository,
     ) {}
 
     async run(user: User, password: string): Promise<SignUpResult> {

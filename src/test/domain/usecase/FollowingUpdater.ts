@@ -20,7 +20,7 @@ it("calls updateUser() with username and followingChange", async () => {
     authRepository.userId.next(testUser.id)
     await useCase.run(followingChange, errorMessage)
     expect(userRepository.updateUser).toBeCalledWith(testUser.id, {
-        following: followingChange
+        following: followingChange,
     })
 })
 
