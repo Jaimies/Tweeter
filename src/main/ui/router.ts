@@ -12,31 +12,31 @@ const router = new Router({
     routes: [
         {
             path: "/",
-            component: () => import("./pages/Welcome.vue"),
+            component: () => import(/* webpackPrefetch: true */ "./pages/Welcome.vue"),
             meta: {requiredAuthState: Unauthenticated},
         },
         {
             path: "/login",
-            component: () => import("./pages/Login.vue"),
+            component: () => import(/* webpackPrefetch: true */ "./pages/Login.vue"),
             meta: {requiredAuthState: Unauthenticated},
         },
         {
             path: "/signup",
-            component: () => import("./pages/SignUp.vue"),
+            component: () => import(/* webpackPrefetch: true */ "./pages/SignUp.vue"),
             meta: {requiredAuthState: Unauthenticated},
         },
         {
             path: "/home",
-            component: () => import("./pages/Home.vue"),
+            component: () => import(/* webpackPrefetch: true */ "./pages/Home.vue"),
             meta: {requiredAuthState: Authenticated},
         },
         {
             path: "/users",
-            component: () => import("./pages/Users.vue"),
+            component: () => import(/* webpackPrefetch: true */ "./pages/Users.vue"),
         },
         {
             path: "/:username",
-            component: () => import("./pages/User.vue"),
+            component: () => import(/* webpackPrefetch: true */ "./pages/User.vue"),
             props: true,
         },
     ],
