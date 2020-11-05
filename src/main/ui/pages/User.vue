@@ -1,12 +1,10 @@
 <template>
-  <div class="feed">
-    <template v-if="!isLoading">
-      <UserCard @updateUser="user = $event" v-if="user" :user="user"/>
-      <ProfileNotFoundCard v-else/>
-      <TweetFeed :tweets="tweets"/>
-    </template>
-    <Spinner v-else/>
+  <div class="feed" v-if="!isLoading">
+    <UserCard @updateUser="user = $event" v-if="user" :user="user"/>
+    <ProfileNotFoundCard v-else/>
+    <TweetFeed :tweets="tweets"/>
   </div>
+  <Spinner v-else/>
 </template>
 
 <script>
