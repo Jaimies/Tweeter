@@ -14,7 +14,9 @@
 
     <BaseInput v-model="name" label="Name" autocomplete="name"/>
 
-    <BaseInput v-model="password" label="Password" type="password" autocomplete="new-password"/>
+    <BaseInput v-model="password" label="Password" type="password" autocomplete="new-password">
+      <p class="error" v-if="!$v.password.minLength">Password must be at least 8 characters long</p>
+    </BaseInput>
     <BaseInput v-model="confirmPassword" label="Confirm password" type="password" autocomplete="new-password">
       <p class="error" v-if="!$v.confirmPassword.sameAsPassword">Passwords do not match.</p>
     </BaseInput>
