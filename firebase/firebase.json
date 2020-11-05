@@ -3,5 +3,8 @@
     "firestore": {
       "port": 8000
     }
+  },
+  "firestore": {
+    "indexes": "firestore.indexes.json"
   }
 }
