@@ -4,8 +4,8 @@
     <template #submitBtn>Sign up</template>
 
     <BaseInput v-model="email" label="Email" type="email">
-      <p class="error" v-if="!$v.email.isUnique">Email has already been taken.</p>
-      <p class="error" v-else-if="!$v.email.email">Please enter a valid email.</p>
+      <p class="error" v-if="!$v.email.email">Please enter a valid email.</p>
+      <p class="error" v-else-if="!$v.email.isUnique">Email has already been taken.</p>
     </BaseInput>
 
     <BaseInput v-model="username" label="Username">
