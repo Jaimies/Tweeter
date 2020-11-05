@@ -30,7 +30,7 @@ export default {
   async created() {
     const currentUser = await provideGetUserUseCase().run()
     this.isAuthenticated = !!currentUser
-    this.isCurrentUser = currentUser.id == this.user.id
+    this.isCurrentUser = currentUser && currentUser.id == this.user.id
   }
 }
 </script>
