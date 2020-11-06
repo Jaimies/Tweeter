@@ -5,9 +5,11 @@
            :value="value"
            :autocomplete="autocomplete"
            class="input"
-           @input="$emit(`input`, $event.target.value)">
+           @input="$emit(`input`, $event.target.value); resetValidation()"
+           @blur="validate"
+           @focus="resetValidation">
 
-    <slot/>
+    <slot v-if="showErrors"/>
   </label>
 </template>
 
@@ -16,6 +18,7 @@ export default {
   props: {
     value: String,
     label: String,
+    validation: Object,
     autocomplete: {
       type: String,
       default: "on"
@@ -23,6 +26,20 @@ export default {
     type: {
       type: String,
       default: "text"
+    }
+  },
+  methods: {
+    resetValidation() {
+      if (this.validation) this.validation.$reset()
+    },
+
+    validate() {
+      if(this.validation) this.validation.$touch()
+    }
+  },
+  computed: {
+    showErrors() {
+      return this.validation && this.validation.$dirty
     }
   }
 }
