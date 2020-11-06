@@ -16,6 +16,8 @@ type Tweet = {
     body: string
     author: TweetAuthor
     date: timestamp
+
+    allow create: if data.date == request.time
 }
 
 function isLoggedIn(userId) {

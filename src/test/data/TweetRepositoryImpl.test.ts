@@ -7,6 +7,12 @@ import {generateHash} from "../generateHash"
 import {TweetAuthor} from "@/domain/model/TweetAuthor"
 import {User} from "@/domain/model/User"
 
+jest.mock('@/data/Firebase', () => ({
+    // @ts-expect-error
+    ...jest.requireActual('@/data/Firebase'),
+    FieldValue: require("@firebase/rules-unit-testing").firestore.FieldValue,
+}))
+
 const [user, user2, user3] = [createTestUser(), createTestUser(), createTestUser()]
 const tweet = createTestTweet(user, new Date("2020-01-01"))
 const tweetFromUser2 = createTestTweet(user2, new Date("2020-01-02"))
@@ -29,12 +35,16 @@ it("selects tweets from specified user", async () => {
 it("addTweet()", async () => {
     await tweetRepository.addTweet(tweet)
     const tweets = tweetRepository.getTweetsByUserIds([user.id])
-    expect(await getValue(tweets)).toEqual([withValidId(tweet)])
+    expect(await getValue(tweets)).toEqual([withAnyDateAndValidId(tweet)])
 })
 
 function withValidId(tweet: Tweet) {
     // with non-empty id
     return {...tweet, id: expect.stringMatching(/\S/)}
+}
+
+function withAnyDateAndValidId(tweet: Tweet) {
+    return {...withValidId(tweet), date: expect.any(Date)}
 }
 
 export function createTestTweet(author: User, date: Date): Tweet {

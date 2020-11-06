@@ -5,7 +5,7 @@ import {collectionData} from "rxfire/firestore"
 import {mapList} from "@/shared/RxOperators"
 import {deserializeTweet} from "@/data/util/Serialization"
 import {toPlainObject} from "@/shared/ObjectUtil"
-import {CollectionReference, Firestore} from "@/data/Firebase"
+import {CollectionReference, FieldValue, Firestore} from "@/data/Firebase"
 
 export class TweetRepositoryImpl implements TweetRepository {
     private tweetsCollection: CollectionReference
@@ -27,6 +27,7 @@ export class TweetRepositoryImpl implements TweetRepository {
     addTweet(tweet: Tweet) {
         const {id, ...tweetWithoutId} = tweet
         const plainTweet = toPlainObject(tweetWithoutId)
-        return this.tweetsCollection.add(plainTweet).then(() => {})
+        const tweetWithTimestamp = {...plainTweet, date: FieldValue.serverTimestamp()}
+        return this.tweetsCollection.add(tweetWithTimestamp).then(() => {})
     }
 }
