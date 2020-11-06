@@ -5,6 +5,10 @@
     }
   },
   "firestore": {
-    "indexes": "firestore.indexes.json"
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json",
+    "predeploy": [
+      "npm run compile-rules"
+    ]
   }
 }

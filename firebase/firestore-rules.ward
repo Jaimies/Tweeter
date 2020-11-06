@@ -1,0 +1,36 @@
+type User = {
+    readonly username: string
+    readonly email: string
+    name: string
+    bio: string
+    following: string[]
+}
+
+type TweetAuthor = {
+    readonly id: string
+    readonly username: string
+    readonly email: string
+    name: string
+    bio: string
+    following: string[]
+}
+
+type Tweet = {
+    body: string
+    author: TweetAuthor
+    date: timestamp
+}
+
+function isLoggedIn(userId) {
+    return request.auth != null && request.auth.uid == userId
+}
+
+match /users/{userId} is User {
+    allow read: if true
+    allow write: if isLoggedIn(userId)
+}
+
+match /tweets/{tweetId} is Tweet {
+    allow read: if true
+    allow create: if isLoggedIn(request.resource.data.author.id)
+}
