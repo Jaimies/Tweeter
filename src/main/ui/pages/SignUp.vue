@@ -1,6 +1,6 @@
 <template>
   <BaseForm :isValid="!$v.$invalid" @submit="signUp" v-if="!isLoading">
-    <template #heading>Signup to Twitter</template>
+    <template #heading>Signup to Tweeter</template>
     <template #submitBtn>Sign up</template>
 
     <BaseInput v-model="email" label="Email" type="email">

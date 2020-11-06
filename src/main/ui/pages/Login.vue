@@ -1,6 +1,6 @@
 <template>
   <BaseForm :isValid="isFormValid" @submit="login" v-if="!isLoading">
-    <template #heading>Login to Twitter</template>
+    <template #heading>Login to Tweeter</template>
     <template #submitBtn>Login</template>
 
     <p v-if="wrongCredentials" class="error">
