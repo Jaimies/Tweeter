@@ -1,16 +1,23 @@
 import {UserRepositoryImpl} from "@/data/UserRepositoryImpl"
 import {createTestUser} from "../testData"
-import {deleteAllDocs, getTestFirestore} from "./FirestoreTestUtils"
+import {deleteAllDocs, getAdminFirestore, getTestFirestore} from "./FirestoreTestUtils"
 import {ListChange} from "@/domain/model/ListChange"
 import {User} from "@/domain/model/User"
 
+jest.mock('@/data/Firebase', () => ({
+    // @ts-expect-error
+    ...jest.requireActual('@/data/Firebase'),
+    FieldValue: require("@firebase/rules-unit-testing").firestore.FieldValue,
+}));
+
 const user = createTestUser()
 
-const db = getTestFirestore()
-const usersCollection = db.collection("users")
+const db = getTestFirestore("userId")
+const adminDb = getAdminFirestore()
+const adminUsersCollection = adminDb.collection("users")
 const userRepository = new UserRepositoryImpl(db)
 
-afterEach(() => deleteAllDocs(usersCollection))
+afterEach(() => deleteAllDocs(adminUsersCollection))
 afterAll(() => db.terminate())
 
 it("addUser()", async () => {

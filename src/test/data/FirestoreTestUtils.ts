@@ -1,10 +1,17 @@
-import {CollectionReference, Firestore, getFirestore} from "@/data/Firebase"
+import {CollectionReference, Firestore} from "@/data/Firebase"
 import {toPlainObject} from "@/shared/ObjectUtil"
+import * as firebase from "@firebase/rules-unit-testing"
 
-export function getTestFirestore(): Firestore {
-    const db = getFirestore()
-    db.useEmulator("localhost", 8000)
-    return db
+const appConfig = {projectId: "tweeter-dfa01"}
+
+export function getTestFirestore(userId: string): Firestore {
+    const app = firebase.initializeTestApp({...appConfig, auth: {uid: userId}})
+    return app.firestore() as unknown as Firestore
+}
+
+export function getAdminFirestore(): Firestore {
+    const app = firebase.initializeAdminApp(appConfig)
+    return app.firestore() as unknown as Firestore
 }
 
 export async function deleteAllDocs(collection: CollectionReference) {
