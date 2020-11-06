@@ -3,8 +3,9 @@ import {createTestUser} from "../testData"
 import {getValue} from "@/shared/RxUtil"
 import {Tweet} from "@/domain/model/Tweet"
 import {addData, deleteAllDocs, getAdminFirestore, getTestFirestore} from "./FirestoreTestUtils"
-import {User} from "@/domain/model/User"
 import {generateHash} from "../generateHash"
+import {TweetAuthor} from "@/domain/model/TweetAuthor"
+import {User} from "@/domain/model/User"
 
 const [user, user2, user3] = [createTestUser(), createTestUser(), createTestUser()]
 const tweet = createTestTweet(user, new Date("2020-01-01"))
@@ -37,5 +38,5 @@ function withValidId(tweet: Tweet) {
 }
 
 export function createTestTweet(author: User, date: Date): Tweet {
-    return new Tweet("", `Tweet body ${generateHash()}`, author, date)
+    return new Tweet("", `Tweet body ${generateHash()}`, TweetAuthor.from(author), date)
 }

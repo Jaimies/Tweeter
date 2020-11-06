@@ -1,10 +1,10 @@
-import {User} from "./User"
+import {TweetAuthor} from "@/domain/model/TweetAuthor"
 
 export class Tweet {
     constructor(
         public id: string,
         public body: string,
-        public author: User,
+        public author: TweetAuthor,
         public date: Date,
     ) {}
 }
