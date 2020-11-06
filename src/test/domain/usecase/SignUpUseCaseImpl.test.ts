@@ -16,14 +16,12 @@ describe("run()", () => {
     it("calls login() and addUser() if signUp() returns success", async () => {
         authRepository.signUpResult = new SignUpResult.Success("userId")
         await useCase.run(testUser, "password")
-        expect(authRepository.login).toBeCalledWith(testUser.email, "password")
         expect(userRepository.addUser).toBeCalledWith("userId", testUser)
     })
 
     it("doesn't call call login() and addUser() if signUp() returns an error", async () => {
         authRepository.signUpResult = SignUpResult.EmailTaken
         await useCase.run(testUser, "password")
-        expect(authRepository.login).not.toBeCalled()
         expect(userRepository.addUser).not.toBeCalled()
     })
 })

@@ -13,15 +13,9 @@ export class SignUpUseCaseImpl implements SignUpUseCase {
         const signUpResult = await this.authRepository.signUp(user.email, password)
 
         if (signUpResult instanceof SignUpResult.Success)
-            await this.loginAndAddUserToDB(signUpResult.userId, user, password)
+            await this.userRepository.addUser(signUpResult.userId, user)
 
         return signUpResult
-    }
-
-    private loginAndAddUserToDB(userId: string, user: User, password: string) {
-        const addUser = this.userRepository.addUser(userId, user)
-        const login = this.authRepository.login(user.email, password)
-        return Promise.all([addUser, login])
     }
 
     isEmailAvailable(email: string): Promise<boolean> {
