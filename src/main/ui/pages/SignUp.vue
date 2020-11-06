@@ -21,14 +21,6 @@
                :validation="$v.password">
       <p class="error" v-if="!$v.password.minLength">Password must be at least 8 characters long</p>
     </BaseInput>
-
-    <BaseInput v-model="confirmPassword"
-               label="Confirm password"
-               type="password"
-               autocomplete="new-password"
-               :validation="$v.confirmPassword">
-      <p class="error" v-if="!$v.confirmPassword.sameAsPassword">Passwords do not match.</p>
-    </BaseInput>
   </BaseForm>
 
   <Spinner v-else/>
@@ -38,7 +30,7 @@
 import BaseInput from "../components/ui/Input"
 import BaseForm from "../components/ui/Form"
 import {User} from "@/domain/model/User"
-import {email, minLength, required, sameAs} from "vuelidate/lib/validators"
+import {email, minLength, required} from "vuelidate/lib/validators"
 import {provideSignUpUseCase} from "@/di/provideUseCases"
 import Spinner from "@/ui/components/ui/Spinner"
 
@@ -51,7 +43,6 @@ export default {
     username: null,
     name: null,
     password: null,
-    confirmPassword: null,
     isLoading: false
   }),
 
@@ -65,10 +56,7 @@ export default {
       required,
       isUnique: value => signUp.isUsernameAvailable(value)
     },
-    password: {required, minLength: minLength(8)},
-    confirmPassword: {
-      sameAsPassword: sameAs("password")
-    }
+    password: {required, minLength: minLength(8)}
   },
   methods: {
     async signUp() {
