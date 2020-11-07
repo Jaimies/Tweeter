@@ -6,20 +6,11 @@
 </template>
 
 <script>
-import {provideGetAuthStateUseCase} from "@/di/provideUseCases"
-import {AuthState} from "@/domain/model/AuthState"
-
-const getAuthState = provideGetAuthStateUseCase()
-
 export default {
   data() {
     return {
-      isAuthenticated: false
+      isAuthenticated: this.$store.state.isAuthenticated
     }
-  },
-
-  async created() {
-    this.isAuthenticated  = await getAuthState.run() == AuthState.Authenticated
   }
 }
 </script>
