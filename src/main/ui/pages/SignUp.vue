@@ -50,11 +50,17 @@ export default {
     email: {
       email,
       required,
-      isUnique: value => signUp.isEmailAvailable(value)
+      isUnique(value) {
+        if (!this.$v.email.$dirty) return true
+        return signUp.isEmailAvailable(value)
+      }
     },
     username: {
       required,
-      isUnique: value => signUp.isUsernameAvailable(value)
+      isUnique(value) {
+        if (!this.$v.username.$dirty) return true
+        return signUp.isUsernameAvailable(value)
+      }
     },
     password: {required, minLength: minLength(8)}
   },
