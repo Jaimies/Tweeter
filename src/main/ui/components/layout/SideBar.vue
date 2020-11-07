@@ -1,8 +1,28 @@
 <template>
   <div class="sidebar">
+    <RouterLink class="link" to="/home" v-if="isAuthenticated">Tweeter</RouterLink>
     <RouterLink class="link" to="/users">Browse users</RouterLink>
   </div>
 </template>
+
+<script>
+import {provideGetAuthStateUseCase} from "@/di/provideUseCases"
+import {AuthState} from "@/domain/model/AuthState"
+
+const getAuthState = provideGetAuthStateUseCase()
+
+export default {
+  data() {
+    return {
+      isAuthenticated: false
+    }
+  },
+
+  async created() {
+    this.isAuthenticated  = await getAuthState.run() == AuthState.Authenticated
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .sidebar {
@@ -13,6 +33,8 @@
 }
 
 .link {
+  display: block;
+  margin-bottom: 10px;
   font-size: 18px;
   color: inherit;
 
