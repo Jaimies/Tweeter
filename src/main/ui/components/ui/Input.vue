@@ -39,7 +39,7 @@ export default {
   },
   computed: {
     showErrors() {
-      return this.validation && this.validation.$dirty
+      return this.validation && this.validation.$error
     }
   }
 }
