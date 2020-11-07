@@ -13,26 +13,41 @@ const router = new Router({
         {
             path: "/",
             component: () => import(/* webpackPrefetch: true */ "./pages/Welcome.vue"),
-            meta: {requiredAuthState: Unauthenticated},
+            meta: {
+                requiredAuthState: Unauthenticated,
+                title: "Welcome to Tweeter",
+            },
         },
         {
             path: "/login",
             component: () => import(/* webpackPrefetch: true */ "./pages/Login.vue"),
-            meta: {requiredAuthState: Unauthenticated},
+            meta: {
+                requiredAuthState: Unauthenticated,
+                title: "Login to Tweeter",
+            },
         },
         {
             path: "/signup",
             component: () => import(/* webpackPrefetch: true */ "./pages/SignUp.vue"),
-            meta: {requiredAuthState: Unauthenticated},
+            meta: {
+                requiredAuthState: Unauthenticated,
+                title: "Sign up to Tweeter",
+            },
         },
         {
             path: "/home",
             component: () => import(/* webpackPrefetch: true */ "./pages/Home.vue"),
-            meta: {requiredAuthState: Authenticated},
+            meta: {
+                requiredAuthState: Authenticated,
+                title: "Home / Tweeter",
+            },
         },
         {
             path: "/users",
             component: () => import(/* webpackPrefetch: true */ "./pages/Users.vue"),
+            meta: {
+                title: "Explore users",
+            },
         },
         {
             path: "/:username",
@@ -49,7 +64,10 @@ router.beforeEach(async (to: Route, from: Route, next: NavigationGuardNext) => {
     next(getNavigationPath(requiredAuthState, actualAuthState))
 })
 
-router.afterEach(() => store.commit("hideLoader"))
+router.afterEach(to => {
+    store.commit("hideLoader")
+    if (to.meta.title) document.title = to.meta.title
+})
 
 function getNavigationPath(requiredAuthState: AuthState, actualAuthState: AuthState): string | undefined {
     if (requiredAuthState == actualAuthState)

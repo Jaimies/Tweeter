@@ -35,6 +35,7 @@ export default {
   async created() {
     this.user = await findUser.run(this.username)
     this.isLoading = false
+    document.title = `${this.user.name} (@${this.user.username}) / Tweeter`
   }
 }
 </script>
