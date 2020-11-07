@@ -61,7 +61,10 @@ router.beforeEach(async (to: Route, from: Route, next: NavigationGuardNext) => {
     store.commit("showLoader")
     const requiredAuthState = to.meta.requiredAuthState
     const actualAuthState = await provideGetAuthStateUseCase().run()
-    next(getNavigationPath(requiredAuthState, actualAuthState))
+    next({
+        path: getNavigationPath(requiredAuthState, actualAuthState),
+        replace: true,
+    })
 })
 
 router.afterEach(to => {

@@ -23,6 +23,7 @@ export default {
   methods: {
     async logout() {
       await logout.run()
+      this.$router.push("/")
       location.reload()
     }
   }
