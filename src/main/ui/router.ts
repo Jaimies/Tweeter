@@ -59,12 +59,9 @@ const router = new Router({
 
 router.beforeEach(async (to: Route, from: Route, next: NavigationGuardNext) => {
     store.commit("showLoader")
-    const requiredAuthState = to.meta.requiredAuthState
-    const actualAuthState = await provideGetAuthStateUseCase().run()
-    next({
-        path: getNavigationPath(requiredAuthState, actualAuthState),
-        replace: true,
-    })
+    const nextPath = await getNavigationPath(to)
+    next({path: nextPath, replace: true})
+    if(nextPath == from.path) store.commit("hideLoader")
 })
 
 router.afterEach(to => {
@@ -72,7 +69,13 @@ router.afterEach(to => {
     if (to.meta.title) document.title = to.meta.title
 })
 
-function getNavigationPath(requiredAuthState: AuthState, actualAuthState: AuthState): string | undefined {
+async function getNavigationPath(to: Route): Promise<string | undefined> {
+    const requiredAuthState = to.meta.requiredAuthState
+    const actualAuthState = await provideGetAuthStateUseCase().run()
+    return getNavigationPathForStates(requiredAuthState, actualAuthState)
+}
+
+function getNavigationPathForStates(requiredAuthState: AuthState, actualAuthState: AuthState): string | undefined {
     if (requiredAuthState == actualAuthState)
         return undefined
 
