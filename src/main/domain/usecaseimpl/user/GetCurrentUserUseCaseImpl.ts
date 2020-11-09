@@ -2,7 +2,8 @@ import {AuthRepository} from "../../repository/AuthRepository"
 import {UserRepository} from "../../repository/UserRepository"
 import {User} from "../../model/User"
 import {GetCurrentUserUseCase} from "@/domain/usecase/user/GetCurrentUserUseCase"
-import {getValue} from "@/shared/RxUtil"
+import {Observable, of} from "rxjs"
+import {switchMap} from "rxjs/operators"
 
 export class GetCurrentUserUseCaseImpl implements GetCurrentUserUseCase {
     constructor(
@@ -10,9 +11,12 @@ export class GetCurrentUserUseCaseImpl implements GetCurrentUserUseCase {
         private userRepository: UserRepository
     ) {}
 
-    async run(): Promise<User | undefined> {
-        const userId = await getValue(this.authRepository.userId)
-        if (!userId) return undefined
-        return this.userRepository.findUserById(userId)
+    run(): Observable<User | undefined> {
+        return this.authRepository.userId.pipe(
+            switchMap(id => {
+                if(!id) return of(undefined)
+                return this.userRepository.findUserById(id)
+            })
+        )
     }
 }

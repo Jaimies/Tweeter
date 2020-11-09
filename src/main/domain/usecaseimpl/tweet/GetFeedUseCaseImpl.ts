@@ -1,6 +1,6 @@
 import {TweetRepository} from "../../repository/TweetRepository"
 import {Tweet} from "../../model/Tweet"
-import {from, Observable} from "rxjs"
+import {Observable} from "rxjs"
 import {checkIsDefined} from "@/shared/Preconditions"
 import {GetFeedUseCase} from "@/domain/usecase/tweet/GetFeedUseCase"
 import {GetCurrentUserUseCase} from "@/domain/usecase/user/GetCurrentUserUseCase"
@@ -16,9 +16,7 @@ export class GetFeedUseCaseImpl implements GetFeedUseCase {
     ) {}
 
     run(): Observable<Tweet[]> {
-        const user$ = from(this.getUser.run())
-
-        return user$.pipe(
+        return this.getUser.run().pipe(
             switchMap(user => this.getTweetsForUser(user)),
         )
     }

@@ -1,5 +1,6 @@
 import {User} from "@/domain/model/User"
+import {Observable} from "rxjs"
 
 export interface GetCurrentUserUseCase {
-    run(): Promise<User | undefined>
+    run(): Observable<User | undefined>
 }

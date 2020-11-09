@@ -1,10 +1,11 @@
 import {User} from "@/domain/model/User"
 import {GetCurrentUserUseCase} from "@/domain/usecase/user/GetCurrentUserUseCase"
+import {of} from "rxjs"
 
 export class StubGetCurrentUserUseCase implements GetCurrentUserUseCase {
     constructor(public user: User | undefined) {}
 
-    async run() {
-        return this.user
+    run() {
+        return of(this.user)
     }
 }
