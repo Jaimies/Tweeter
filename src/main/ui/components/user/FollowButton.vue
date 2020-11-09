@@ -10,7 +10,7 @@
 
 <script>
 import ToggleButton from "@/ui/components/ui/ToggleButton"
-import {provideFollowUserUseCase, provideGetUserUseCase, provideUnfollowUserUseCase} from "@/di/provideUseCases"
+import {provideFollowUserUseCase, provideGetCurrentUserUseCase, provideUnfollowUserUseCase} from "@/di/provideUseCases"
 import {User} from "@/domain/model/User"
 import {map} from "rxjs/operators"
 
@@ -21,7 +21,7 @@ export default {
   },
   subscriptions() {
     return {
-      isFollowed: provideGetUserUseCase().run().pipe(
+      isFollowed: provideGetCurrentUserUseCase().run().pipe(
           map(user => user && user.followsUserWithId(this.user.id))
       )
     }

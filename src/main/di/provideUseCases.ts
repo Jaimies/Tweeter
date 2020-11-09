@@ -25,12 +25,12 @@ import {FollowingUpdater} from "@/domain/usecaseimpl/follow/FollowingUpdater"
 import {GetAuthStateUseCase} from "@/domain/usecase/auth/GetAuthStateUseCase"
 import {GetAuthStateUseCaseImpl} from "@/domain/usecaseimpl/auth/GetAuthStateUseCaseImpl"
 
-export function provideGetUserUseCase(): GetCurrentUserUseCase {
+export function provideGetCurrentUserUseCase(): GetCurrentUserUseCase {
     return new GetCurrentUserUseCaseImpl(provideAuthRepository(), provideUserRepository())
 }
 
 export function provideGetFeedUseCase(): GetFeedUseCaseImpl {
-    return new GetFeedUseCaseImpl(provideTweetRepository(), provideGetUserUseCase())
+    return new GetFeedUseCaseImpl(provideTweetRepository(), provideGetCurrentUserUseCase())
 }
 
 export function provideGetTweetsByUserUseCase(): GetTweetsByUserUseCaseImpl {
@@ -42,7 +42,7 @@ export function provideLoginUseCase(): LoginUseCase {
 }
 
 export function providePostTweetUseCase(): PostTweetUseCase {
-    return new PostTweetUseCaseImpl(provideTweetRepository(), provideGetUserUseCase())
+    return new PostTweetUseCaseImpl(provideTweetRepository(), provideGetCurrentUserUseCase())
 }
 
 export function provideSignUpUseCase(): SignUpUseCase {

@@ -13,7 +13,7 @@ import {User} from "@/domain/model/User"
 import FollowButton from "@/ui/components/user/FollowButton"
 import UserHeader from "@/ui/components/user/Header"
 import EditButton from "@/ui/components/user/EditButton"
-import {provideGetUserUseCase} from "@/di/provideUseCases"
+import {provideGetCurrentUserUseCase} from "@/di/provideUseCases"
 
 export default {
   components: {EditButton, UserHeader, FollowButton},
@@ -27,7 +27,7 @@ export default {
     }
   },
   async created() {
-    const currentUser = await provideGetUserUseCase().run()
+    const currentUser = await provideGetCurrentUserUseCase().run()
     this.isCurrentUser = currentUser && currentUser.id == this.user.id
   }
 }
