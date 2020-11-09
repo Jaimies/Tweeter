@@ -2,7 +2,7 @@ import {Tweet} from "@/domain/model/Tweet"
 import {User} from "@/domain/model/User"
 import {TweetAuthor} from "@/domain/model/TweetAuthor"
 
-export function deserializeTweet({id, author, body, date}: any) {
+export function deserializeTweet(id: string, {author, body, date}: any) {
     return new Tweet(id, body, deserializeTweetAuthor(author), date.toDate())
 }
 

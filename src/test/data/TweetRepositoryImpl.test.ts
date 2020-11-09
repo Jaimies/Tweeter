@@ -33,9 +33,11 @@ it("selects tweets from specified user", async () => {
 })
 
 it("addTweet()", async () => {
+    const tweets$ = tweetRepository.getTweetsByUserIds([user.id])
+    const subscriber = jest.fn()
+    tweets$.subscribe(subscriber)
     await tweetRepository.addTweet(tweet)
-    const tweets = tweetRepository.getTweetsByUserIds([user.id])
-    expect(await getValue(tweets)).toEqual([withAnyDateAndValidId(tweet)])
+    expect(subscriber).toBeCalledWith([withAnyDateAndValidId(tweet)])
 })
 
 function withValidId(tweet: Tweet) {

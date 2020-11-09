@@ -1,11 +1,15 @@
 import {TweetRepository} from "@/domain/repository/TweetRepository"
 import {Tweet} from "@/domain/model/Tweet"
 import {Observable} from "rxjs"
-import {collectionData} from "rxfire/firestore"
+import {collection} from "rxfire/firestore"
 import {mapList} from "@/shared/RxOperators"
 import {deserializeTweet} from "@/data/util/Serialization"
 import {toPlainObject} from "@/shared/ObjectUtil"
-import {CollectionReference, FieldValue, Firestore} from "@/data/Firebase"
+import {CollectionReference, DocumentSnapshot, FieldValue, Firestore} from "@/data/Firebase"
+
+function documentSnapshotToTweet(snapshot: DocumentSnapshot) {
+    return deserializeTweet(snapshot.id, snapshot.data({serverTimestamps: "estimate"}))
+}
 
 export class TweetRepositoryImpl implements TweetRepository {
     private tweetsCollection: CollectionReference
@@ -19,8 +23,8 @@ export class TweetRepositoryImpl implements TweetRepository {
             .where("author.id", "in", userIds)
             .orderBy("date", "desc")
 
-        return collectionData(query, "id").pipe(
-            mapList(deserializeTweet),
+        return collection(query).pipe(
+            mapList(documentSnapshotToTweet),
         )
     }
 
