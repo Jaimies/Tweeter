@@ -9,11 +9,10 @@
 <script>
 import BaseInput from "@/ui/components/ui/Input"
 import BaseModal from "@/ui/components/ui/Modal"
-import {provideGetUserUseCase, provideUpdateProfileUseCase} from "@/di/provideUseCases"
+import {provideUpdateProfileUseCase} from "@/di/provideUseCases"
 import {User} from "@/domain/model/User"
 import {clone} from "@/shared/ObjectUtil"
 
-const currentUser = provideGetUserUseCase().run()
 const updateProfileUseCase = provideUpdateProfileUseCase()
 
 export default {
