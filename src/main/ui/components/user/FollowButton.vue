@@ -1,6 +1,5 @@
 <template>
   <ToggleButton class="floating-btn"
-                @toggle="isFollowed = !isFollowed"
                 @check="follow"
                 @uncheck="unfollow"
                 :checked="isFollowed">
@@ -13,17 +12,18 @@
 import ToggleButton from "@/ui/components/ui/ToggleButton"
 import {provideFollowUserUseCase, provideGetUserUseCase, provideUnfollowUserUseCase} from "@/di/provideUseCases"
 import {User} from "@/domain/model/User"
-
-const currentUser = await provideGetUserUseCase().run()
+import {map} from "rxjs/operators"
 
 export default {
   components: {ToggleButton},
   props: {
     user: User
   },
-  data() {
+  subscriptions() {
     return {
-      isFollowed: currentUser && currentUser.followsUserWithId(this.user.id)
+      isFollowed: provideGetUserUseCase().run().pipe(
+          map(user => user && user.followsUserWithId(this.user.id))
+      )
     }
   },
   methods: {
