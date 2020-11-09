@@ -5,19 +5,15 @@
 </template>
 
 <script>
-import {provideGetUserUseCase, provideLogoutUseCase} from "@/di/provideUseCases"
+import {provideLogoutUseCase} from "@/di/provideUseCases"
 
 const logout = provideLogoutUseCase()
-const getUser = provideGetUserUseCase()
 
 export default {
-  data: () => ({
-    isLoggedIn: null
-  }),
-
-  async created() {
-    const user = await getUser.run()
-    this.isLoggedIn = !!user
+  data() {
+    return {
+      isLoggedIn: this.$store.state.isAuthenticated
+    }
   },
 
   methods: {
