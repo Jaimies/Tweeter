@@ -3,12 +3,14 @@ import {createTestUser} from "../testData"
 import {deleteAllDocs, getAdminFirestore, getTestFirestore} from "./FirestoreTestUtils"
 import {ListChange} from "@/domain/model/ListChange"
 import {User} from "@/domain/model/User"
+import {getValue} from "@/shared/RxUtil"
+import {clone} from "@/shared/ObjectUtil"
 
 jest.mock('@/data/Firebase', () => ({
     // @ts-expect-error
     ...jest.requireActual('@/data/Firebase'),
     FieldValue: require("@firebase/rules-unit-testing").firestore.FieldValue,
-}));
+}))
 
 const user = createTestUser()
 
@@ -28,15 +30,24 @@ it("addUser()", async () => {
 describe("findUserBy*()", () => {
     it("returns the needed user", async () => {
         await userRepository.addUser("userId", user)
-        expect(await userRepository.findUserById("userId")).toEqual(withAnyId(user))
+        expect(await getValue(userRepository.findUserById("userId"))).toEqual(withAnyId(user))
         expect(await userRepository.findUserByUsername(user.username)).toEqual(withAnyId(user))
         expect(await userRepository.findUserByEmail(user.email)).toEqual(withAnyId(user))
     })
 
     it("returns undefined if user is not found", async () => {
-        expect(await userRepository.findUserById(user.id)).toBe(undefined)
+        expect(await getValue(userRepository.findUserById(user.id))).toBe(undefined)
         expect(await userRepository.findUserByUsername(user.username)).toBe(undefined)
         expect(await userRepository.findUserByEmail(user.email)).toBe(undefined)
+    })
+
+    it("observable returned by findUserById() updates its value", async () => {
+        await userRepository.addUser("userId", user)
+        const subscriber = jest.fn()
+        const user$ = userRepository.findUserById("userId")
+        user$.subscribe(subscriber)
+        await userRepository.updateUser("userId", {name: "new name"})
+        expect(subscriber).toBeCalledWith(clone(user, {name: "new name", id: "userId"}))
     })
 })
 

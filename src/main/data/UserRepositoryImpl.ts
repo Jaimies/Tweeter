@@ -6,6 +6,9 @@ import {UserChange} from "@/domain/model/UserChange"
 import {CollectionReference, DocumentSnapshot, FieldValue, Firestore} from "@/data/Firebase"
 import {IllegalArgumentException} from "@/shared/IllegalArgumentException"
 import {ListChange} from "@/domain/model/ListChange"
+import {Observable} from "rxjs"
+import {doc} from "rxfire/firestore"
+import {map} from "rxjs/operators"
 
 export class UserRepositoryImpl implements UserRepository {
     private usersCollection: CollectionReference
@@ -29,9 +32,10 @@ export class UserRepositoryImpl implements UserRepository {
         return toUser(snapshot)
     }
 
-    async findUserById(id: string): Promise<User | undefined> {
-        const snapshot = await this.usersCollection.doc(id).get()
-        return toUser(snapshot)
+    findUserById(id: string): Observable<User | undefined> {
+        return doc(this.usersCollection.doc(id)).pipe(
+            map(toUser)
+        )
     }
 
     addUser(userId: string, user: User): Promise<void> {
