@@ -13,10 +13,12 @@ export class GetCurrentUserUseCaseImpl implements GetCurrentUserUseCase {
 
     run(): Observable<User | undefined> {
         return this.authRepository.userId.pipe(
-            switchMap(id => {
-                if(!id) return of(undefined)
-                return this.userRepository.findUserById(id)
-            })
+            switchMap(id => this.findUserById(id))
         )
+    }
+
+    private findUserById(id: string | undefined): Observable<User | undefined> {
+        if(!id) return of(undefined)
+        return this.userRepository.findUserById(id)
     }
 }
