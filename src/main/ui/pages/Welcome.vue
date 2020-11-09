@@ -8,20 +8,6 @@
   </div>
 </template>
 
-<script>
-import {provideGetUserUseCase} from "@/di/provideUseCases"
-
-const user = provideGetUserUseCase().run()
-
-export default {
-  data() {
-    return {
-      isSignedIn: !!user
-    }
-  }
-}
-</script>
-
 <style lang="scss" scoped>
 .intro {
   margin-bottom: 10px;
