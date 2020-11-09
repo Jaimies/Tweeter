@@ -5,6 +5,6 @@ export function mapList<T, R>(mapFunction: (input: T) => R): OperatorFunction<T[
     return map(list => list.map(mapFunction))
 }
 
-export function filterList<T>(mapFunction: (input: T) => boolean): OperatorFunction<T[], T[]> {
-    return map(list => list.filter(mapFunction))
+export function filterList<T>(predicate: (input: T) => boolean): OperatorFunction<T[], T[]> {
+    return map(list => list.filter(predicate))
 }
