@@ -22,14 +22,12 @@ export default {
   },
   data() {
     return {
-      isAuthenticated: null,
-      isCurrentUser: null
+      isCurrentUser: null,
+      isAuthenticated: this.$store.state.isAuthenticated,
     }
   },
-
   async created() {
     const currentUser = await provideGetUserUseCase().run()
-    this.isAuthenticated = !!currentUser
     this.isCurrentUser = currentUser && currentUser.id == this.user.id
   }
 }
