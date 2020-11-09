@@ -1,7 +1,7 @@
 import {GetUsersUseCaseImpl} from "@/domain/usecaseimpl/user/GetUsersUseCaseImpl"
-import {StubUserRepository} from "./StubUserRepository"
-import {createTestUser} from "../../testData"
-import {StubAuthRepository} from "./StubAuthRepository"
+import {StubUserRepository} from "../StubUserRepository"
+import {createTestUser} from "../../../testData"
+import {StubAuthRepository} from "../StubAuthRepository"
 
 const [user, anotherUser] = [createTestUser(), createTestUser()]
 const userRepository = new StubUserRepository([user, anotherUser])

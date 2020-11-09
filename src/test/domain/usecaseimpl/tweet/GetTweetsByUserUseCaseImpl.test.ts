@@ -1,7 +1,7 @@
 import {GetTweetsByUserUseCaseImpl} from "@/domain/usecaseimpl/tweet/GetTweetsByUserUseCaseImpl"
-import {MockTweetRepository} from "./MockTweetRepository"
-import {StubUserRepository} from "./StubUserRepository"
-import {testUser} from "../../testData"
+import {MockTweetRepository} from "../MockTweetRepository"
+import {StubUserRepository} from "../StubUserRepository"
+import {testUser} from "../../../testData"
 import {getValue} from "@/shared/RxUtil"
 
 const tweetRepository = new MockTweetRepository()

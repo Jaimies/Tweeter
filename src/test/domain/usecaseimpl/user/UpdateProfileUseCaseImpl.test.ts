@@ -1,6 +1,6 @@
 import {UpdateProfileUseCaseImpl} from "@/domain/usecaseimpl/user/UpdateProfileUseCaseImpl"
-import {StubAuthRepository} from "./StubAuthRepository"
-import {MockUserRepository} from "./MockUserRepository"
+import {StubAuthRepository} from "../StubAuthRepository"
+import {MockUserRepository} from "../MockUserRepository"
 
 const change = {bio: "New bio", name: "New name"}
 

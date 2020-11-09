@@ -1,5 +1,5 @@
 import {GetAuthStateUseCaseImpl} from "@/domain/usecaseimpl/auth/GetAuthStateUseCaseImpl"
-import {StubAuthRepository} from "./StubAuthRepository"
+import {StubAuthRepository} from "../StubAuthRepository"
 import {AuthState} from "@/domain/model/AuthState"
 
 const authRepository = new StubAuthRepository(undefined)

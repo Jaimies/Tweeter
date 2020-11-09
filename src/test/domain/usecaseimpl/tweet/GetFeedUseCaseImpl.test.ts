@@ -1,6 +1,6 @@
 import {GetFeedUseCaseImpl} from "@/domain/usecaseimpl/tweet/GetFeedUseCaseImpl"
-import {MockTweetRepository} from "./MockTweetRepository"
-import {StubGetCurrentUserUseCase} from "./StubGetCurrentUserUseCase"
+import {MockTweetRepository} from "../MockTweetRepository"
+import {StubGetCurrentUserUseCase} from "../StubGetCurrentUserUseCase"
 import {User} from "@/domain/model/User"
 import {getValue} from "@/shared/RxUtil"
 

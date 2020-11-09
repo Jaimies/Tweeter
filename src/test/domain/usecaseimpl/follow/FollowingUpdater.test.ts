@@ -1,8 +1,8 @@
 import {FollowingUpdater} from "@/domain/usecaseimpl/follow/FollowingUpdater"
-import {StubAuthRepository} from "./StubAuthRepository"
-import {MockUserRepository} from "./MockUserRepository"
+import {StubAuthRepository} from "../StubAuthRepository"
+import {MockUserRepository} from "../MockUserRepository"
 import {ListChange} from "@/domain/model/ListChange"
-import {testUser} from "../../testData"
+import {testUser} from "../../../testData"
 
 const authRepository = new StubAuthRepository(undefined)
 const userRepository = new MockUserRepository()

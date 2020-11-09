@@ -1,10 +1,10 @@
-import {StubUserRepository} from "./StubUserRepository"
-import {createTestUser, testUser} from "../../testData"
+import {StubUserRepository} from "../StubUserRepository"
+import {createTestUser, testUser} from "../../../testData"
 import {SignUpUseCaseImpl} from "@/domain/usecaseimpl/auth/SignUpUseCaseImpl"
-import {StubAuthRepository} from "./StubAuthRepository"
-import {MockUserRepository} from "./MockUserRepository"
+import {StubAuthRepository} from "../StubAuthRepository"
+import {MockUserRepository} from "../MockUserRepository"
 import {SignUpResult} from "@/domain/repository/AuthRepository"
-import {MockAuthRepository} from "./MockAuthRepository"
+import {MockAuthRepository} from "../MockAuthRepository"
 
 describe("run()", () => {
     const authRepository = new MockAuthRepository(SignUpResult.EmailTaken)

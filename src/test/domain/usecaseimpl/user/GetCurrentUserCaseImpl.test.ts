@@ -1,7 +1,7 @@
 import {GetCurrentUserUseCaseImpl} from "@/domain/usecaseimpl/user/GetCurrentUserUseCaseImpl"
-import {StubAuthRepository} from "./StubAuthRepository"
-import {StubUserRepository} from "./StubUserRepository"
-import {testUser} from "../../testData"
+import {StubAuthRepository} from "../StubAuthRepository"
+import {StubUserRepository} from "../StubUserRepository"
+import {testUser} from "../../../testData"
 import {getValue} from "@/shared/RxUtil"
 
 let useCase: GetCurrentUserUseCaseImpl
