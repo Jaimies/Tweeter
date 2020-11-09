@@ -2,7 +2,8 @@
   <ToggleButton class="floating-btn"
                 @check="follow"
                 @uncheck="unfollow"
-                :checked="isFollowed">
+                :checked="isFollowed"
+                v-if="!isLoading">
     <template #enabledText>Following</template>
     <template #disabledText>Follow</template>
   </ToggleButton>
@@ -12,19 +13,28 @@
 import ToggleButton from "@/ui/components/ui/ToggleButton"
 import {provideFollowUserUseCase, provideGetCurrentUserUseCase, provideUnfollowUserUseCase} from "@/di/provideUseCases"
 import {User} from "@/domain/model/User"
-import {map} from "rxjs/operators"
+import {first, map} from "rxjs/operators"
+
+const currentUser$ = provideGetCurrentUserUseCase().run()
 
 export default {
   components: {ToggleButton},
   props: {
     user: User
   },
-  subscriptions() {
+  data() {
     return {
-      isFollowed: provideGetCurrentUserUseCase().run().pipe(
-          map(user => user && user.followsUserWithId(this.user.id))
-      )
+      isLoading: true
     }
+  },
+  subscriptions() {
+    const isFollowed$ = currentUser$.pipe(
+        map(user => user.followsUserWithId(this.user.id)),
+    )
+
+    isFollowed$.pipe(first()).subscribe(() => this.isLoading = false)
+
+    return {isFollowed: isFollowed$}
   },
   methods: {
     follow() {
