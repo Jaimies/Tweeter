@@ -1,16 +1,17 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import {provideGetAuthStateUseCase} from "@/di/provideUseCases"
-import {AuthState} from "@/domain/model/AuthState"
+import {provideAuthRepository} from "@/di/provideRepositories"
+import {getValue} from "@/shared/RxUtil"
 
 Vue.use(Vuex)
 
-const authState = await provideGetAuthStateUseCase().run()
+const userId =  await getValue(provideAuthRepository().userId)
 
 const store = new Vuex.Store({
     state: {
         isLoading: true,
-        isAuthenticated: authState == AuthState.Authenticated,
+        userId: userId,
+        isAuthenticated: !!userId
     },
     mutations: {
         hideLoader(state) {
