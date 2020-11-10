@@ -3,18 +3,7 @@
     <template #heading>Login to Tweeter</template>
     <template #submitBtn>Login</template>
 
-    <p v-if="userNotFound" class="error">
-      The user with this email was not found. Please double check and try again.
-    </p>
-
-    <p v-else-if="wrongPassword" class="error">
-      Seems like you've entered an incorrect email or password.
-    </p>
-
-    <p v-else-if="tooManyAttempts" class="error">
-      Access to this account has been temporarily disabled due to many failed
-      login attempts. Please try again later.
-    </p>
+    <LoginErrors :result="loginResult"/>
 
     <BaseInput v-model="email" type="email" label="Email"/>
     <BaseInput v-model="password" label="Password" type="password" autocomplete="current-password"/>
@@ -24,22 +13,21 @@
 </template>
 
 <script>
-import BaseInput from "../components/ui/Input"
-import BaseForm from "../components/ui/Form"
+import BaseInput from "../../components/ui/Input"
+import BaseForm from "../../components/ui/Form"
 import {provideLoginUseCase} from "@/di/provideUseCases"
 import {LoginResult} from "@/domain/repository/AuthRepository"
 import Spinner from "@/ui/components/ui/Spinner"
+import LoginErrors from "./Errors.vue"
 
 const login = provideLoginUseCase()
 
 export default {
-  components: {Spinner, BaseForm, BaseInput},
+  components: {Spinner, BaseForm, BaseInput, LoginErrors},
   data: () => ({
     email: null,
     password: null,
-    userNotFound: false,
-    wrongPassword: false,
-    tooManyAttempts: false,
+    loginResult: null,
     isLoading: false
   }),
   computed: {
@@ -50,7 +38,6 @@ export default {
   methods: {
     login() {
       this.showLoader()
-      this.hideErrors()
       this.performLogin()
     },
 
@@ -60,12 +47,7 @@ export default {
     },
 
     showErrorMessage(loginResult) {
-      if (loginResult == LoginResult.UserNotFound)
-        this.userNotFound = true
-      else if (loginResult == LoginResult.WrongPassword)
-        this.wrongPassword = true
-      else
-        this.tooManyAttempts = true
+      this.loginResult = loginResult
     },
 
     showLoader() {
@@ -73,11 +55,6 @@ export default {
     },
     hideLoader() {
       this.isLoading = false
-    },
-    hideErrors() {
-      this.userNotFound = false
-      this.wrongPassword = false
-      this.tooManyAttempts = false
     },
 
     async performLogin() {
