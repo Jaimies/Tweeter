@@ -17,11 +17,21 @@ type Tweet = {
     author: TweetAuthor
     date: timestamp
 
-    allow create: if data.date == request.time
+    allow create: if canCreateTweet(data, getUser())
+}
+
+function canCreateTweet(data, user) {
+    return data.date == request.time
+            && data.author.name == user.name
+            && data.author.username == user.username
 }
 
 function isLoggedIn(userId) {
     return request.auth != null && request.auth.uid == userId
+}
+
+function getUser() {
+    return get(/databases/$(database)/documents/users/$(request.auth.uid)).data
 }
 
 match /users/{userId} is User {
