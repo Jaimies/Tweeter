@@ -7,7 +7,7 @@
       The user with this email was not found. Please double check and try again.
     </p>
 
-    <p v-else-if="wrongCredentials" class="error">
+    <p v-else-if="wrongPassword" class="error">
       Seems like you've entered an incorrect email or password.
     </p>
 
@@ -38,7 +38,7 @@ export default {
     email: null,
     password: null,
     userNotFound: false,
-    wrongCredentials: false,
+    wrongPassword: false,
     tooManyAttempts: false,
     isLoading: false
   }),
@@ -63,7 +63,7 @@ export default {
       if (loginResult == LoginResult.UserNotFound)
         this.userNotFound = true
       else if (loginResult == LoginResult.WrongPassword)
-        this.wrongCredentials = true
+        this.wrongPassword = true
       else
         this.tooManyAttempts = true
     },
@@ -76,7 +76,7 @@ export default {
     },
     hideErrors() {
       this.userNotFound = false
-      this.wrongCredentials = false
+      this.wrongPassword = false
       this.tooManyAttempts = false
     },
 
