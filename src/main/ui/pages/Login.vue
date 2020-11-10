@@ -3,11 +3,15 @@
     <template #heading>Login to Tweeter</template>
     <template #submitBtn>Login</template>
 
-    <p v-if="wrongCredentials" class="error">
-      Seems like you've entered an incorrect email or password
+    <p v-if="userNotFound" class="error">
+      The user with this email was not found. Please double check and try again.
     </p>
 
-    <p v-if="tooManyAttempts" class="error">
+    <p v-else-if="wrongCredentials" class="error">
+      Seems like you've entered an incorrect email or password.
+    </p>
+
+    <p v-else-if="tooManyAttempts" class="error">
       Access to this account has been temporarily disabled due to many failed
       login attempts. Please try again later.
     </p>
@@ -33,6 +37,7 @@ export default {
   data: () => ({
     email: null,
     password: null,
+    userNotFound: false,
     wrongCredentials: false,
     tooManyAttempts: false,
     isLoading: false
@@ -55,7 +60,9 @@ export default {
     },
 
     showErrorMessage(loginResult) {
-      if (loginResult == LoginResult.WrongPassword)
+      if (loginResult == LoginResult.UserNotFound)
+        this.userNotFound = true
+      else if (loginResult == LoginResult.WrongPassword)
         this.wrongCredentials = true
       else
         this.tooManyAttempts = true
@@ -68,6 +75,7 @@ export default {
       this.isLoading = false
     },
     hideErrors() {
+      this.userNotFound = false
       this.wrongCredentials = false
       this.tooManyAttempts = false
     },
