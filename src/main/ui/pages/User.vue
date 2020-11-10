@@ -35,7 +35,12 @@ export default {
   async created() {
     this.user = await findUser.run(this.username)
     this.isLoading = false
-    document.title = `${this.user.name} (@${this.user.username}) / Tweeter`
+    document.title = `${getTitle(this.user)} / Tweeter`
+
+    function getTitle(user) {
+      if(user) `${user.name} (@${user.username})`
+      return "Profile"
+    }
   }
 }
 </script>
