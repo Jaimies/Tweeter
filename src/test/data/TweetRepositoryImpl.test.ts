@@ -26,10 +26,19 @@ const tweetRepository = new TweetRepositoryImpl(db)
 afterEach(() => deleteAllDocs(adminTweetsCollection))
 afterAll(() => db.terminate())
 
-it("selects tweets from specified user", async () => {
-    await addData(adminTweetsCollection, [tweet, tweetFromUser2, tweetFromUser3])
-    const tweets = tweetRepository.getTweetsByUserIds([user.id, user2.id])
-    expect(await getValue(tweets)).toEqual([tweetFromUser2, tweet].map(withValidId))
+describe("getTweetsByUserIds()", () => {
+    it("gets the tweets", async () => {
+        await addData(adminTweetsCollection, [tweet, tweetFromUser2, tweetFromUser3])
+        const tweets = tweetRepository.getTweetsByUserIds([user.id, user2.id])
+        expect(await getValue(tweets)).toEqual([tweetFromUser2, tweet].map(withValidId))
+    })
+
+    it("gets tweets from more than 10 users", async () => {
+        await addData(adminTweetsCollection, [tweet])
+        const userIds = [user.id, "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", user2.id]
+        const tweets = tweetRepository.getTweetsByUserIds(userIds)
+        expect(await getValue(tweets)).toEqual([withValidId(tweet)])
+    })
 })
 
 it("addTweet()", async () => {

@@ -6,6 +6,10 @@
     "esModuleInterop": true,
     "moduleResolution": "Node",
     "baseUrl": "./",
+    "lib": [
+      "dom",
+      "es2019"
+    ],
     "paths": {
       "@/*": ["src/main/*"]
     }
