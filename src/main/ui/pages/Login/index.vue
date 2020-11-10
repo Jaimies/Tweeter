@@ -1,11 +1,13 @@
 <template>
-  <BaseForm :isValid="isFormValid" @submit="login" v-if="!isLoading">
+  <BaseForm :isValid="!$v.$invalid" @submit="login" v-if="!isLoading">
     <template #heading>Login to Tweeter</template>
     <template #submitBtn>Login</template>
 
     <LoginErrors :result="loginResult"/>
 
-    <BaseInput v-model="email" type="email" label="Email"/>
+    <BaseInput v-model="email" type="email" label="Email" :validation="$v.email">
+      <p class="error" v-if="!$v.email.email">Please enter a valid email.</p>
+    </BaseInput>
     <BaseInput v-model="password" label="Password" type="password" autocomplete="current-password"/>
   </BaseForm>
 
@@ -19,6 +21,7 @@ import {provideLoginUseCase} from "@/di/provideUseCases"
 import {LoginResult} from "@/domain/repository/AuthRepository"
 import Spinner from "@/ui/components/ui/Spinner"
 import LoginErrors from "./Errors.vue"
+import {email, required} from "vuelidate/lib/validators"
 
 const login = provideLoginUseCase()
 
@@ -30,10 +33,9 @@ export default {
     loginResult: null,
     isLoading: false
   }),
-  computed: {
-    isFormValid() {
-      return !!this.email && !!this.password
-    }
+  validations: {
+    email: {email, required},
+    password: {required}
   },
   methods: {
     login() {
