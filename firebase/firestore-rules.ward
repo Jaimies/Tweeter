@@ -26,7 +26,7 @@ function isLoggedIn(userId) {
 
 match /users/{userId} is User {
     allow read: if true
-    allow write: if isLoggedIn(userId)
+    allow create, update: if isLoggedIn(userId)
 }
 
 match /tweets/{tweetId} is Tweet {
