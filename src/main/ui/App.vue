@@ -1,7 +1,9 @@
 <template>
   <div>
     <SideBar/>
-    <RouterView :key="$route.path" v-if="!isLoading"/>
+    <main v-if="!isLoading">
+      <RouterView :key="$route.path"/>
+    </main>
     <Spinner v-else/>
     <AppFooter/>
   </div>
