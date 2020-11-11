@@ -1,8 +1,11 @@
 <template>
-  <div class="feed" v-if="!isLoading">
-    <UserListItem v-for="user of users" :key="user.id" :user="user"/>
+  <div class="container">
+    <h1>Browse users</h1>
+    <div class="feed" v-if="!isLoading">
+      <UserListItem v-for="user of users" :key="user.id" :user="user"/>
+    </div>
+    <Spinner v-else/>
   </div>
-  <Spinner v-else/>
 </template>
 
 <script>
