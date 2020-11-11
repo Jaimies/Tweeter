@@ -1,6 +1,7 @@
 <template>
-  <footer class="footer" v-if="isLoggedIn">
-    <button @click="logout">Logout</button>
+  <footer class="footer">
+    <button v-if="isLoggedIn" @click="logout">Logout</button>
+    <p v-else>Tweeter is open source! Check out the <a href="https://github.com/Jaimies/Tweeter">repository</a>.</p>
   </footer>
 </template>
 
