@@ -1,8 +1,8 @@
 <template>
-  <div class="sidebar">
+  <aside class="sidebar">
     <RouterLink class="link" :to="homeLink">Tweeter</RouterLink>
     <RouterLink class="link" to="/users">Browse users</RouterLink>
-  </div>
+  </aside>
 </template>
 
 <script>
