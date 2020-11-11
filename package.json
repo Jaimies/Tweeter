@@ -1,7 +1,6 @@
 {
   "scripts": {
     "watch": "webpack serve --mode development",
-    "dev": "webpack --mode development",
     "prod": "webpack --mode production",
     "serve": "npm run serve --prefix firebase",
     "test": "jest --runInBand",
