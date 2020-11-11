@@ -1,6 +1,6 @@
 import {UserRepositoryImpl} from "@/data/UserRepositoryImpl"
 import {createTestUser} from "../testData"
-import {deleteAllDocs, getAdminFirestore, getTestFirestore} from "./FirestoreTestUtils"
+import {clearData, getTestFirestore} from "./FirestoreTestUtils"
 import {ListChange} from "@/domain/model/ListChange"
 import {User} from "@/domain/model/User"
 import {getValue} from "@/shared/RxUtil"
@@ -15,11 +15,9 @@ jest.mock('@/data/Firebase', () => ({
 const user = createTestUser()
 
 const db = getTestFirestore("userId")
-const adminDb = getAdminFirestore()
-const adminUsersCollection = adminDb.collection("users")
 const userRepository = new UserRepositoryImpl(db)
 
-afterEach(() => deleteAllDocs(adminUsersCollection))
+afterEach(() => clearData())
 afterAll(() => db.terminate())
 
 it("addUser()", async () => {

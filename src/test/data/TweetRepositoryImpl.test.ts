@@ -2,7 +2,7 @@ import {TweetRepositoryImpl} from "@/data/TweetRepositoryImpl"
 import {createTestUser} from "../testData"
 import {getValue} from "@/shared/RxUtil"
 import {Tweet} from "@/domain/model/Tweet"
-import {addData, deleteAllDocs, getAdminFirestore, getTestFirestore} from "./FirestoreTestUtils"
+import {addData, clearData, getAdminFirestore, getTestFirestore} from "./FirestoreTestUtils"
 import {generateHash} from "../generateHash"
 import {TweetAuthor} from "@/domain/model/TweetAuthor"
 import {User} from "@/domain/model/User"
@@ -23,7 +23,7 @@ const adminDb = getAdminFirestore()
 const adminTweetsCollection = adminDb.collection("tweets")
 const tweetRepository = new TweetRepositoryImpl(db)
 
-afterEach(() => deleteAllDocs(adminTweetsCollection))
+afterEach(() => clearData())
 afterAll(() => db.terminate())
 
 describe("getTweetsByUserIds()", () => {
