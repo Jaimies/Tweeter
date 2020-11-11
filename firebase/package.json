@@ -1,11 +1,10 @@
 {
   "devDependencies": {
-    "fireward": "^1.6.0",
     "firebase-tools": "^8.15.1"
   },
   "scripts": {
-    "compile-rules": "fireward -i firestore-rules.ward > firestore.rules",
-    "serve": "npm run compile-rules && firebase emulators:start --only firestore,functions"
+    "emulators": "firebase emulators:start --only firestore,functions",
+    "serve": "npm run compile-rules --prefix firestore && npm run emulators"
   },
   "private": true
 }

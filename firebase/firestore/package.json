@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "fireward": "^1.6.0"
+  },
+  "scripts": {
+    "compile-rules": "fireward -i firestore/firestore-rules.ward > firestore.rules"
+  }
+}
