@@ -1,7 +1,7 @@
 <template>
   <aside class="sidebar">
     <RouterLink class="link" :to="homeLink">Tweeter</RouterLink>
-    <RouterLink class="link" to="/users">Browse users</RouterLink>
+    <RouterLink class="link" to="/users">Explore users</RouterLink>
   </aside>
 </template>
 
