@@ -1,7 +1,10 @@
-import * as admin from "firebase-admin"
+import {clearFirestoreData, initializeAdminApp} from "@firebase/rules-unit-testing"
 
-const app = admin.initializeApp({projectId: "tweeter-dfa01"})
+const appOptions = {projectId: "tweeter-dfa01"}
+const app = initializeAdminApp(appOptions)
 const db = app.firestore()
+
+afterAll(() => clearFirestoreData(appOptions))
 
 it("updates author.name in user's tweets", async done => {
     const author = {name: "Old Name"}
