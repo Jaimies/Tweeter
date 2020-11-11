@@ -3,6 +3,6 @@
     "fireward": "^1.6.0"
   },
   "scripts": {
-    "compile-rules": "fireward -i firestore/firestore-rules.ward > firestore.rules"
+    "compile-rules": "fireward -i firestore-rules.ward > firestore.rules"
   }
 }

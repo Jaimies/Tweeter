@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const path = require("path")
 
+const dist = path.resolve(__dirname, "firebase/public/")
+
 module.exports = {
     entry: ["./src/main/ui/Main.ts", "./resources/scss/main.scss"],
     module: {
@@ -27,6 +29,9 @@ module.exports = {
             }
         ]
     },
+    output: {
+        path: dist
+    },
     resolve: {
         extensions: [".js", ".ts", ".vue"],
         alias: {
@@ -49,7 +54,7 @@ module.exports = {
     ],
     devServer: {
         port: 3000,
-        contentBase: path.resolve(__dirname, "dist/"),
+        contentBase: dist,
         historyApiFallback: true,
     },
     stats: {

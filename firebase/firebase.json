@@ -1,9 +1,9 @@
 {
   "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json",
+    "rules": "firestore/firestore.rules",
+    "indexes": "firestore/firestore.indexes.json",
     "predeploy": [
-      "npm run compile-rules"
+      "npm run compile-rules --prefix firestore"
     ]
   },
   "functions": {
@@ -11,7 +11,7 @@
     "source": "functions"
   },
   "hosting": {
-    "public": "../dist",
+    "public": "public",
     "predeploy": "npm run prod --prefix ../",
     "rewrites": [
       {
