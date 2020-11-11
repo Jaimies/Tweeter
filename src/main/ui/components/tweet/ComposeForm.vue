@@ -2,6 +2,7 @@
   <div class="tweet">
     <textarea
         v-model="tweetText"
+        aria-label="Compose a tweet"
         placeholder="What's on your mind?"
         @keydown.enter.ctrl="tweet"/>
 
