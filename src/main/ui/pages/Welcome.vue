@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <p class="intro">Hey there! Please login or sign up to continue to Tweeter.</p>
+    <h1>Welcome to Tweeter</h1>
+    <p class="intro">Please login or sign up to continue.</p>
     <div class="links">
       <RouterLink class="link" to="/login">Login</RouterLink>
       <RouterLink class="link" to="/signup">Sign Up</RouterLink>
@@ -14,8 +15,7 @@
 }
 
 .links {
-  display: flex;
-  justify-content: center;
+  margin-top: 5px;
 }
 
 .container {
@@ -24,8 +24,8 @@
 
 .link {
   display: block;
-  width: 200px;
-  margin-right: 10px;
+  width: 320px;
+  margin: 15px auto;
   padding: 9px 0;
   text-align: center;
   border: 1px solid #000;
