@@ -20,4 +20,8 @@ export default {
 .bio {
   margin-top: 10px;
 }
+
+.header {
+  margin: 0;
+}
 </style>
