@@ -1,5 +1,4 @@
 {
-  "name": "functions",
   "scripts": {
     "build": "tsc",
     "deploy": "firebase deploy --only functions"
