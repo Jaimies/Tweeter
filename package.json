@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "webpack serve --mode development",
-    "prod": "webpack --mode production",
+    "prod": "webpack --mode production --devtool source-map",
     "serve": "npm run serve --prefix firebase",
     "test": "jest --runInBand",
     "test:unit": "npm run test src/test/domain src/test/ui",
