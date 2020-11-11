@@ -6,6 +6,7 @@ import {addData, clearData, getAdminFirestore, getTestFirestore} from "./Firesto
 import {generateHash} from "../generateHash"
 import {TweetAuthor} from "@/domain/model/TweetAuthor"
 import {User} from "@/domain/model/User"
+import {toPlainObject} from "@/shared/ObjectUtil"
 
 jest.mock('@/data/Firebase', () => ({
     // @ts-expect-error
@@ -42,6 +43,7 @@ describe("getTweetsByUserIds()", () => {
 })
 
 it("addTweet()", async () => {
+    await adminDb.doc(`users/${user.id}`).set(toPlainObject(user))
     const tweets$ = tweetRepository.getTweetsByUserIds([user.id])
     const subscriber = jest.fn()
     tweets$.subscribe(subscriber)
