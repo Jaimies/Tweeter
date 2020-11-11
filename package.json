@@ -4,7 +4,9 @@
     "dev": "webpack --mode development",
     "prod": "webpack --mode production",
     "serve": "npm run serve --prefix firebase",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "test:unit": "npm run test src/test/domain src/test/ui",
+    "test:integration": "npm run test -- firebase src/test/data"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
