@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="header -large">{{ user.name }}</div>
+    <h1 class="header -large">{{ user.name }}</h1>
     <div class="secondaryHeader">@{{ user.username }}</div>
     <p class="bio">{{ user.bio }}</p>
   </div>
