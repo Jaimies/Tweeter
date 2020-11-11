@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     async saveProfile() {
-      await updateProfileUseCase.run({bio: this.bio, name: this.name})
+      updateProfileUseCase.run({bio: this.bio, name: this.name})
       const updatedUser = clone(this.user, {name: this.name, bio: this.bio})
       this.$emitBubbling("updateUser", updatedUser)
       this.$emit("close")
