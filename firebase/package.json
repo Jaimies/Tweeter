@@ -1,5 +1,5 @@
 {
-  "dependencies": {
+  "devDependencies": {
     "fireward": "^1.6.0",
     "firebase-tools": "^8.15.1"
   },
