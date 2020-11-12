@@ -45,6 +45,12 @@ describe("findUserBy*()", () => {
         expect(userResult).toEqual(withAnyId(user))
     })
 
+    it("findUserByEmail() ignores case", async () => {
+        await userRepository.addUser("userId", user)
+        const userResult = await userRepository.findUserByEmail(user.email.toUpperCase())
+        expect(userResult).toEqual(withAnyId(user))
+    })
+
     it("observable returned by findUserById() updates its value", async () => {
         await userRepository.addUser("userId", user)
         const subscriber = jest.fn()

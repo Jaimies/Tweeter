@@ -29,7 +29,7 @@ export class UserRepositoryImpl implements UserRepository {
     }
 
     async findUserByEmail(email: string): Promise<User | undefined> {
-        const snapshot = await this.getDocumentByField("email", email)
+        const snapshot = await this.getDocumentByField("email", email.toLowerCase())
         return toUser(snapshot)
     }
 

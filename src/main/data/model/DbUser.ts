@@ -13,7 +13,7 @@ export function mapUserToDb(user: User): DbUser {
     return {
         username: user.username,
         username_lowercase: user.username.toLowerCase(),
-        email: user.email,
+        email: user.email.toLowerCase(),
         name: user.name,
         bio: user.bio,
         following: [],
