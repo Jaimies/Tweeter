@@ -14,7 +14,8 @@ afterAll(() => {
 })
 
 const userData = {
-    username: "user",
+    username: "User",
+    username_lowercase: "user",
     name: "User",
     email: "user@mail.com",
     bio: "Bio",
@@ -34,6 +35,12 @@ describe("users", () => {
     it("disallows to create someone else's profile", () => {
         const document = db.doc("users/otherId")
         return firebase.assertFails(document.set(userData))
+    })
+
+    it("disallows to post if username_lowercase is not the lowercase version of username", () => {
+        const document = db.doc("users/userId")
+        const incorrectUserData = {...userData, username_lowercase: "otherUsername"}
+        return firebase.assertFails(document.set(incorrectUserData))
     })
 })
 

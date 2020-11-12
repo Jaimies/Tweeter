@@ -1,9 +1,12 @@
 type User = {
     readonly username: string
+    readonly username_lowercase: string
     readonly email: string
     name: string
     bio: string
     following: string[]
+
+    allow create: if data.username_lowercase == data.username.lower()
 }
 
 type TweetAuthor = {

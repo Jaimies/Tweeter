@@ -24,7 +24,7 @@ export class UserRepositoryImpl implements UserRepository {
     }
 
     async findUserByUsername(username: string): Promise<User | undefined> {
-        const snapshot = await this.getDocumentByField("username", username)
+        const snapshot = await this.getDocumentByField("username_lowercase", username.toLowerCase())
         return toUser(snapshot)
     }
 
