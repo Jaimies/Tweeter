@@ -1,7 +1,7 @@
 import {UserRepository} from "@/domain/repository/UserRepository"
 import {User} from "@/domain/model/User"
 import {deserializeUser} from "./util/Serialization"
-import {clone, toPlainObject} from "@/shared/ObjectUtil"
+import {clone} from "@/shared/ObjectUtil"
 import {UserChange} from "@/domain/model/UserChange"
 import {CollectionReference, DocumentSnapshot, FieldValue, Firestore} from "@/data/Firebase"
 import {IllegalArgumentException} from "@/shared/IllegalArgumentException"
@@ -9,6 +9,7 @@ import {ListChange} from "@/domain/model/ListChange"
 import {Observable} from "rxjs"
 import {doc} from "rxfire/firestore"
 import {map} from "rxjs/operators"
+import {DbUser, mapUserToDb} from "@/data/model/DbUser"
 
 export class UserRepositoryImpl implements UserRepository {
     private usersCollection: CollectionReference
@@ -19,7 +20,7 @@ export class UserRepositoryImpl implements UserRepository {
 
     async getUsers(): Promise<User[]> {
         const snapshot = await this.usersCollection.get()
-        return snapshot.docs.map(doc => deserializeUser(doc.id, doc.data()))
+        return snapshot.docs.map(doc => deserializeUser(doc.id, doc.data() as DbUser))
     }
 
     async findUserByUsername(username: string): Promise<User | undefined> {
@@ -40,8 +41,8 @@ export class UserRepositoryImpl implements UserRepository {
 
     addUser(userId: string, user: User): Promise<void> {
         const doc = this.usersCollection.doc(userId)
-        const {id, ...userWithoutId} = toPlainObject(user)
-        return doc.set(userWithoutId).then(() => {})
+        const dbUser = mapUserToDb(user)
+        return doc.set(dbUser).then(() => {})
     }
 
     async updateUser(id: string, change: UserChange) {
@@ -72,5 +73,5 @@ function toFieldValue<T>(change: ListChange<T>) {
 
 function toUser(snapshot: DocumentSnapshot | undefined) {
     if (!snapshot?.exists) return undefined
-    return deserializeUser(snapshot.id, snapshot.data())
+    return deserializeUser(snapshot.id, snapshot.data() as DbUser)
 }
