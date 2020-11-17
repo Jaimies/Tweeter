@@ -13,6 +13,17 @@
   "hosting": {
     "public": "public",
     "predeploy": "npm run prod --prefix ../",
+    "headers": [
+      {
+        "source": "**/*.@(css|js)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000, immutable"
+          }
+        ]
+      }
+    ],
     "rewrites": [
       {
         "source": "**",
