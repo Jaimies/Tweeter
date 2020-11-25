@@ -4,7 +4,8 @@
   },
   "scripts": {
     "emulators": "firebase emulators:start --only firestore,functions",
-    "serve": "npm run compile-rules --prefix firestore && npm run emulators"
+    "serve": "npm run compile-rules --prefix firestore && npm run emulators",
+    "postinstall": "npm install --prefix firestore && npm install --prefix functions"
   },
   "private": true
 }
