@@ -5,6 +5,7 @@
   "scripts": {
     "emulators": "firebase emulators:start --only firestore,functions",
     "serve": "npm run compile-rules --prefix firestore && npm run emulators",
+    "test:ci": "firebase emulators:exec --only firestore,functions 'npm test --prefix ../'",
     "postinstall": "npm install --prefix firestore && npm install --prefix functions"
   },
   "private": true
