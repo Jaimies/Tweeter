@@ -14,5 +14,4 @@ jobs:
       with:
         node-version: '12.x'
     - run: npm install
-    - run: npm run serve
-    - run: npm test
+    - run: npm run test:ci
