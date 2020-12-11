@@ -7,7 +7,9 @@ import DocumentSnapshot = admin.firestore.DocumentSnapshot
 const app = admin.initializeApp()
 const db = app.firestore()
 
-export const updateName = functions.firestore
+export const updateName = functions
+    .runWith({ memory: "2GB" })
+    .firestore
     .document("/users/{userId}")
     .onUpdate(async (change, context) => {
         if (nameIsChanged(change))
