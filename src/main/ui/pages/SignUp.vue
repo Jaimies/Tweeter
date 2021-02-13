@@ -39,10 +39,10 @@ const signUp = provideSignUpUseCase()
 export default {
   components: {Spinner, BaseForm, BaseInput},
   data: () => ({
-    email: null,
-    username: null,
-    name: null,
-    password: null,
+    email: "",
+    username: "",
+    name: "",
+    password: "",
     isLoading: false
   }),
 

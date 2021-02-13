@@ -32,8 +32,8 @@ const login = provideLoginUseCase()
 export default {
   components: {Spinner, BaseForm, BaseInput, LoginErrors},
   data: () => ({
-    email: null,
-    password: null,
+    email: "",
+    password: "",
     loginResult: null,
     isLoading: false
   }),
