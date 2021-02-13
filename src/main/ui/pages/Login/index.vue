@@ -9,6 +9,10 @@
       <p class="error" v-if="!$v.email.email">Please enter a valid email.</p>
     </BaseInput>
     <BaseInput v-model="password" label="Password" type="password" autocomplete="current-password"/>
+
+    <RouterLink tag="button" :to="{name: 'reset-password'}" class="forgot-your-password" type="button">
+      Forgot your password?
+    </RouterLink>
   </BaseForm>
 
   <Spinner v-else/>
@@ -72,3 +76,14 @@ export default {
   }
 }
 </script>
+
+<style>
+.forgot-your-password {
+  display: block;
+  margin: 16px auto;
+  color: #1a73e8;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+}
+</style>

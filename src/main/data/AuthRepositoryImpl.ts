@@ -1,4 +1,4 @@
-import {AuthRepository, LoginResult, SignUpResult} from "@/domain/repository/AuthRepository"
+import {AuthRepository, LoginResult, PasswordResetResult, SignUpResult} from "@/domain/repository/AuthRepository"
 import {FirebaseAuth} from "@/data/Firebase"
 import {authState} from "rxfire/auth"
 import {map} from "rxjs/operators"
@@ -41,7 +41,24 @@ export class AuthRepositoryImpl implements AuthRepository {
         }
     }
 
+    async sendPasswordResetEmail(email: string): Promise<PasswordResetResult> {
+        try {
+            await this.auth.sendPasswordResetEmail(email)
+        } catch (error) {
+            return getPasswordResetResultFromError(error)
+        }
+
+        return PasswordResetResult.Success
+    }
+
     logout(): Promise<void> {
         return this.auth.signOut()
     }
+}
+
+function getPasswordResetResultFromError(error: { code: string }) {
+    if (error.code == "auth/user-not-found")
+        return PasswordResetResult.Success
+
+    return PasswordResetResult.InternalError
 }

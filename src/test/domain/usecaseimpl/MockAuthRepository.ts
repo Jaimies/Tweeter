@@ -8,4 +8,5 @@ export class MockAuthRepository implements AuthRepository {
     login = jest.fn()
     logout = jest.fn()
     signUp = jest.fn(async () => this.signUpResult)
+    sendPasswordResetEmail = jest.fn()
 }

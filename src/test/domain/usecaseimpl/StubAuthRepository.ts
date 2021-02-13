@@ -1,4 +1,4 @@
-import {AuthRepository, LoginResult, SignUpResult} from "@/domain/repository/AuthRepository"
+import {AuthRepository, LoginResult, PasswordResetResult, SignUpResult} from "@/domain/repository/AuthRepository"
 import {BehaviorSubject} from "rxjs"
 
 export class StubAuthRepository implements AuthRepository {
@@ -11,4 +11,5 @@ export class StubAuthRepository implements AuthRepository {
     login = async () => LoginResult.Success
     signUp = async () => SignUpResult.Success
     logout = async () => {}
+    sendPasswordResetEmail = async () => PasswordResetResult.Success
 }

@@ -24,6 +24,8 @@ import {UnfollowUserUseCase} from "@/domain/usecase/follow/UnfollowUserUseCase"
 import {FollowingUpdater} from "@/domain/usecaseimpl/follow/FollowingUpdater"
 import {GetAuthStateUseCase} from "@/domain/usecase/auth/GetAuthStateUseCase"
 import {GetAuthStateUseCaseImpl} from "@/domain/usecaseimpl/auth/GetAuthStateUseCaseImpl"
+import {SendPasswordResetEmailUseCase} from "@/domain/usecase/auth/SendPasswordResetEmailUseCase"
+import {SendPasswordResetEmailUseCaseImpl} from "@/domain/usecaseimpl/auth/SendPasswordResetEmailUseCaseImpl"
 
 export function provideGetCurrentUserUseCase(): GetCurrentUserUseCase {
     return new GetCurrentUserUseCaseImpl(provideAuthRepository(), provideUserRepository())
@@ -39,6 +41,10 @@ export function provideGetTweetsByUserUseCase(): GetTweetsByUserUseCaseImpl {
 
 export function provideLoginUseCase(): LoginUseCase {
     return new LoginUseCaseImpl(provideAuthRepository())
+}
+
+export function provideSendPasswordResetEmailUseCase(): SendPasswordResetEmailUseCase {
+    return new SendPasswordResetEmailUseCaseImpl(provideAuthRepository())
 }
 
 export function providePostTweetUseCase(): PostTweetUseCase {

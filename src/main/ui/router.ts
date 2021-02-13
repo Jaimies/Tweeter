@@ -28,6 +28,24 @@ const router = new Router({
             },
         },
         {
+            path: "/reset-password",
+            component: () => import(/* webpackPrefetch: true */ "./pages/ResetPassword.vue"),
+            name: "reset-password",
+            meta: {
+                requiredAuthState: Unauthenticated,
+                title: "Password reset",
+            },
+        },
+        {
+            path: "/password-reset-email-sent",
+            component: () => import(/* webpackPrefetch: true */ "./pages/PasswordResetEmailSent.vue"),
+            name: "password-reset-email-sent",
+            meta: {
+                requiredAuthState: Unauthenticated,
+                title: "The password reset email has been sent",
+            },
+        },
+        {
             path: "/signup",
             component: () => import(/* webpackPrefetch: true */ "./pages/SignUp.vue"),
             meta: {

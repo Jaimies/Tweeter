@@ -16,9 +16,15 @@ export enum LoginResult {
     TooManyAttempts = "too many attempts"
 }
 
+export enum PasswordResetResult {
+    Success = "success",
+    InternalError = "internal-error"
+}
+
 export interface AuthRepository {
     userId: Observable<string | undefined>
     login(email: string, password: string): Promise<LoginResult>
     signUp(email: string, password: string): Promise<SignUpResult>
+    sendPasswordResetEmail(email: string): Promise<PasswordResetResult>
     logout(): Promise<void>
 }
