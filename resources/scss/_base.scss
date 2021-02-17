@@ -7,11 +7,6 @@
   display: block;
 }
 
-.container {
-  width: 598px;
-  margin: auto;
-}
-
 .floating-btn {
   position: absolute;
   top: 15px;
@@ -23,9 +18,4 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-h1 {
-  font-size: 25px;
-  margin: 12px 0 6px;
 }

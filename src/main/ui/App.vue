@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <v-app>
     <SideBar/>
-    <main v-if="!isLoading">
-      <RouterView :key="$route.path"/>
-    </main>
+    <v-main v-if="!isLoading" class="main">
+        <RouterView :key="$route.path"/>
+    </v-main>
     <Spinner v-else/>
     <AppFooter/>
-  </div>
+  </v-app>
 </template>
 <script>
 import AppFooter from "@/ui/components/layout/Footer"
@@ -22,3 +22,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.main {
+  width: 600px;
+  margin: 0 auto;
+  text-align: initial;
+}
+</style>

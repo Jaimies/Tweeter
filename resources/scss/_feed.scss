@@ -1,7 +1,6 @@
 @use "scss/base" as *;
 
 .feed {
-  @extend .container;
   border: 1px solid #ddd;
   border-bottom: none;
 }

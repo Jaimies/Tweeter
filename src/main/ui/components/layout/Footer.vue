@@ -31,7 +31,6 @@ export default {
 @use "scss/base" as *;
 
 .footer {
-  @extend .container;
   position: fixed;
   bottom: 0;
   left: 50%;

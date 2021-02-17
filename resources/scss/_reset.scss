@@ -2,12 +2,6 @@
   box-sizing: border-box;
 }
 
-html {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
-  font-size: 15px;
-  color: #14171a;
-}
-
 body {
   padding: 8px;
 }
@@ -18,6 +12,10 @@ body, p {
 
 button, input, textarea {
   font: inherit;
+}
+
+a {
+  color: inherit !important;
 }
 
 textarea {

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="feed">
       <ComposeTweetForm/>
       <TweetFeed :tweets="tweets" v-if="!isLoading"/>
