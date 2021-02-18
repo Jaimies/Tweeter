@@ -2,7 +2,7 @@
   <BaseModal>
     <BaseInput label="Name" v-model="name"/>
     <BaseInput label="Bio" v-model="bio"/>
-    <button class="save" @click="saveProfile">Save</button>
+    <v-btn class="save" @click="saveProfile">Save</v-btn>
   </BaseModal>
 </template>
 

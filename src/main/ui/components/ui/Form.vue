@@ -4,9 +4,9 @@
       <slot name="heading"/>
     </h1>
     <slot/>
-    <button :disabled="!isValid" type="submit">
+    <v-btn :disabled="!isValid" type="submit" block>
       <slot name="submitBtn"/>
-    </button>
+    </v-btn>
   </form>
 </template>
 

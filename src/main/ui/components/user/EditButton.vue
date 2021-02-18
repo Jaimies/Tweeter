@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="floating-btn" @click="showModal = true">Edit</button>
+    <v-btn class="floating-btn" @click="showModal = true">Edit</v-btn>
     <EditModal :user="user" v-if="showModal" @close="showModal = false"/>
   </div>
 </template>

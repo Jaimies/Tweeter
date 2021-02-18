@@ -1,12 +1,12 @@
 <template>
-  <button @click="emitEvents">
+  <v-btn rounded outlined @click="emitEvents">
     <template v-if="checked">
       <slot name="enabledText"/>
     </template>
     <template v-else>
       <slot name="disabledText"/>
     </template>
-  </button>
+  </v-btn>
 </template>
 
 <script>

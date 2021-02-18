@@ -3,8 +3,8 @@
     <h1>Welcome to Tweeter</h1>
     <p class="intro">Please login or sign up to continue.</p>
     <div class="links">
-      <RouterLink class="link" to="/login">Login</RouterLink>
-      <RouterLink class="link" to="/signup">Sign Up</RouterLink>
+      <v-btn class="link" to="/login" block rounded>Login</v-btn>
+      <v-btn class="link" to="/signup" block rounded>Sign Up</v-btn>
     </div>
   </div>
 </template>
@@ -15,7 +15,8 @@
 }
 
 .links {
-  margin-top: 5px;
+  width: 320px;
+  margin: 5px auto 0;
 }
 
 .container {
@@ -23,18 +24,6 @@
 }
 
 .link {
-  display: block;
-  width: 320px;
-  margin: 15px auto;
-  padding: 9px 0;
-  text-align: center;
-  border: 1px solid #000;
-  border-radius: 100px;
-  color: #000;
-  text-decoration: none;
-
-  &:hover, &:focus {
-    background: #ddd;
-  }
+  margin-top: 15px;
 }
 </style>
