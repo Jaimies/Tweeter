@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn class="floating-btn" @click="showModal = true">Edit</v-btn>
-    <EditModal :user="user" v-if="showModal" @close="showModal = false"/>
+    <EditModal :user="user" v-model="showModal" @close="showModal = false"/>
   </div>
 </template>
 

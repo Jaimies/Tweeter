@@ -1,29 +1,23 @@
 <template>
-  <div class="overlay" @click.self="$emitBubbling('close')">
-    <div class="content">
+  <v-dialog
+      v-model="isShown"
+      max-width="500">
+    <v-card class="pa-6">
       <slot/>
-    </div>
-  </div>
+    </v-card>
+  </v-dialog>
 </template>
 
-<style scoped>
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #0006;
-  z-index: 9;
+<script>
+export default {
+  props: {
+    value: Boolean
+  },
+  computed: {
+    isShown: {
+      get() { return this.value },
+      set(value) { this.$emit("input", value) },
+    }
+  }
 }
-
-.content {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  z-index: 10;
-  padding: 15px;
-}
-</style>
+</script>
