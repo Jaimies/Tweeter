@@ -1,6 +1,6 @@
 <template>
   <form class="form" @submit.prevent="$emit(`submit`)">
-    <h1>
+    <h1 class="v-heading mb-6 mt-6 text-center">
       <slot name="heading"/>
     </h1>
     <slot/>
@@ -22,6 +22,6 @@ export default {
 .form {
   margin: auto;
   text-align: center;
-  width: 320px;
+  width: 364px;
 }
 </style>
