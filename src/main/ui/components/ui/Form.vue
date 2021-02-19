@@ -4,7 +4,7 @@
       <slot name="heading"/>
     </h1>
     <slot/>
-    <v-btn :disabled="!isValid" type="submit" block>
+    <v-btn :disabled="!isValid || isLoading" type="submit" block :loading="isLoading">
       <slot name="submitBtn"/>
     </v-btn>
   </form>
@@ -13,7 +13,8 @@
 <script>
 export default {
   props: {
-    isValid: Boolean
+    isValid: Boolean,
+    isLoading: Boolean,
   }
 }
 </script>

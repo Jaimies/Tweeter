@@ -1,5 +1,5 @@
 <template>
-  <BaseForm :isValid="!$v.$invalid" @submit="signUp" v-if="!isLoading">
+  <BaseForm :isLoading="isLoading" :isValid="!$v.$invalid" @submit="signUp">
     <template #heading>Signup to Tweeter</template>
     <template #submitBtn>Sign up</template>
 
@@ -22,8 +22,6 @@
       <p class="error" v-if="!$v.password.minLength">Password must be at least 8 characters long</p>
     </BaseInput>
   </BaseForm>
-
-  <Spinner v-else/>
 </template>
 
 <script>
@@ -32,12 +30,11 @@ import BaseForm from "../components/ui/Form"
 import {User} from "@/domain/model/User"
 import {email, minLength, required} from "vuelidate/lib/validators"
 import {provideSignUpUseCase} from "@/di/provideUseCases"
-import Spinner from "@/ui/components/ui/Spinner"
 
 const signUp = provideSignUpUseCase()
 
 export default {
-  components: {Spinner, BaseForm, BaseInput},
+  components: {BaseForm, BaseInput},
   data: () => ({
     email: "",
     username: "",

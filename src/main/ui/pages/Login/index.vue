@@ -1,5 +1,5 @@
 <template>
-  <BaseForm :isValid="!$v.$invalid" @submit="login" v-if="!isLoading">
+  <BaseForm :isLoading="isLoading" :isValid="!$v.$invalid" @submit="login">
     <template #heading>Login to Tweeter</template>
     <template #submitBtn>Login</template>
 
@@ -14,8 +14,6 @@
       Forgot your password?
     </RouterLink>
   </BaseForm>
-
-  <Spinner v-else/>
 </template>
 
 <script>
@@ -23,14 +21,13 @@ import BaseInput from "../../components/ui/Input"
 import BaseForm from "../../components/ui/Form"
 import {provideLoginUseCase} from "@/di/provideUseCases"
 import {LoginResult} from "@/domain/repository/AuthRepository"
-import Spinner from "@/ui/components/ui/Spinner"
 import LoginErrors from "./Errors.vue"
 import {email, required} from "vuelidate/lib/validators"
 
 const login = provideLoginUseCase()
 
 export default {
-  components: {Spinner, BaseForm, BaseInput, LoginErrors},
+  components: {BaseForm, BaseInput, LoginErrors},
   data: () => ({
     email: "",
     password: "",
