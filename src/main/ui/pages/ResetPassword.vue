@@ -12,6 +12,7 @@ import BaseInput from "@/ui/components/ui/Input"
 import {email, required} from "vuelidate/lib/validators"
 import {provideSendPasswordResetEmailUseCase} from "@/di/provideUseCases"
 import {PasswordResetResult} from "@/domain/repository/AuthRepository"
+import {Strings} from "@/ui/Strings"
 
 const sendPasswordResetEmail = provideSendPasswordResetEmailUseCase()
 
@@ -56,9 +57,9 @@ export default {
   },
   computed: {
     emailError() {
-      if (this.result == PasswordResetResult.InternalError) return "Something went wrong. Please try again."
+      if (this.result == PasswordResetResult.InternalError) return Strings.internalError
       if (!this.$v.email.$error) return null
-      if (!this.$v.email.email) return "Please enter a valid email"
+      if (!this.$v.email.email) return Strings.emailInvalid
     }
   }
 }

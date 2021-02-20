@@ -22,6 +22,7 @@ import BaseForm from "../components/ui/Form"
 import {User} from "@/domain/model/User"
 import {email, minLength, required} from "vuelidate/lib/validators"
 import {provideSignUpUseCase} from "@/di/provideUseCases"
+import {Strings} from "@/ui/Strings"
 
 const signUp = provideSignUpUseCase()
 
@@ -75,16 +76,16 @@ export default {
   computed: {
     emailError() {
       if (!this.$v.email.$error) return null
-      if (!this.$v.email.email) return "Please enter a valid email"
-      if (!this.$v.email.isUnique) return "This email is already in use"
+      if (!this.$v.email.email) return Strings.emailInvalid
+      if (!this.$v.email.isUnique) return Strings.emailTaken
     },
     usernameError() {
       if (!this.$v.username.$error) return null
-      if (!this.$v.username.isUnique) return "This username is already in use"
+      if (!this.$v.username.isUnique) return Strings.usernameTaken
     },
     passwordError() {
       if (!this.$v.password.$error) return null
-      if (!this.$v.password.minLength) return "The password must contain at least 8 characters"
+      if (!this.$v.password.minLength) return Strings.passwordTooShort
     },
   },
 }

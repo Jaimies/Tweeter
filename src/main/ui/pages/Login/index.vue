@@ -18,6 +18,7 @@ import BaseForm from "../../components/ui/Form"
 import {provideLoginUseCase} from "@/di/provideUseCases"
 import {LoginResult} from "@/domain/repository/AuthRepository"
 import {email, required} from "vuelidate/lib/validators"
+import {Strings} from "@/ui/Strings"
 
 const login = provideLoginUseCase()
 
@@ -68,13 +69,13 @@ export default {
   },
   computed: {
     emailError() {
-      if (this.loginResult == LoginResult.UserNotFound) return "Couldn't find an account with that email address."
-      if(this.loginResult == LoginResult.TooManyAttempts) return "Too many failed login attempts. Please wait and try again."
+      if (this.loginResult == LoginResult.UserNotFound) return Strings.userNotFound
+      if (this.loginResult == LoginResult.TooManyAttempts) return Strings.tooManyAttempts
       if (!this.$v.email.$error) return null
-      if (!this.$v.email.email) return "Please enter a valid email"
+      if (!this.$v.email.email) return Strings.emailInvalid
     },
     passwordError() {
-      if (this.loginResult == LoginResult.WrongPassword) return "Wrong password. Try again or click Forgot password to reset it."
+      if (this.loginResult == LoginResult.WrongPassword) return Strings.wrongPassword
     },
   }
 }
