@@ -6,9 +6,9 @@
     <BaseInput v-model="email" type="email" label="Email" :validation="$v.email" :error="emailError"/>
     <BaseInput v-model="password" label="Password" type="password" autocomplete="current-password" :validation="$v.password" :error="passwordError"/>
 
-    <RouterLink tag="button" :to="{name: 'reset-password'}" class="forgot-your-password" type="button">
-      Forgot your password?
-    </RouterLink>
+    <v-btn text color="#1a73e8" :to="{name: 'reset-password'}" class="forgot-your-password">
+      Forgot password?
+    </v-btn>
   </BaseForm>
 </template>
 
@@ -81,13 +81,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .forgot-your-password {
-  display: block;
-  margin: 16px auto;
-  color: #1a73e8;
-  font-weight: 500;
-  background: transparent;
-  border: none;
+  text-transform: none;
 }
 </style>
