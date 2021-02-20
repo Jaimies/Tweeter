@@ -2,9 +2,7 @@
   <BaseForm :isLoading="isLoading" :isValid="!$v.$invalid" @submit="sendPasswordResetEmail">
     <p class="error" v-if="showError">Something went wrong. Please try again.</p>
 
-    <BaseInput label="Email" type="email" v-model="email" :validation="$v.email">
-      <p class="error" v-if="!$v.email.email">Please enter a valid email.</p>
-    </BaseInput>
+    <BaseInput label="Email" type="email" v-model="email" :validation="$v.email" :error="emailError"/>
 
     <template #submitBtn>Reset your password</template>
   </BaseForm>
@@ -61,6 +59,12 @@ export default {
     hideLoader() {
       this.isLoading = false
     },
+  },
+  computed: {
+    emailError() {
+      if (!this.$v.email.$error) return null
+      if (!this.$v.email.email) return "Please enter a valid email"
+    }
   }
 }
 </script>

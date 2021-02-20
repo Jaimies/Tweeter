@@ -5,9 +5,7 @@
 
     <LoginErrors :result="loginResult"/>
 
-    <BaseInput v-model="email" type="email" label="Email" :validation="$v.email">
-      <p class="error" v-if="!$v.email.email">Please enter a valid email.</p>
-    </BaseInput>
+    <BaseInput v-model="email" type="email" label="Email" :validation="$v.email" :error="emailError" />
     <BaseInput v-model="password" label="Password" type="password" autocomplete="current-password"/>
 
     <RouterLink tag="button" :to="{name: 'reset-password'}" class="forgot-your-password" type="button">
@@ -69,6 +67,12 @@ export default {
         this.hideLoader()
         this.showErrorMessage(loginResult)
       }
+    },
+  },
+  computed: {
+    emailError() {
+      if (!this.$v.email.$error) return null
+      if (!this.$v.email.email) return "Please enter a valid email"
     },
   }
 }

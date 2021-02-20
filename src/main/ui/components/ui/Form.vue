@@ -1,5 +1,5 @@
 <template>
-  <form class="form" @submit.prevent="$emit(`submit`)">
+  <form class="form" @submit.prevent="$emit(`submit`)" novalidate>
     <h1 class="v-heading mb-6 mt-6 text-center">
       <slot name="heading"/>
     </h1>
