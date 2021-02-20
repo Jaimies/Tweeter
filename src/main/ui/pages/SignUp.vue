@@ -1,10 +1,9 @@
 <template>
-  <BaseForm :isLoading="isLoading" :isValid="!$v.$invalid" @submit="signUp">
-    <template #heading>Signup to Tweeter</template>
-    <template #submitBtn>Sign up</template>
+  <BaseForm @submit="signUp">
+    <PageTitle>Signup to Tweeter</PageTitle>
 
     <BaseInput v-model="email" label="Email" type="email" :validation="$v.email" :error="emailError"/>
-    <BaseInput v-model="username" label="Username" :validation="$v.username" :error="usernameError" />
+    <BaseInput v-model="username" label="Username" :validation="$v.username" :error="usernameError"/>
     <BaseInput v-model="name" label="Name" autocomplete="name"/>
 
     <BaseInput v-model="password"
@@ -12,7 +11,8 @@
                type="password"
                autocomplete="new-password"
                :error="passwordError"
-               :validation="$v.password" />
+               :validation="$v.password"/>
+    <SubmitButton :isLoading="isLoading" :isValid="!$v.$invalid">Sign up</SubmitButton>
   </BaseForm>
 </template>
 
@@ -23,11 +23,13 @@ import {User} from "@/domain/model/User"
 import {email, minLength, required} from "vuelidate/lib/validators"
 import {provideSignUpUseCase} from "@/di/provideUseCases"
 import {Strings} from "@/ui/Strings"
+import PageTitle from "@/ui/components/ui/PageTitle"
+import SubmitButton from "@/ui/components/ui/SubmitButton"
 
 const signUp = provideSignUpUseCase()
 
 export default {
-  components: {BaseForm, BaseInput},
+  components: {SubmitButton, PageTitle, BaseForm, BaseInput},
   data: () => ({
     email: "",
     username: "",

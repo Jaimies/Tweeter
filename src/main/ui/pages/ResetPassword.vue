@@ -1,8 +1,8 @@
 <template>
-  <BaseForm :isLoading="isLoading" :isValid="!$v.$invalid" @submit="sendPasswordResetEmail">
+  <BaseForm @submit="sendPasswordResetEmail">
+    <PageTitle>Reset your password</PageTitle>
     <BaseInput label="Email" type="email" v-model="email" :validation="$v.email" :error="emailError"/>
-
-    <template #submitBtn>Reset your password</template>
+    <SubmitButton :isLoading="isLoading" :isValid="!$v.$invalid">Email me a recovery link</SubmitButton>
   </BaseForm>
 </template>
 
@@ -13,11 +13,13 @@ import {email, required} from "vuelidate/lib/validators"
 import {provideSendPasswordResetEmailUseCase} from "@/di/provideUseCases"
 import {PasswordResetResult} from "@/domain/repository/AuthRepository"
 import {Strings} from "@/ui/Strings"
+import PageTitle from "@/ui/components/ui/PageTitle"
+import SubmitButton from "@/ui/components/ui/SubmitButton"
 
 const sendPasswordResetEmail = provideSendPasswordResetEmailUseCase()
 
 export default {
-  components: {BaseForm, BaseInput},
+  components: {SubmitButton, PageTitle, BaseForm, BaseInput},
   data() {
     return {
       email: "",

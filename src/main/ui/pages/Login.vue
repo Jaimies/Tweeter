@@ -1,7 +1,6 @@
 <template>
-  <BaseForm :isLoading="isLoading" :isValid="!$v.$invalid" @submit="login">
-    <template #heading>Login to Tweeter</template>
-    <template #submitBtn>Login</template>
+  <BaseForm @submit="login">
+    <PageTitle>Login to Tweeter</PageTitle>
 
     <BaseInput v-model="email" type="email" label="Email" :validation="$v.email" :error="emailError"/>
     <BaseInput v-model="password" label="Password" type="password" autocomplete="current-password" :validation="$v.password" :error="passwordError"/>
@@ -9,6 +8,8 @@
     <v-btn text color="#1a73e8" :to="{name: 'reset-password'}" class="forgot-your-password">
       Forgot password?
     </v-btn>
+
+    <SubmitButton :isLoading="isLoading" :isValid="!$v.invalid">Login</SubmitButton>
   </BaseForm>
 </template>
 
@@ -19,11 +20,13 @@ import {provideLoginUseCase} from "@/di/provideUseCases"
 import {LoginResult} from "@/domain/repository/AuthRepository"
 import {email, required} from "vuelidate/lib/validators"
 import {Strings} from "@/ui/Strings"
+import PageTitle from "@/ui/components/ui/PageTitle"
+import SubmitButton from "@/ui/components/ui/SubmitButton"
 
 const login = provideLoginUseCase()
 
 export default {
-  components: {BaseForm, BaseInput},
+  components: {SubmitButton, PageTitle, BaseForm, BaseInput},
   data: () => ({
     email: "",
     password: "",
