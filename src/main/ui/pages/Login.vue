@@ -5,9 +5,7 @@
     <BaseInput v-model="email" type="email" label="Email" :validation="$v.email" :error="emailError"/>
     <BaseInput v-model="password" label="Password" type="password" autocomplete="current-password" :validation="$v.password" :error="passwordError"/>
 
-    <v-btn text color="#1a73e8" :to="{name: 'reset-password'}" class="forgot-your-password">
-      Forgot password?
-    </v-btn>
+    <ForgotPasswordButton/>
 
     <SubmitButton :isLoading="isLoading" :isValid="!$v.invalid">Login</SubmitButton>
   </BaseForm>
@@ -22,11 +20,12 @@ import {email, required} from "vuelidate/lib/validators"
 import {Strings} from "@/ui/Strings"
 import PageTitle from "@/ui/components/ui/PageTitle"
 import SubmitButton from "@/ui/components/ui/SubmitButton"
+import ForgotPasswordButton from "@/ui/components/ui/ForgotPasswordButton"
 
 const login = provideLoginUseCase()
 
 export default {
-  components: {SubmitButton, PageTitle, BaseForm, BaseInput},
+  components: {ForgotPasswordButton, SubmitButton, PageTitle, BaseForm, BaseInput},
   data: () => ({
     email: "",
     password: "",
@@ -83,9 +82,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.forgot-your-password {
-  text-transform: none;
-}
-</style>
