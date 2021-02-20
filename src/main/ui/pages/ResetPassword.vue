@@ -1,7 +1,5 @@
 <template>
   <BaseForm :isLoading="isLoading" :isValid="!$v.$invalid" @submit="sendPasswordResetEmail">
-    <p class="error" v-if="showError">Something went wrong. Please try again.</p>
-
     <BaseInput label="Email" type="email" v-model="email" :validation="$v.email" :error="emailError"/>
 
     <template #submitBtn>Reset your password</template>
@@ -22,8 +20,8 @@ export default {
   data() {
     return {
       email: "",
-      showError: false,
       isLoading: false,
+      result: null,
     }
   },
   validations: {
@@ -37,19 +35,15 @@ export default {
     },
 
     handlePasswordResetResult(result) {
+      this.result = result
       if (result == PasswordResetResult.Success)
         this.navigateOnSuccess()
       else
-        this.showErrorMessage()
+        this.hideLoader()
     },
 
     navigateOnSuccess() {
       this.$router.push({name: "password-reset-email-sent"})
-    },
-
-    showErrorMessage() {
-      this.hideLoader()
-      this.showError = true
     },
 
     showLoader() {
@@ -62,6 +56,7 @@ export default {
   },
   computed: {
     emailError() {
+      if (this.result == PasswordResetResult.InternalError) return "Something went wrong. Please try again."
       if (!this.$v.email.$error) return null
       if (!this.$v.email.email) return "Please enter a valid email"
     }
