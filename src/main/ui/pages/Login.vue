@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import BaseInput from "../../components/ui/Input"
-import BaseForm from "../../components/ui/Form"
+import BaseInput from "../components/ui/Input"
+import BaseForm from "../components/ui/Form"
 import {provideLoginUseCase} from "@/di/provideUseCases"
 import {LoginResult} from "@/domain/repository/AuthRepository"
 import {email, required} from "vuelidate/lib/validators"

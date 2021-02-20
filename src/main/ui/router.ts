@@ -21,7 +21,7 @@ const router = new Router({
         },
         {
             path: "/login",
-            component: () => import(/* webpackPrefetch: true */ "./pages/Login/index.vue"),
+            component: () => import(/* webpackPrefetch: true */ "./pages/Login.vue"),
             meta: {
                 requiredAuthState: Unauthenticated,
                 title: "Login to Tweeter",
