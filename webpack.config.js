@@ -2,6 +2,7 @@ const {DefinePlugin} = require("webpack")
 const VueLoaderPlugin = require("vue-loader/lib/plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const {VuetifyLoaderPlugin} = require('vuetify-loader')
 const path = require("path")
 
 const dist = path.resolve(__dirname, "firebase/public/")
@@ -19,7 +20,7 @@ module.exports = {
                 loader: "vue-loader"
             },
             {
-                test: /\.s?css/,
+                test: /\.s?(c|a)ss$/,
                 use: [
                     "vue-style-loader",
                     MiniCssExtractPlugin.loader,
@@ -50,7 +51,8 @@ module.exports = {
         }),
         new DefinePlugin({
             "process.env.BUILD": JSON.stringify("web")
-        })
+        }),
+        new VuetifyLoaderPlugin(),
     ],
     devServer: {
         port: 3000,
