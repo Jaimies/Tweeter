@@ -1,5 +1,5 @@
 <template>
-  <v-btn rounded outlined @click="emitEvents">
+  <v-btn rounded :color="checked ? 'primary' : 'default'" @click="emitEvents">
     <template v-if="checked">
       <slot name="enabledText"/>
     </template>
