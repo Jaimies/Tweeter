@@ -3,13 +3,10 @@ const VueLoaderPlugin = require("vue-loader/lib/plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const {VuetifyLoaderPlugin} = require('vuetify-loader')
-const path = require("path")
-const glob = require('glob')
+const purgecssConfig = require("./config/purgecss.config")
 const PurgeCSSPlugin = require('purgecss-webpack-plugin')
+const {dist, src, scss} = require("./config/paths")
 
-const dist = path.resolve(__dirname, "firebase/public/")
-const vuetify = path.join(__dirname, "node_modules/vuetify/lib/components")
-const src = path.resolve(__dirname, "./src/main")
 module.exports = (env, options) => {
     const config = {
         entry: ["./src/main/ui/Main.ts", "./resources/scss/main.scss"],
@@ -40,7 +37,7 @@ module.exports = (env, options) => {
         resolve: {
             extensions: [".js", ".ts", ".vue"],
             alias: {
-                scss: path.resolve(__dirname, "./resources/scss"),
+                scss,
                 "@": src
             }
         },
@@ -74,12 +71,8 @@ module.exports = (env, options) => {
 
     if (options.mode == "production")
         config.plugins.push(
-            new PurgeCSSPlugin({
-                paths: [...glob.sync(`${vuetify}/**/*.{js,ts,vue}`), ...glob.sync(`${src}/**/*.{js,ts,vue}`)],
-                safelist: {
-                    standard: [/data-v-/, /theme--light/, /ripple/, /progress/],
-                },
-            }),
+            new PurgeCSSPlugin(purgecssConfig)
         )
+
     return config
 }
