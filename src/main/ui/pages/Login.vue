@@ -5,7 +5,7 @@
     <BaseInput v-model="email" type="email" label="Email" :validation="$v.email" :error="emailError"/>
     <BaseInput v-model="password" label="Password" type="password" autocomplete="current-password" :validation="$v.password" :error="passwordError"/>
 
-    <SubmitButton :isLoading="isLoading" :isValid="!$v.invalid">Login</SubmitButton>
+    <SubmitButton :isLoading="isLoading" :isValid="!$v.$invalid">Login</SubmitButton>
 
     <ForgotPasswordButton class="mt-4"/>
   </BaseForm>
