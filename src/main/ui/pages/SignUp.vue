@@ -1,29 +1,19 @@
 <template>
-  <BaseForm :isValid="!$v.$invalid" @submit="signUp" v-if="!isLoading">
-    <template #heading>Signup to Tweeter</template>
-    <template #submitBtn>Sign up</template>
+  <BaseForm @submit="signUp">
+    <PageTitle>Signup to Tweeter</PageTitle>
 
-    <BaseInput v-model="email" label="Email" type="email" :validation="$v.email">
-      <p class="error" v-if="!$v.email.email">Please enter a valid email.</p>
-      <p class="error" v-else-if="!$v.email.isUnique">Email has already been taken.</p>
-    </BaseInput>
-
-    <BaseInput v-model="username" label="Username" :validation="$v.username">
-      <p class="error" v-if="!$v.username.isUnique">Username has already been taken.</p>
-    </BaseInput>
-
+    <BaseInput v-model="email" label="Email" type="email" :validation="$v.email" :error="emailError"/>
+    <BaseInput v-model="username" label="Username" :validation="$v.username" :error="usernameError"/>
     <BaseInput v-model="name" label="Name" autocomplete="name"/>
 
     <BaseInput v-model="password"
                label="Password"
                type="password"
                autocomplete="new-password"
-               :validation="$v.password">
-      <p class="error" v-if="!$v.password.minLength">Password must be at least 8 characters long</p>
-    </BaseInput>
+               :error="passwordError"
+               :validation="$v.password"/>
+    <SubmitButton :isLoading="isLoading" :isValid="!$v.$invalid">Sign up</SubmitButton>
   </BaseForm>
-
-  <Spinner v-else/>
 </template>
 
 <script>
@@ -32,12 +22,14 @@ import BaseForm from "../components/ui/Form"
 import {User} from "@/domain/model/User"
 import {email, minLength, required} from "vuelidate/lib/validators"
 import {provideSignUpUseCase} from "@/di/provideUseCases"
-import Spinner from "@/ui/components/ui/Spinner"
+import {Strings} from "@/ui/Strings"
+import PageTitle from "@/ui/components/ui/PageTitle"
+import SubmitButton from "@/ui/components/ui/SubmitButton"
 
 const signUp = provideSignUpUseCase()
 
 export default {
-  components: {Spinner, BaseForm, BaseInput},
+  components: {SubmitButton, PageTitle, BaseForm, BaseInput},
   data: () => ({
     email: "",
     username: "",
@@ -82,6 +74,21 @@ export default {
       this.$router.push("/home")
       location.reload()
     }
-  }
+  },
+  computed: {
+    emailError() {
+      if (!this.$v.email.$error) return null
+      if (!this.$v.email.email) return Strings.emailInvalid
+      if (!this.$v.email.isUnique) return Strings.emailTaken
+    },
+    usernameError() {
+      if (!this.$v.username.$error) return null
+      if (!this.$v.username.isUnique) return Strings.usernameTaken
+    },
+    passwordError() {
+      if (!this.$v.password.$error) return null
+      if (!this.$v.password.minLength) return Strings.passwordTooShort
+    },
+  },
 }
 </script>

@@ -27,6 +27,10 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  color: inherit;
+}
+
 .bio {
   margin-top: 5px;
 }

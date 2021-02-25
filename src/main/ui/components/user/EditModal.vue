@@ -1,8 +1,8 @@
 <template>
-  <BaseModal>
+  <BaseModal v-model="isShown">
     <BaseInput label="Name" v-model="name"/>
     <BaseInput label="Bio" v-model="bio"/>
-    <button class="save" @click="saveProfile">Save</button>
+    <v-btn class="save" @click="saveProfile">Save</v-btn>
   </BaseModal>
 </template>
 
@@ -18,7 +18,8 @@ const updateProfileUseCase = provideUpdateProfileUseCase()
 export default {
   components: {BaseInput, BaseModal},
   props: {
-    user: User
+    user: User,
+    value: Boolean,
   },
   data() {
     return {
@@ -32,6 +33,12 @@ export default {
       const updatedUser = clone(this.user, {name: this.name, bio: this.bio})
       this.$emitBubbling("updateUser", updatedUser)
       this.$emit("close")
+    }
+  },
+  computed: {
+    isShown: {
+      get() { return this.value },
+      set(value) { this.$emit("input", value) },
     }
   }
 }

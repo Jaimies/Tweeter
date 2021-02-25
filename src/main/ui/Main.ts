@@ -5,12 +5,14 @@ import App from "./App.vue"
 import emitBubbling from "./emitBubbling"
 import router from "./router"
 import store from "./store"
+import {vuetify} from "@/ui/vuetify"
 
 Vue.use(Vuelidate)
 Vue.use(VueRx)
 Vue.use(emitBubbling)
 
 export const vue = new Vue({
+    vuetify,
     router,
     store,
     render: (h: CreateElement) => h(App),

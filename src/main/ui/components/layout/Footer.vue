@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <button v-if="isLoggedIn" @click="logout">Logout</button>
+    <v-btn v-if="isLoggedIn" @click="logout">Logout</v-btn>
     <p v-else>Tweeter is open source! Check out the <a href="https://github.com/Jaimies/Tweeter">repository</a>.</p>
   </footer>
 </template>
@@ -31,7 +31,6 @@ export default {
 @use "scss/base" as *;
 
 .footer {
-  @extend .container;
   position: fixed;
   bottom: 0;
   left: 50%;

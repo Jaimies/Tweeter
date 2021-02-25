@@ -1,16 +1,13 @@
 <template>
-  <label class="label">
-    {{ label }}:
-    <input :type="type"
-           :value="value"
-           :autocomplete="autocomplete"
-           class="input"
-           @input="$emit(`input`, $event.target.value); resetValidation()"
-           @blur="validate"
-           @focus="resetValidation">
-
-    <slot v-if="showErrors"/>
-  </label>
+  <v-text-field :type="type"
+                outlined
+                :value="value"
+                :label="label"
+                :autocomplete="autocomplete"
+                @input="$emit(`input`, $event); resetValidation()"
+                @blur="validate"
+                :error-messages="error"
+                @focus="resetValidation"/>
 </template>
 
 <script>
@@ -18,6 +15,7 @@ export default {
   props: {
     value: String,
     label: String,
+    error: String,
     validation: Object,
     autocomplete: {
       type: String,
@@ -34,7 +32,7 @@ export default {
     },
 
     validate() {
-      if(this.validation) this.validation.$touch()
+      if (this.validation) this.validation.$touch()
     }
   },
   computed: {
@@ -44,18 +42,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.label {
-  display: block;
-  text-align: left;
-  margin-bottom: 15px;
-}
-
-.input {
-  display: block;
-  font-size: 19px;
-  padding: 5px 10px 5px;
-  width: 100%;
-}
-</style>

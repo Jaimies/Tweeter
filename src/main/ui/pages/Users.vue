@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Explore users</h1>
+    <h1 class="v-heading mt-4 mb-6">Explore users</h1>
     <div class="feed" v-if="!isLoading">
       <UserListItem v-for="user of users" :key="user.id" :user="user"/>
     </div>

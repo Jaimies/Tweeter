@@ -1,15 +1,10 @@
 .routerLink {
-  color: unset;
+  color: inherit !important;
   text-decoration: none;
 }
 
 .block {
   display: block;
-}
-
-.container {
-  width: 598px;
-  margin: auto;
 }
 
 .floating-btn {
@@ -23,9 +18,4 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-h1 {
-  font-size: 25px;
-  margin: 12px 0 6px;
 }

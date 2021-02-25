@@ -7,7 +7,7 @@
         @keydown.enter.ctrl="tweet"/>
 
     <div class="tweet__submit-wrapper">
-      <button :disabled="!tweetIsValid" @click="tweet">Tweet</button>
+      <v-btn :disabled="!tweetIsValid" @click="tweet">Tweet</v-btn>
     </div>
   </div>
 </template>
