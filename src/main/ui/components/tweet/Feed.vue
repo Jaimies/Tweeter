@@ -6,16 +6,20 @@
 
 <script>
 import TweetFeedItem from "./FeedItem.vue"
-import {mapTweetToPresentation} from "@/ui/model/UiTweet"
+import {provideUiTweetMapper} from "@/di/provideMappers"
+
+const mapper = provideUiTweetMapper()
 
 export default {
   components: {TweetFeedItem},
   props: {
     tweets: Array
   },
-  computed: {
+  asyncComputed: {
     normalizedTweets() {
-      return this.tweets?.map(mapTweetToPresentation)
+      if (!this.tweets) return []
+      const tweetPromises = this.tweets.map((tweet) => mapper.map(tweet))
+      return Promise.all(tweetPromises)
     }
   }
 }
