@@ -1,4 +1,6 @@
 import * as firebase from "@firebase/rules-unit-testing"
+// @ts-ignore
+import FieldValue = firebase.firestore.FieldValue
 
 const appConfig = {projectId: "tweeter-dfa01", auth: {uid: "userId"}}
 const app = firebase.initializeTestApp(appConfig)
@@ -57,6 +59,7 @@ describe("tweets", () => {
             name: userData.name,
         },
         date: firebase.firestore.FieldValue.serverTimestamp(),
+        likedBy: ["otherId"],
     }
 
     beforeEach(() => adminDb.doc("users/userId").set(userData))
@@ -88,5 +91,41 @@ describe("tweets", () => {
         const document = db.doc("tweets/tweetId")
         const tweetWithOldTimestamp = {...tweetData, date: new Date()}
         return firebase.assertFails(document.set(tweetWithOldTimestamp))
+    })
+
+    it("allows to like a tweet on behalf of yourself", () => {
+        const document = db.doc("tweets/tweetId")
+        document.set(tweetData)
+        return firebase.assertSucceeds(document.update("likedBy", FieldValue.arrayUnion("userId")))
+    })
+
+    it("disallows liking a tweet on behalf of someone else", () => {
+        const document = db.doc("tweets/tweetId")
+        document.set(tweetData)
+        return firebase.assertFails(document.update("likedBy", FieldValue.arrayUnion("otherId")))
+    })
+
+    it("disallows unliking on behalf of someone else while liking on behalf of yourself", () => {
+        const document = db.doc("tweets/tweetId")
+        document.set(tweetData)
+        return firebase.assertFails(document.update("likedBy", ["userId"]))
+    })
+
+    it("allows unliking a tweet on behalf of yourself", () => {
+        const document = db.doc("tweets/tweetId")
+        document.set({...tweetData, likedBy: ["userId"]})
+        return firebase.assertSucceeds(document.update("likedBy", FieldValue.arrayRemove("userId")))
+    })
+
+    it("disallows unliking a tweet on behalf of someone else", () => {
+        const document = db.doc("tweets/tweetId")
+        document.set(tweetData)
+        return firebase.assertFails(document.update("likedBy", FieldValue.arrayRemove("otherId")))
+    })
+
+    it("disallows liking on behalf of someone else while unliking on behalf of yourself", () => {
+        const document = db.doc("tweets/tweetId")
+        document.set({...tweetData, likedBy: ["userId"]})
+        return firebase.assertFails(document.update("likedBy", ["otherId"]))
     })
 })

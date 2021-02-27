@@ -16,11 +16,22 @@ type TweetAuthor = {
 }
 
 type Tweet = {
-    body: string
-    author: TweetAuthor
-    date: timestamp
+    readonly body: string
+    readonly author: TweetAuthor
+    readonly date: timestamp
+    likedBy: string[]
 
+    allow update: if canUpdateTweet(data, prev)
     allow create: if canCreateTweet(data, getUser())
+}
+
+function canUpdateTweet(data, prev) {
+    return likedByDiffersByUserId(data, prev) || likedByDiffersByUserId(prev, data)
+}
+
+function likedByDiffersByUserId(data, otherData) {
+     return data.likedBy.toSet().difference(otherData.likedBy.toSet()) == [request.auth.uid].toSet() &&
+            data.likedBy.toSet().intersection(otherData.likedBy.toSet()) == otherData.likedBy.toSet()
 }
 
 function canCreateTweet(data, user) {
@@ -44,5 +55,6 @@ match /users/{userId} is User {
 
 match /tweets/{tweetId} is Tweet {
     allow read: if true
+    allow update: if true
     allow create: if isLoggedIn(request.resource.data.author.id)
 }
