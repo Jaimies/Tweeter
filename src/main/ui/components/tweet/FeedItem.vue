@@ -14,24 +14,35 @@
       <LikeButton :isLiked="tweet.isLiked" @like="like" @unlike="unlike"/>
       <span>{{ tweet.likesCount }}</span>
     </div>
+    <LoginPopup v-model="showLoginPopup"/>
   </div>
 </template>
 
 <script>
 import {UiTweet} from "@/ui/model/UiTweet"
 import LikeButton from "@/ui/components/ui/LikeButton"
-import {provideLikeTweetUseCase} from "@/di/provideUseCases"
+import {provideGetAuthStateUseCase, provideLikeTweetUseCase} from "@/di/provideUseCases"
+import LoginPopup from "@/ui/auth/LoginPopup"
+import {AuthState} from "@/domain/model/AuthState"
 
 const likeTweetUseCase = provideLikeTweetUseCase()
+const getAuthState = provideGetAuthStateUseCase()
 
 export default {
-  components: {LikeButton},
+  components: {LoginPopup, LikeButton},
+  data: () => ({
+    showLoginPopup: false
+  }),
   props: {
     tweet: UiTweet
   },
   methods: {
-    like() {
-      likeTweetUseCase.likeTweet(this.tweet.id)
+    async like() {
+      const authState = await getAuthState.run()
+      if (authState == AuthState.Authenticated)
+        likeTweetUseCase.likeTweet(this.tweet.id)
+      else
+        this.showLoginPopup = true
     },
     unlike() {
       likeTweetUseCase.unlikeTweet(this.tweet.id)
