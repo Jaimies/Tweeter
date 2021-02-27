@@ -45,4 +45,12 @@ export class TweetRepositoryImpl implements TweetRepository {
         const tweetWithTimestamp = {...plainTweet, date: FieldValue.serverTimestamp()}
         return this.tweetsCollection.add(tweetWithTimestamp).then(() => {})
     }
+
+    likeTweet(tweetId: string, userId: string): Promise<void> {
+        return this.tweetsCollection.doc(tweetId).update("likedBy", FieldValue.arrayUnion(userId))
+    }
+
+    unlikeTweet(tweetId: string, userId: string): Promise<void> {
+        return this.tweetsCollection.doc(tweetId).update("likedBy", FieldValue.arrayRemove(userId))
+    }
 }

@@ -42,6 +42,21 @@ describe("getTweetsByUserIds()", () => {
     })
 })
 
+it("likeTweet()", async () => {
+    const tweetRef = await adminTweetsCollection.add(toPlainObject(tweet))
+    await tweetRepository.likeTweet(tweetRef.id, user2.id)
+    const tweets = tweetRepository.getTweetsByUserIds([user.id])
+    expect((await getValue(tweets))[0].likedBy).toEqual([user2.id])
+})
+
+it("unlikeTweet()", async () => {
+    const likedTweet = {...tweet, likedBy: [user2.id]}
+    const tweetRef = await adminTweetsCollection.add(toPlainObject(likedTweet))
+    await tweetRepository.unlikeTweet(tweetRef.id, user2.id)
+    const tweets = tweetRepository.getTweetsByUserIds([user.id])
+    expect((await getValue(tweets))[0].likedBy).toEqual([])
+})
+
 it("addTweet()", async () => {
     await adminDb.doc(`users/${user.id}`).set(toPlainObject(user))
     const tweets$ = tweetRepository.getTweetsByUserIds([user.id])
@@ -60,6 +75,6 @@ function withAnyDateAndValidId(tweet: Tweet) {
     return {...withValidId(tweet), date: expect.any(Date)}
 }
 
-export function createTestTweet(author: User, date: Date): Tweet {
-    return new Tweet("", `Tweet body ${generateHash()}`, TweetAuthor.from(author), date)
+export function createTestTweet(author: User, date: Date, likedBy: string[] = []): Tweet {
+    return new Tweet("", `Tweet body ${generateHash()}`, TweetAuthor.from(author), date, likedBy)
 }
