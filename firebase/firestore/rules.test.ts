@@ -59,7 +59,11 @@ describe("tweets", () => {
             name: userData.name,
         },
         date: firebase.firestore.FieldValue.serverTimestamp(),
-        likedBy: ["otherId"],
+        likedBy: [],
+    }
+
+    function addTweetToAdminDb(tweet: object) {
+        adminDb.doc("tweets/tweetId").set({...tweet, date: new Date()})
     }
 
     beforeEach(() => adminDb.doc("users/userId").set(userData))
@@ -93,6 +97,12 @@ describe("tweets", () => {
         return firebase.assertFails(document.set(tweetWithOldTimestamp))
     })
 
+    it("disallows posting if the initial value of likedBy is not `[]`", () => {
+        const document = db.doc("tweets/tweetId")
+        const tweetWithInitialLikes = {...tweetData, likedBy: ["otherId"]}
+        return firebase.assertFails(document.set(tweetWithInitialLikes))
+    })
+
     it("allows to like a tweet on behalf of yourself", () => {
         const document = db.doc("tweets/tweetId")
         document.set(tweetData)
@@ -107,25 +117,25 @@ describe("tweets", () => {
 
     it("disallows unliking on behalf of someone else while liking on behalf of yourself", () => {
         const document = db.doc("tweets/tweetId")
-        document.set(tweetData)
+        addTweetToAdminDb({...tweetData, likedBy: ["otherId"]})
         return firebase.assertFails(document.update("likedBy", ["userId"]))
     })
 
     it("allows unliking a tweet on behalf of yourself", () => {
         const document = db.doc("tweets/tweetId")
-        document.set({...tweetData, likedBy: ["userId"]})
+        addTweetToAdminDb({...tweetData, likedBy: ["userId"]})
         return firebase.assertSucceeds(document.update("likedBy", FieldValue.arrayRemove("userId")))
     })
 
     it("disallows unliking a tweet on behalf of someone else", () => {
         const document = db.doc("tweets/tweetId")
-        document.set(tweetData)
+        addTweetToAdminDb({...tweetData, likedBy: "otherId"})
         return firebase.assertFails(document.update("likedBy", FieldValue.arrayRemove("otherId")))
     })
 
     it("disallows liking on behalf of someone else while unliking on behalf of yourself", () => {
         const document = db.doc("tweets/tweetId")
-        document.set({...tweetData, likedBy: ["userId"]})
+        addTweetToAdminDb({...tweetData, likedBy: ["userId"]})
         return firebase.assertFails(document.update("likedBy", ["otherId"]))
     })
 })

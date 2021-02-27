@@ -38,6 +38,7 @@ function canCreateTweet(data, user) {
     return data.date == request.time
             && data.author.name == user.name
             && data.author.username == user.username
+            && data.likedBy == []
 }
 
 function isLoggedIn(userId) {
