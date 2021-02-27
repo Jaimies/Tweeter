@@ -1,6 +1,6 @@
 <template>
   <v-btn icon @click="emitEvent">
-    <v-icon :color="color">{{ icon }}</v-icon>
+    <v-icon size="19" :color="color">{{ icon }}</v-icon>
   </v-btn>
 </template>
 

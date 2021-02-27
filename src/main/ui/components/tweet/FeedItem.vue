@@ -1,5 +1,5 @@
 <template>
-  <div class="card pb-2">
+  <div class="card px-4 pb-2">
     <div>
       <RouterLink :to="`/` + tweet.author.username" class="routerLink">
         <span class="header">{{ tweet.author.name }}</span>
@@ -9,10 +9,10 @@
         {{ tweet.displayDate }}
       </time>
     </div>
-    <p class="mb-0">{{ tweet.body }}</p>
+    <p class="mb-1">{{ tweet.body }}</p>
     <div class="d-flex align-center">
       <LikeButton :isLiked="tweet.isLiked" @like="like" @unlike="unlike"/>
-      <span>{{ tweet.likesCount }}</span>
+      <span class="body-2 pl-1">{{ tweet.likesCount }}</span>
     </div>
     <LoginPopup v-model="showLoginPopup"/>
   </div>
