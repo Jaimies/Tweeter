@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center pt-6">
+  <div class="text-center pt-6 pb-6">
     <h1>Welcome to Tweeter</h1>
     <p class="intro">Please login or sign up to continue.</p>
     <div class="links">

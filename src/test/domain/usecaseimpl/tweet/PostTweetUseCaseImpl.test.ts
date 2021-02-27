@@ -17,7 +17,7 @@ beforeAll(() => MockDate.set(currentDate))
 it("calls addTweet() with the right arguments", async () => {
     await useCase.run("Tweet body")
     expect(tweetRepository.addTweet).toBeCalledWith(
-        new Tweet("", "Tweet body", TweetAuthor.from(testUser), currentDate),
+        new Tweet("", "Tweet body", TweetAuthor.from(testUser), currentDate, []),
     )
 })
 

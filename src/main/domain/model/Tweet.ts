@@ -6,5 +6,6 @@ export class Tweet {
         public body: string,
         public author: TweetAuthor,
         public date: Date,
+        public likedBy: string[],
     ) {}
 }

@@ -18,6 +18,7 @@ const [user, user2, user3] = [createTestUser(), createTestUser(), createTestUser
 const tweet = createTestTweet(user, new Date("2020-01-01"))
 const tweetFromUser2 = createTestTweet(user2, new Date("2020-01-02"))
 const tweetFromUser3 = createTestTweet(user3, new Date("2020-01-03"))
+const {id, ...tweetObjectWithoutId} = tweet
 
 const db = getTestFirestore(tweet.author.id)
 const adminDb = getAdminFirestore()
@@ -42,6 +43,21 @@ describe("getTweetsByUserIds()", () => {
     })
 })
 
+it("likeTweet()", async () => {
+    const tweetRef = await adminTweetsCollection.add(toPlainObject(tweetObjectWithoutId))
+    await tweetRepository.likeTweet(tweetRef.id, user.id)
+    const tweets = tweetRepository.getTweetsByUserIds([user.id])
+    expect((await getValue(tweets))[0].likedBy).toEqual([tweet.author.id])
+})
+
+it("unlikeTweet()", async () => {
+    const likedTweet = {...tweetObjectWithoutId, likedBy: [user.id]}
+    const tweetRef = await adminTweetsCollection.add(toPlainObject(likedTweet))
+    await tweetRepository.unlikeTweet(tweetRef.id, user.id)
+    const tweets = tweetRepository.getTweetsByUserIds([user.id])
+    expect((await getValue(tweets))[0].likedBy).toEqual([])
+})
+
 it("addTweet()", async () => {
     await adminDb.doc(`users/${user.id}`).set(toPlainObject(user))
     const tweets$ = tweetRepository.getTweetsByUserIds([user.id])
@@ -60,6 +76,6 @@ function withAnyDateAndValidId(tweet: Tweet) {
     return {...withValidId(tweet), date: expect.any(Date)}
 }
 
-export function createTestTweet(author: User, date: Date): Tweet {
-    return new Tweet("", `Tweet body ${generateHash()}`, TweetAuthor.from(author), date)
+export function createTestTweet(author: User, date: Date, likedBy: string[] = []): Tweet {
+    return new Tweet("", `Tweet body ${generateHash()}`, TweetAuthor.from(author), date, likedBy)
 }

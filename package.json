@@ -45,6 +45,7 @@
     "rxfire": "^4.0.0",
     "rxjs": "^6.6.3",
     "vue": "^2.6.12",
+    "vue-async-computed": "^3.9.0",
     "vue-router": "^3.5.1",
     "vue-rx": "^6.2.0",
     "vuelidate": "^0.7.6",
