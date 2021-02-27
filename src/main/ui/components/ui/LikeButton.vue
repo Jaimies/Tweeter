@@ -1,5 +1,5 @@
 <template>
-  <v-btn icon @click="emitEvent">
+  <v-btn icon @click="emitEvent" :title="isLiked ? `Unlike` : `Like`">
     <v-icon size="19" :color="color">{{ icon }}</v-icon>
   </v-btn>
 </template>
