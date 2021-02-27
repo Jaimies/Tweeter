@@ -3,8 +3,8 @@ import {User} from "@/domain/model/User"
 import {TweetAuthor} from "@/domain/model/TweetAuthor"
 import {DbUser} from "@/data/model/DbUser"
 
-export function deserializeTweet(id: string, {author, body, date}: any) {
-    return new Tweet(id, body, deserializeTweetAuthor(author), date.toDate())
+export function deserializeTweet(id: string, {author, body, date, likedBy}: any) {
+    return new Tweet(id, body, deserializeTweetAuthor(author), date.toDate(), likedBy || [])
 }
 
 function deserializeTweetAuthor({id, username, name}: any) {
