@@ -26,6 +26,8 @@ import {GetAuthStateUseCase} from "@/domain/usecase/auth/GetAuthStateUseCase"
 import {GetAuthStateUseCaseImpl} from "@/domain/usecaseimpl/auth/GetAuthStateUseCaseImpl"
 import {SendPasswordResetEmailUseCase} from "@/domain/usecase/auth/SendPasswordResetEmailUseCase"
 import {SendPasswordResetEmailUseCaseImpl} from "@/domain/usecaseimpl/auth/SendPasswordResetEmailUseCaseImpl"
+import {LikeTweetUseCase} from "@/domain/usecase/tweet/LikeTweetUseCase"
+import {LikeTweetUseCaseImpl} from "@/domain/usecaseimpl/tweet/LikeTweetUseCaseImpl"
 
 export function provideGetCurrentUserUseCase(): GetCurrentUserUseCase {
     return new GetCurrentUserUseCaseImpl(provideAuthRepository(), provideUserRepository())
@@ -49,6 +51,10 @@ export function provideSendPasswordResetEmailUseCase(): SendPasswordResetEmailUs
 
 export function providePostTweetUseCase(): PostTweetUseCase {
     return new PostTweetUseCaseImpl(provideTweetRepository(), provideGetCurrentUserUseCase())
+}
+
+export function provideLikeTweetUseCase(): LikeTweetUseCase {
+    return new LikeTweetUseCaseImpl(provideTweetRepository(), provideAuthRepository())
 }
 
 export function provideSignUpUseCase(): SignUpUseCase {
