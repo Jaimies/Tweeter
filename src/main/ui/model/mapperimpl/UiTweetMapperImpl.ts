@@ -18,7 +18,8 @@ export class UiTweetMapperImpl implements UiTweetMapper {
             UiTweetAuthor.from(tweet.author),
             getTimeLabel(tweet.date),
             tweet.date.toISOString(),
-            tweet.likedBy.includes(userId!)
+            tweet.likedBy.includes(userId!),
+            tweet.likedBy.length,
         )
     }
 }

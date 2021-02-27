@@ -8,5 +8,6 @@ export class UiTweet {
         public displayDate: string,
         public isoDate: string,
         public isLiked: boolean,
+        public likesCount: number,
     ) {}
 }

@@ -10,7 +10,10 @@
       </time>
     </div>
     <p class="mb-0">{{ tweet.body }}</p>
-    <LikeButton :isLiked="tweet.isLiked" @like="like" @unlike="unlike"/>
+    <div class="d-flex align-center">
+      <LikeButton :isLiked="tweet.isLiked" @like="like" @unlike="unlike"/>
+      <span>{{ tweet.likesCount }}</span>
+    </div>
   </div>
 </template>
 
