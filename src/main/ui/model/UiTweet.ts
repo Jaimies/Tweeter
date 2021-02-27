@@ -7,5 +7,6 @@ export class UiTweet {
         public author: UiTweetAuthor,
         public displayDate: string,
         public isoDate: string,
+        public isLiked: boolean,
     ) {}
 }
