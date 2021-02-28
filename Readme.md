@@ -5,15 +5,14 @@ Checkout the live demo: https://tweeter-dfa01.web.app/.
 
 ## Available features
 - Post tweets
+- Like tweets
 - Browse users
 - Follow users
 
 ## Planned features
 - Offline support
-- Like
 - Retweet
 - Confirm email address
-- Reset a password
 - Mobile-friendly UI
 
 ## Development setup
