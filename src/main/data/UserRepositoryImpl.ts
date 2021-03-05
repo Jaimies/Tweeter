@@ -1,11 +1,9 @@
 import {UserRepository} from "@/domain/repository/UserRepository"
 import {User} from "@/domain/model/User"
 import {deserializeUser} from "./util/Serialization"
-import {clone} from "@/shared/ObjectUtil"
 import {UserChange} from "@/domain/model/UserChange"
 import {CollectionReference, DocumentSnapshot, FieldValue, Firestore} from "@/data/Firebase"
 import {IllegalArgumentException} from "@/shared/IllegalArgumentException"
-import {ListChange} from "@/domain/model/ListChange"
 import {Observable} from "rxjs"
 import {doc} from "rxfire/firestore"
 import {map} from "rxjs/operators"
@@ -51,7 +49,15 @@ export class UserRepositoryImpl implements UserRepository {
         if (!doc.exists)
             throw new IllegalArgumentException("unable to update user that does not exist")
 
-        return doc.ref.set(applyUserChange(change), {merge: true})
+        return doc.ref.set(change, {merge: true})
+    }
+
+    async followUser(id: string, followerId: string) {
+        return this.usersCollection.doc(followerId).update("following", FieldValue.arrayUnion(id))
+    }
+
+    async unfollowUser(id: string, followerId: string) {
+        return this.usersCollection.doc(followerId).update("following", FieldValue.arrayRemove(id))
     }
 
     private async getDocumentByField(field: string, value: string): Promise<DocumentSnapshot | undefined> {
@@ -59,16 +65,6 @@ export class UserRepositoryImpl implements UserRepository {
         const snapshot = await query.get()
         return snapshot.docs[0]
     }
-}
-
-function applyUserChange(change: UserChange): object {
-    if (change.following) return clone(change, {following: toFieldValue(change.following)})
-    return change
-}
-
-function toFieldValue<T>(change: ListChange<T>) {
-    if (change instanceof ListChange.Add) return FieldValue.arrayUnion(change.value)
-    return FieldValue.arrayRemove(change.value)
 }
 
 function toUser(snapshot: DocumentSnapshot | undefined) {

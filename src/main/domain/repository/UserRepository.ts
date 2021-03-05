@@ -9,4 +9,6 @@ export interface UserRepository {
     findUserById(id: string): Observable<User | undefined>
     addUser(id: string, user: User): Promise<void>
     updateUser(id: string, change: UserChange): Promise<void>
+    followUser(id: string, followerId: string): Promise<void>
+    unfollowUser(id: string, followerId: string): Promise<void>
 }
