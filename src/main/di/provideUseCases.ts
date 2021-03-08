@@ -27,6 +27,8 @@ import {SendPasswordResetEmailUseCase} from "@/domain/usecase/auth/SendPasswordR
 import {SendPasswordResetEmailUseCaseImpl} from "@/domain/usecaseimpl/auth/SendPasswordResetEmailUseCaseImpl"
 import {LikeTweetUseCase} from "@/domain/usecase/tweet/LikeTweetUseCase"
 import {LikeTweetUseCaseImpl} from "@/domain/usecaseimpl/tweet/LikeTweetUseCaseImpl"
+import {GetFollowersUseCaseImpl} from "@/domain/usecaseimpl/follow/GetFollowersUseCaseImpl"
+import {GetFollowersUseCase} from "@/domain/usecase/follow/GetFollowersUseCase"
 
 export function provideGetCurrentUserUseCase(): GetCurrentUserUseCase {
     return new GetCurrentUserUseCaseImpl(provideAuthRepository(), provideUserRepository())
@@ -86,4 +88,8 @@ export function provideUnfollowUserUseCase(): UnfollowUserUseCase {
 
 export function provideGetAuthStateUseCase(): GetAuthStateUseCase {
     return new GetAuthStateUseCaseImpl(provideAuthRepository())
+}
+
+export function provideGetFollowersUseCase(): GetFollowersUseCase {
+    return new GetFollowersUseCaseImpl(provideUserRepository())
 }
