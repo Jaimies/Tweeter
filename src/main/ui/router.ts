@@ -73,14 +73,32 @@ const router = new Router({
             component: () => import(/* webpackPrefetch: true */ "./pages/User.vue"),
             props: true,
         },
+        {
+            path: "/:username/following",
+            component: () => import(/* webpackPrefetch: true */ "./pages/Followers.vue"),
+            name: "following",
+            props: route => ({
+                ...route.params,
+                tab: "following",
+            }),
+        },
+        {
+            path: "/:username/followers",
+            name: "followers",
+            component: () => import(/* webpackPrefetch: true */ "./pages/Followers.vue"),
+            props: route => ({
+                ...route.params,
+                tab: "followers",
+            }),
+        },
     ],
 })
 
 router.beforeEach(async (to: Route, from: Route, next: NavigationGuardNext) => {
     store.commit("showLoader")
     const nextPath = await getNavigationPath(to)
-    next({path: nextPath, replace: true})
-    if(nextPath == from.path) store.commit("hideLoader")
+    next({ path: nextPath, replace: true })
+    if (nextPath == from.path) store.commit("hideLoader")
 })
 
 router.afterEach(to => {
