@@ -6,10 +6,10 @@
     </v-tabs>
     <v-tabs-items v-model="tabIndex">
       <v-tab-item>
-        Followers
+        <FollowersList :username="username"/>
       </v-tab-item>
       <v-tab-item>
-        Following
+        <FollowingList :username="username"/>
       </v-tab-item>
     </v-tabs-items>
   </div>
@@ -17,10 +17,13 @@
 
 <script>
 import {silentlyUpdateURL} from "@/shared/NavigationUtil"
+import FollowersList from "@/ui/components/follow/FollowersList"
+import FollowingList from "@/ui/components/follow/FollowingList"
 
 const tabNames = ["followers", "following"]
 
 export default {
+  components: { FollowingList, FollowersList },
   data() {
     return {
       tabIndex: tabNames.indexOf(this.tab)
