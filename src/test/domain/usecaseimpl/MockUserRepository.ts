@@ -9,4 +9,6 @@ export class MockUserRepository implements UserRepository {
     findUserById = () => of(testUser)
     addUser = jest.fn()
     updateUser = jest.fn()
+    followUser = jest.fn()
+    unfollowUser = jest.fn()
 }

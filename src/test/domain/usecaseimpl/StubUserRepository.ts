@@ -11,4 +11,6 @@ export class StubUserRepository implements UserRepository {
     findUserByUsername = async (username: string) => this.users.find(user => user.username == username)
     findUserById = (id: string) => of(this.users.find(user => user.id == id))
     getUsers = async () => this.users
+    followUser = async () => {}
+    unfollowUser = async () => {}
 }

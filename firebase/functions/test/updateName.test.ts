@@ -1,8 +1,7 @@
-import {clearFirestoreData, initializeAdminApp} from "@firebase/rules-unit-testing"
+import {clearFirestoreData} from "@firebase/rules-unit-testing"
+import {appOptions, getFirestore} from "./FirebaseTestUtils"
 
-const appOptions = {projectId: "tweeter-dfa01"}
-const app = initializeAdminApp(appOptions)
-const db = app.firestore()
+const db = getFirestore()
 
 afterAll(() => clearFirestoreData(appOptions))
 

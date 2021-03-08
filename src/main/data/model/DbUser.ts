@@ -7,6 +7,7 @@ export interface DbUser {
     name: string
     bio: string
     following: string[]
+    followers: string[]
 }
 
 export function mapUserToDb(user: User): DbUser {
@@ -16,6 +17,7 @@ export function mapUserToDb(user: User): DbUser {
         email: user.email.toLowerCase(),
         name: user.name,
         bio: user.bio,
-        following: [],
+        following: user.following,
+        followers: user.followers,
     }
 }

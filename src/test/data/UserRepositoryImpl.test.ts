@@ -1,7 +1,6 @@
 import {UserRepositoryImpl} from "@/data/UserRepositoryImpl"
 import {createTestUser} from "../testData"
 import {clearData, getTestFirestore} from "./FirestoreTestUtils"
-import {ListChange} from "@/domain/model/ListChange"
 import {User} from "@/domain/model/User"
 import {getValue} from "@/shared/RxUtil"
 import {clone} from "@/shared/ObjectUtil"
@@ -69,15 +68,17 @@ describe("updateUser()", () => {
         expect(updatedUser!.name).toBe("New name")
     })
 
-    it("adds item to following", async () => {
-        await userRepository.addUser("userId", user)
-        await userRepository.updateUser("userId", {following: new ListChange.Add("otherid")})
-        const updatedUser = await userRepository.findUserByUsername(user.username)
-        expect(updatedUser!.following).toEqual(["otherid"])
-    })
-
     it("throws if user is not found", () => {
         expect(userRepository.updateUser("otherId", {})).rejects.toThrow()
+    })
+})
+
+describe("followUser()", () => {
+    it("adds the id to user's following", async () => {
+        await userRepository.addUser("userId", user)
+        await userRepository.followUser("otherId", "userId")
+        const updatedUser = await userRepository.findUserByUsername(user.username)
+        expect(updatedUser!.following).toEqual(["otherId"])
     })
 })
 

@@ -21,13 +21,14 @@ import {UpdateProfileUseCase} from "@/domain/usecase/user/UpdateProfileUseCase"
 import {LogoutUseCase} from "@/domain/usecase/auth/LogoutUseCase"
 import {FollowUserUseCase} from "@/domain/usecase/follow/FollowUserUseCase"
 import {UnfollowUserUseCase} from "@/domain/usecase/follow/UnfollowUserUseCase"
-import {FollowingUpdater} from "@/domain/usecaseimpl/follow/FollowingUpdater"
 import {GetAuthStateUseCase} from "@/domain/usecase/auth/GetAuthStateUseCase"
 import {GetAuthStateUseCaseImpl} from "@/domain/usecaseimpl/auth/GetAuthStateUseCaseImpl"
 import {SendPasswordResetEmailUseCase} from "@/domain/usecase/auth/SendPasswordResetEmailUseCase"
 import {SendPasswordResetEmailUseCaseImpl} from "@/domain/usecaseimpl/auth/SendPasswordResetEmailUseCaseImpl"
 import {LikeTweetUseCase} from "@/domain/usecase/tweet/LikeTweetUseCase"
 import {LikeTweetUseCaseImpl} from "@/domain/usecaseimpl/tweet/LikeTweetUseCaseImpl"
+import {GetFollowersUseCaseImpl} from "@/domain/usecaseimpl/follow/GetFollowersUseCaseImpl"
+import {GetFollowersUseCase} from "@/domain/usecase/follow/GetFollowersUseCase"
 
 export function provideGetCurrentUserUseCase(): GetCurrentUserUseCase {
     return new GetCurrentUserUseCaseImpl(provideAuthRepository(), provideUserRepository())
@@ -77,18 +78,18 @@ export function provideLogoutUseCase(): LogoutUseCase {
     return new LogoutUseCaseImpl(provideAuthRepository())
 }
 
-function provideFollowingUpdater() {
-    return new FollowingUpdater(provideAuthRepository(), provideUserRepository())
-}
-
 export function provideFollowUserUseCase(): FollowUserUseCase {
-    return new FollowUserUseCaseImpl(provideFollowingUpdater())
+    return new FollowUserUseCaseImpl(provideUserRepository(), provideAuthRepository())
 }
 
 export function provideUnfollowUserUseCase(): UnfollowUserUseCase {
-    return new UnfollowUserUseCaseImpl(provideFollowingUpdater())
+    return new UnfollowUserUseCaseImpl(provideUserRepository(), provideAuthRepository())
 }
 
 export function provideGetAuthStateUseCase(): GetAuthStateUseCase {
     return new GetAuthStateUseCaseImpl(provideAuthRepository())
+}
+
+export function provideGetFollowersUseCase(): GetFollowersUseCase {
+    return new GetFollowersUseCaseImpl(provideUserRepository())
 }

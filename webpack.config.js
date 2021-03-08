@@ -32,7 +32,8 @@ module.exports = (env, options) => {
             ]
         },
         output: {
-            path: dist
+            path: dist,
+            publicPath: "/",
         },
         resolve: {
             extensions: [".js", ".ts", ".vue"],
