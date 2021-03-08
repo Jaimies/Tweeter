@@ -10,7 +10,7 @@
 
 <script>
 import {User} from "@/domain/model/User"
-import FollowButton from "@/ui/components/user/FollowButton"
+import FollowButton from "@/ui/components/follow/FollowButton"
 
 export default {
   components: {FollowButton},

@@ -9,7 +9,7 @@
 
 <script>
 import {User} from "@/domain/model/User"
-import FollowersData from "@/ui/components/user/FollowersData"
+import FollowersData from "@/ui/components/follow/FollowersData"
 
 export default {
   components: {FollowersData},
