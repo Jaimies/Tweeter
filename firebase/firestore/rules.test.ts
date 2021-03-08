@@ -22,11 +22,18 @@ const userData = {
     email: "user@mail.com",
     bio: "Bio",
     following: [],
+    followers: [],
 }
 
 describe("users", () => {
     it("allows to read", () => {
         return firebase.assertSucceeds(db.doc("users/userId").get())
+    })
+
+    it("disallows creating users that are already followed by someone", () => {
+        const document = db.doc("users/userId")
+        const followedUser = {...userData, followers: ["someId"]}
+        return firebase.assertFails(document.set(followedUser))
     })
 
     it("allows user to create their profile", () => {

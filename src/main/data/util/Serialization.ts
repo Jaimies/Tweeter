@@ -11,6 +11,6 @@ function deserializeTweetAuthor({id, username, name}: any) {
     return new TweetAuthor(id, username, name)
 }
 
-export function deserializeUser(id: string, {username, bio, email, following, name}: DbUser) {
-    return new User(id, username, name, email, bio, following)
+export function deserializeUser(id: string, {username, bio, email, following, followers, name}: DbUser) {
+    return new User(id, username, name, email, bio, following, followers)
 }

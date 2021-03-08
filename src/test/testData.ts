@@ -5,5 +5,5 @@ export const testUser = createTestUser()
 
 export function createTestUser(): User {
     const id = generateHash()
-    return new User(id, "username", "Test User", `${id}@gmail.com`, "User's bio", [])
+    return new User(id, "username", "Test User", `${id}@gmail.com`, "User's bio", [], [])
 }

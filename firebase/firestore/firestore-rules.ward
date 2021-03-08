@@ -5,8 +5,14 @@ type User = {
     name: string
     bio: string
     following: string[]
+    readonly followers: string[]
 
-    allow create: if data.username_lowercase == data.username.lower()
+    allow create: if canCreateUser(data)
+}
+
+function canCreateUser(data) {
+    return data.username_lowercase == data.username.lower()
+        && data.followers == []
 }
 
 type TweetAuthor = {
