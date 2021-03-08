@@ -4,23 +4,33 @@
     <div class="secondaryHeader">@{{ user.username }}</div>
     <p class="bio">{{ user.bio }}</p>
 
-    <FollowButton :user="user" v-if="isAuthenticated" @click.native.prevent/>
+    <FollowButton :user="user" v-if="showFollowButton" @click.native.prevent/>
   </RouterLink>
 </template>
 
 <script>
 import {User} from "@/domain/model/User"
 import FollowButton from "@/ui/components/follow/FollowButton"
+import {provideGetCurrentUserUseCase} from "@/di/provideUseCases"
+import {map} from "rxjs/operators"
+
+const getUser = provideGetCurrentUserUseCase()
 
 export default {
-  components: {FollowButton},
+  components: { FollowButton },
   props: {
     user: User
   },
-
-  data() {
+  subscriptions() {
     return {
-      isAuthenticated: this.$store.state.isAuthenticated
+      isCurrentUser: getUser.run().pipe(
+          map(user => user.id == this.user.id)
+      )
+    }
+  },
+  computed: {
+    showFollowButton() {
+      return this.$store.state.isAuthenticated && !this.isCurrentUser
     }
   },
 }
