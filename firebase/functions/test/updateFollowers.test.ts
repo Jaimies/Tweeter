@@ -7,7 +7,7 @@ const db = getFirestore()
 const userDoc = db.doc("users/userId")
 const otherUserDoc = db.doc("users/otherUserId")
 
-afterEach(() => clearFirestoreData(appOptions))
+afterAll(() => clearFirestoreData(appOptions))
 
 it("adds a follower when someone starts following a user", async done => {
     await userDoc.set({ following: [] })
