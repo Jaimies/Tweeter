@@ -6,7 +6,6 @@ import {getValue} from "@/shared/RxUtil"
 import {clone} from "@/shared/ObjectUtil"
 
 jest.mock('@/data/Firebase', () => ({
-    // @ts-expect-error
     ...jest.requireActual('@/data/Firebase'),
     FieldValue: require("@firebase/rules-unit-testing").firestore.FieldValue,
 }))

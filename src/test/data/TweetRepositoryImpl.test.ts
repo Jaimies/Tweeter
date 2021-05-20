@@ -9,7 +9,6 @@ import {User} from "@/domain/model/User"
 import {toPlainObject} from "@/shared/ObjectUtil"
 
 jest.mock('@/data/Firebase', () => ({
-    // @ts-expect-error
     ...jest.requireActual('@/data/Firebase'),
     FieldValue: require("@firebase/rules-unit-testing").firestore.FieldValue,
 }))
