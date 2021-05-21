@@ -39,6 +39,7 @@ module.exports = (env, options) => {
         output: {
             path: dist,
             publicPath: "/",
+            filename: "[name].[contenthash].js",
         },
         resolve: {
             extensions: [".js", ".ts", ".vue"],
@@ -50,7 +51,7 @@ module.exports = (env, options) => {
         plugins: [
             new VueLoaderPlugin(),
             new MiniCssExtractPlugin({
-                filename: "[name].css",
+                filename: "[name].[contenthash].css",
             }),
 
             new HtmlWebpackPlugin({
