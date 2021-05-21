@@ -4,9 +4,9 @@ export class User {
         public username: string,
         public name: string,
         public email: string,
-        public bio: string,
-        public following: string[],
-        public followers: string[],
+        public bio: string = "",
+        public following: string[] = [],
+        public followers: string[] = [],
     ) {}
 
     followsUserWithId(id: string) {
