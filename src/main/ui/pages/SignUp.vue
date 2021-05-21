@@ -66,7 +66,7 @@ export default {
     },
 
     createUser() {
-      const user = new User("", this.username, this.name, this.email, "", [])
+      const user = new User("", this.username, this.name, this.email, "", [], [])
       return signUp.run(user, this.password)
     },
 
