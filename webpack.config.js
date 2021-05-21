@@ -8,6 +8,8 @@ const PurgeCSSPlugin = require('purgecss-webpack-plugin')
 const { dist, src, scss } = require("./config/paths")
 
 module.exports = (env, options) => {
+    const isProduction = options.mode == "production"
+
     const config = {
         entry: ["./src/main/ui/Main.ts", "./resources/scss/main.scss"],
         module: {
@@ -40,6 +42,7 @@ module.exports = (env, options) => {
             path: dist,
             publicPath: "/",
             filename: "[name].[contenthash].js",
+            clean: isProduction,
         },
         resolve: {
             extensions: [".js", ".ts", ".vue"],
@@ -76,7 +79,7 @@ module.exports = (env, options) => {
         },
     }
 
-    if (options.mode == "production")
+    if (isProduction)
         config.plugins.push(
             new PurgeCSSPlugin(purgecssConfig),
         )
